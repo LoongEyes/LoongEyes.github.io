@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="8086汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言(王爽)-使用BIOS进行键盘输入和磁盘读写">
+<meta property="og:url" content="http://yoursite.com/2019/04/29/汇编语言-王爽-使用BIOS进行键盘输入和磁盘读写/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-30T09:40:21.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言(王爽)-使用BIOS进行键盘输入和磁盘读写">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/29/汇编语言-王爽-使用BIOS进行键盘输入和磁盘读写/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>汇编语言(王爽)-使用BIOS进行键盘输入和磁盘读写 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/汇编语言-王爽-使用BIOS进行键盘输入和磁盘读写/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汇编语言(王爽)-使用BIOS进行键盘输入和磁盘读写
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-29 17:21:00" itemprop="dateCreated datePublished" datetime="2019-04-29T17:21:00+08:00">2019-04-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-30 17:40:21" itemprop="dateModified" datetime="2019-04-30T17:40:21+08:00">2019-04-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/汇编与逆向/" itemprop="url" rel="index"><span itemprop="name">汇编与逆向</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<p>大多数有用的程序都需要处理用户的输入，键盘输入是最基本的输入</p>
+<p>程序和数据通常需要长期存储，磁盘是最常用的存储设备</p>
+<p><code>BIOS</code>为这两种外设的<code>I/O</code>提供了最基本的中断例程</p>
+<hr>
+<h1 id="int-9中断例程对键盘输入的处理"><a href="#int-9中断例程对键盘输入的处理" class="headerlink" title="int 9中断例程对键盘输入的处理"></a>int 9中断例程对键盘输入的处理</h1><p>键盘输入将引发9号中断，<code>BIOS</code>提供了<code>int 9</code>中断例程。<code>CPU</code>在9号中断发生后，执行<code>int 9</code>中断例程，从<code>60h</code>读出扫描码，并将其转化为相应的<code>ASCII</code>码或状态信息，存储在内存的指定空间(键盘缓冲区或状态字节)中</p>
+<p>一般的键盘输入，在<code>CPU</code>执行完<code>int 9</code>中断例程后，都放到了键盘缓冲区中。<strong>键盘缓冲区中有16个字单元，可以存储15个按键的扫描码和对应的<code>ASCII</code>码</strong></p>
+<p>按照键盘缓冲区的逻辑结构，看一下键盘输入的扫描码和对应的<code>ASCII</code>码是如何写入键盘缓冲区的?</p>
+<p><code>BIOS</code>键盘缓冲区是用环形队列结构管理的内存区</p>
+<ol>
+<li>初始状态，无键盘输入，键盘缓冲区为空</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li><p>按下<code>A</code>键，引发键盘中断；<code>CPU</code>执行<code>int 9</code>中断例程，从<code>60h</code>端口读出<code>A</code>键的通码；然后检测状态字节，查看是否有<code>Shift</code>、<code>Ctrl</code>等切换键按下；发现无切换键按下，则将<code>A</code>的扫描码<code>1eh</code>和对应字母<code>a</code>的<code>ASCII</code>码<code>61h</code>，写入键盘缓冲区。</p>
+<p> 缓冲区的字单元中，高位字节存储扫描码，低位字节存储<code>ASCII</code>码</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1E61</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol start="3">
+<li>按下<code>B</code>键，引发键盘中断；<code>CPU</code>执行<code>int 9</code>中断例程，从<code>60h</code>端口读出<code>B</code>键的通码；然后检测状态字节，查看是否有<code>Shift</code>、<code>Ctrl</code>等切换键按下；发现无切换键按下，则将<code>B</code>的扫描码<code>30h</code>和对应字母<code>b</code>的<code>ASCII</code>码<code>62h</code>，写入键盘缓冲区。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1E61</td>
+<td style="text-align:center">3062</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol start="4">
+<li>按下<code>C</code>、<code>D</code>、<code>E</code>键后，缓冲区内容如下：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1E61</td>
+<td style="text-align:center">3062</td>
+<td style="text-align:center">2E63</td>
+<td style="text-align:center">2064</td>
+<td style="text-align:center">1265</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol start="5">
+<li><p>按下左<code>Shift</code>键，引发键盘中断；<code>int 9</code>中断例程接收左<code>Shift</code>键的通码，设置<code>0040:17</code>处的状态字节的第1位为1，表示左<code>Shift</code>键按下(<code>0040:17</code>单元存储键盘状态字节，该字节记录了控制键和切换键的状态。第1位置1表示左<code>shift</code>按下)</p>
+</li>
+<li><p>按下<code>A</code>键，引发键盘中断；<code>CPU</code>执行<code>int 9</code>中断例程，从<code>60h</code>端口读出<code>A</code>键的通码；然后检测状态字节，发现左<code>Shift</code>键按下；则将<code>A</code>的扫描码<code>1eh</code>和<code>Shift_A</code>对应<code>ASCII</code>码，即字母<code>A</code>的<code>ASCII</code>码<code>41h</code>，写入键盘缓冲区。</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1E61</td>
+<td style="text-align:center">3062</td>
+<td style="text-align:center">2E63</td>
+<td style="text-align:center">2064</td>
+<td style="text-align:center">1265</td>
+<td style="text-align:center">1E41</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol start="7">
+<li><p>松开左<code>Shift</code>键，引发键盘中断；<code>int 9</code>中断例程接收左<code>Shift</code>键的断码，设置<code>0040:17</code>处的状态字节的第1位为0，表示左<code>Shift</code>键松开</p>
+</li>
+<li><p>按下<code>A</code>键，引发键盘中断；<code>CPU</code>执行<code>int 9</code>中断例程，从<code>60h</code>端口读出<code>A</code>键的通码；然后检测状态字节，查看是否有<code>Shift</code>、<code>Ctrl</code>等切换键按下；发现无切换键按下，则将<code>A</code>的扫描码<code>1eh</code>和对应字母<code>a</code>的<code>ASCII</code>码<code>61h</code>，写入键盘缓冲区。</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1E61</td>
+<td style="text-align:center">3062</td>
+<td style="text-align:center">2E63</td>
+<td style="text-align:center">2064</td>
+<td style="text-align:center">1265</td>
+<td style="text-align:center">1E41</td>
+<td style="text-align:center">1E61</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="使用int-16h中断例程读取键盘缓冲区"><a href="#使用int-16h中断例程读取键盘缓冲区" class="headerlink" title="使用int 16h中断例程读取键盘缓冲区"></a>使用int 16h中断例程读取键盘缓冲区</h1><p><code>BIOS</code>的<code>int 16h</code>中断例程中包含的一个最重要的功能是从键盘缓冲区读取一个键盘输入，该功能的编号为0</p>
+<p>从键盘缓冲区中读取一个键盘输入，并将其从缓冲区中删除：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ah,0</span><br><span class="line">int 16h</span><br></pre></td></tr></table></figure>
+<p>结果：<code>(ah)</code>=扫描码，<code>(al)</code>=<code>ASCII</code>码</p>
+<ol>
+<li><p>执行</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ah,0</span><br><span class="line">int 16h</span><br></pre></td></tr></table></figure>
+<p> 后，<code>ah</code>中内容为<code>30h</code>，<code>al</code>中的内容为<code>62h</code></p>
+<p> 缓冲区的内容如下</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">3062</td>
+<td style="text-align:center">2E63</td>
+<td style="text-align:center">2064</td>
+<td style="text-align:center">1265</td>
+<td style="text-align:center">1E41</td>
+<td style="text-align:center">1E61</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li><p>执行6次</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ah,0</span><br><span class="line">int 16h</span><br></pre></td></tr></table></figure>
+<p> 后，<code>ah</code>中内容为<code>1Eh</code>，<code>al</code>中的内容为<code>61h</code></p>
+<p> 缓冲区空</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol start="3">
+<li><p>执行</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ah,0</span><br><span class="line">int 16h</span><br></pre></td></tr></table></figure>
+<p> <code>int 16h</code>中断例程检测键盘缓冲区，发现缓冲区空，则循环等待，直到缓冲区中有数据</p>
+</li>
+<li><p>按下<code>A</code>键后，缓冲区内容如下</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1E61</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<ol start="5">
+<li><p>循环等待的<code>int 16h</code>中断例程检测到键盘缓冲区中有数据，将其读出，缓冲区又为空</p>
+<p> <code>ah</code>中内容为<code>1Eh</code>，<code>al</code>中的内容为<code>61h</code></p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p><code>int 16h</code>中断例程的0号功能工作如下：</p>
+<ol>
+<li><p>检测键盘缓冲区中是否有数据</p>
+</li>
+<li><p>没有则循环进行第1步</p>
+</li>
+<li><p>读取缓冲区第一个字单元中的键盘输入</p>
+</li>
+<li><p>将读取的扫描码送入<code>ah</code>，<code>ASCII</code>码送入<code>al</code></p>
+</li>
+<li><p>将已读取的键盘的输入从缓冲区中删除</p>
+</li>
+</ol>
+<p><code>BIOS</code>的<code>int 9</code>中断例程和<code>int 16h</code>中断例程是一对相互配合的程序，<code>int 9</code>中断例程向键盘缓冲区中写入，<code>int 16h</code>中断例程从缓冲区中读出</p>
+<p><code>int 9</code>中断例程是在有键按下的时候向键盘缓冲区中写入数据；<code>int 16h</code>中断例程是在应用程序对其进行调用的时候，将数据从键盘缓冲区中读出</p>
+<h2 id="编程，接收用户的键盘输入，更改字符颜色"><a href="#编程，接收用户的键盘输入，更改字符颜色" class="headerlink" title="编程，接收用户的键盘输入，更改字符颜色"></a>编程，接收用户的键盘输入，更改字符颜色</h2><p>输入”r”，将屏幕中的字符设为红色；输入”g”，将屏幕中的字符设为绿色；输入”b”，将屏幕中字符设为蓝色</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ah,0</span><br><span class="line">	int 16h		;获取键盘缓冲区中的键盘输入</span><br><span class="line">    </span><br><span class="line">	mov ah,1</span><br><span class="line">	cmp al,&apos;r&apos;</span><br><span class="line">	je red</span><br><span class="line">	cmp al,&apos;g&apos;</span><br><span class="line">	je green</span><br><span class="line">	cmp al,&apos;b&apos;</span><br><span class="line">	je blue</span><br><span class="line">	jmp short sret</span><br><span class="line">    </span><br><span class="line">red:	shl ah,1</span><br><span class="line"></span><br><span class="line">green:	shl ah,1</span><br><span class="line"></span><br><span class="line">blue:	mov bx,0b800h</span><br><span class="line">	mov es,bx</span><br><span class="line">	mov bx,1</span><br><span class="line">	mov cx,2000</span><br><span class="line"> s:	and byte ptr es:[bx],11111000b</span><br><span class="line">	or es:[bx],ah</span><br><span class="line">	add bx,2</span><br><span class="line">	loop s</span><br><span class="line">    </span><br><span class="line">sret:	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="字符串的输入"><a href="#字符串的输入" class="headerlink" title="字符串的输入"></a>字符串的输入</h1><p>用户通过键盘输入的通常不仅仅是单个字符而是字符串</p>
+<p>最基本的字符串输入程序，具备以下功能：</p>
+<ol>
+<li><p>在输入的同时需要显示这个字符串</p>
+</li>
+<li><p>一般在输入回车符后，字符串输入结束</p>
+</li>
+<li><p>能够删除已经输入的字符</p>
+</li>
+</ol>
+<h2 id="编写一个接收字符串输入的子程序"><a href="#编写一个接收字符串输入的子程序" class="headerlink" title="编写一个接收字符串输入的子程序"></a>编写一个接收字符串输入的子程序</h2><p>子程序的参数如下：</p>
+<p><code>(dh)</code>、<code>(dl)</code>=字符串在屏幕上显示的行、列位置</p>
+<p><code>ds:si</code>指向字符串的存储空间，字符串以0为结尾符</p>
+<p>分析：</p>
+<ol>
+<li><p>字符的输入和删除</p>
+<p> 字符的输入和输出是按照栈的访问规则进行的，即后进先出</p>
+<p> 字符串的存储空间为一个字符栈。字符栈中的所有字符，从栈底到栈顶，组成一个字符串</p>
+</li>
+<li><p>在输入回车符后，字符串输入结束</p>
+<p> 输入回车符后，可以在字符串中加入0，表示字符串结束</p>
+</li>
+<li><p>在输入的同时需要显示这个字符串</p>
+<p> 每次字符输入和删除时，都应重新显示字符串，即从字符栈的栈底到栈顶，显示所有字符</p>
+</li>
+<li><p>程序的处理过程</p>
+<ol>
+<li><p>调用<code>int 16h</code>读取键盘输入</p>
+</li>
+<li><p>若是字符，进入字符栈，显示栈中的所有字符；继续执行第1步</p>
+</li>
+<li><p>若是退格键，从字符栈中弹出一个字符，显示字符栈中的所有字符；继续执行第1步</p>
+</li>
+<li><p>若是回车键，向字符栈中压入0，返回</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>子程序：字符栈的入栈、出栈和显示</p>
+<p>参数说明：</p>
+<p><code>(ah)</code>=功能号，0表示入栈、1表示出栈、2表示显示</p>
+<p><code>ds:si</code>指向字符栈空间</p>
+<p>对于0号功能：<code>(al)</code>=入栈字符</p>
+<p>对于1号功能：<code>(al)</code>=返回的字符</p>
+<p>对于2号功能：<code>(dh)</code>、<code>(dl)</code>=字符串在屏幕上显示的行、列位置</p>
+<p>在显示栈中字符时，要清除屏幕中上一次显示的内容，再从栈中取字符串重新显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">charstack:jmp short charstart</span><br><span class="line"></span><br><span class="line">table dw charpush,charpop,charshow</span><br><span class="line">top dw 0		;栈顶</span><br><span class="line"></span><br><span class="line">charstart:push bx</span><br><span class="line">	push dx</span><br><span class="line">	push di</span><br><span class="line">	push es</span><br><span class="line">    </span><br><span class="line">	cmp ah,2</span><br><span class="line">	ja sret				;比较功能号，大于2则执行结束</span><br><span class="line">	mov bl,ah</span><br><span class="line">	mov bh,0</span><br><span class="line">	add bx,bx</span><br><span class="line">	jmp word ptr table[bx]		;调用相应子程序</span><br><span class="line">    </span><br><span class="line">charpush:mov bx,top			;字符入栈</span><br><span class="line">	mov [si][bx],al</span><br><span class="line">	inc top</span><br><span class="line">	jmp sret</span><br><span class="line">    </span><br><span class="line">charpop:cmp top,0</span><br><span class="line">	je sret				;若栈空，执行结束(等于则转移)</span><br><span class="line">	dec top				;栈顶减1，字符出栈</span><br><span class="line">	mov bx,top</span><br><span class="line">	mov al,[si][bx]		</span><br><span class="line">	jmp sret</span><br><span class="line">    </span><br><span class="line">charshow:mov bx,0b800h</span><br><span class="line">	mov es,bx</span><br><span class="line">	mov al,160</span><br><span class="line">	mov ah,0</span><br><span class="line">	mul dh				;无符号乘法</span><br><span class="line">	mov di,ax</span><br><span class="line">	add dl,dl</span><br><span class="line">	mov dh,0</span><br><span class="line">	add di,dx</span><br><span class="line">    </span><br><span class="line">	mov bx,0</span><br><span class="line">    </span><br><span class="line">charshows:cmp bx,top</span><br><span class="line">	jne noempty			;不等于则转移</span><br><span class="line">	mov byte ptr es:[di],&apos; &apos;</span><br><span class="line">	jmp sret</span><br><span class="line">    </span><br><span class="line">noempty:mov al,[si][bx]</span><br><span class="line">	mov es:[di],al</span><br><span class="line">	mov byte ptr es:[di+2],&apos; &apos;</span><br><span class="line">	inc bx</span><br><span class="line">	add di,2</span><br><span class="line">	jmp charshows</span><br><span class="line">    </span><br><span class="line">sret:	pop es</span><br><span class="line">	pop di</span><br><span class="line">	pop dx</span><br><span class="line">	pop bx</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
+<p>完整的接收字符串输入的子程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">getstr:	push ax</span><br><span class="line"></span><br><span class="line">getstrs:mov ah,0</span><br><span class="line">	int 16h</span><br><span class="line">	cmp al,20h</span><br><span class="line">	jb nochar		;ASCII码小于20h，说明不是字符</span><br><span class="line">	mov ah,0</span><br><span class="line">	call charstack		;字符入栈</span><br><span class="line">	mov ah,2</span><br><span class="line">	call charstack		;显示栈中的字符</span><br><span class="line">	jmp getstrs</span><br><span class="line">    </span><br><span class="line">nochar:	cmp ah,0eh		;比较退格键的扫描码</span><br><span class="line">	je backspace</span><br><span class="line">	cmp ah,1ch		;比较Enter的扫描码</span><br><span class="line">	je enter</span><br><span class="line">	jmp getstrs</span><br><span class="line">    </span><br><span class="line">backspace:mov ah,1</span><br><span class="line">	call charstack		;字符出栈</span><br><span class="line">	mov ah,2</span><br><span class="line">	call charstack		;显示栈中的字符</span><br><span class="line">	jmp getstrs</span><br><span class="line"></span><br><span class="line">enter:	mov al,0</span><br><span class="line">	mov ah,0</span><br><span class="line">	call charstack		;0入栈</span><br><span class="line">	mov ah,2</span><br><span class="line">	call charstack		;显示栈中的字符</span><br><span class="line">	pop ax	</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="应用int-13h中断例程对磁盘进行读写"><a href="#应用int-13h中断例程对磁盘进行读写" class="headerlink" title="应用int 13h中断例程对磁盘进行读写"></a>应用int 13h中断例程对磁盘进行读写</h1><p>以3.5英寸软盘为例</p>
+<p>3.5英寸软盘分为上下两面，每面80个磁道，每个磁道分为18个扇区，每个扇区大小为512个字节</p>
+<p>2面*80磁道*18扇区*512字节=1440<code>KB</code>≈1.44<code>MB</code></p>
+<p>磁盘的实际访问由磁盘控制器进行，可以通过控制磁盘控制器来访问磁盘</p>
+<p>只能以扇区为单位对磁盘进行读写，在读写扇区过程中，要提供面号、磁道号、扇区号。面号和磁道号从0开始，扇区号从1开始</p>
+<p>通过调用<code>BIOS</code>提供的访问磁盘的中断例程<code>int 13h</code>来访问磁盘</p>
+<h2 id="读取0面0道1扇面的内容到0-200"><a href="#读取0面0道1扇面的内容到0-200" class="headerlink" title="读取0面0道1扇面的内容到0:200"></a>读取0面0道1扇面的内容到0:200</h2><p>入口参数：</p>
+<ol>
+<li><p><code>(ah)</code>=<code>int 13h</code>的功能号(2表示读扇区)</p>
+</li>
+<li><p><code>(al)</code>=读取的扇区数</p>
+</li>
+<li><p><code>(ch)</code>=磁道号</p>
+</li>
+<li><p><code>(cl)</code>=扇区号</p>
+</li>
+<li><p><code>(dh)</code>=磁头号(即面号)</p>
+</li>
+<li><p><code>(dl)</code>=驱动器号(软驱从0开始，0为软驱<code>A</code>，1为软驱<code>B</code>)(硬盘从<code>80h</code>开始，<code>80h</code>为硬盘<code>C</code>，<code>81h</code>为硬盘<code>D</code>)</p>
+</li>
+<li><p><code>es:bx</code>指向接收从扇区读入数据的内存区</p>
+</li>
+</ol>
+<p>返回参数：</p>
+<ol>
+<li><p>操作成功：<code>(ah)=0</code>，<code>(al)</code>=读入的扇区数</p>
+</li>
+<li><p>操作失败：<code>(ah)</code>=出错代码</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0</span><br><span class="line">mov es,ax</span><br><span class="line">mov bx,200h		;es:bx指向接收内存</span><br><span class="line"></span><br><span class="line">mov al,1		;读取的扇区数</span><br><span class="line">mov ch,0		;磁道号</span><br><span class="line">mov cl,1		;扇区号</span><br><span class="line">mov dl,0		;驱动器号</span><br><span class="line">mov dh,0		;磁头号(面号)</span><br><span class="line"></span><br><span class="line">mov ah,2		;int 13h的功能号2，读扇区</span><br><span class="line">int 13h</span><br></pre></td></tr></table></figure>
+<h2 id="将0-200中的内容写入0面0道1扇区"><a href="#将0-200中的内容写入0面0道1扇区" class="headerlink" title="将0:200中的内容写入0面0道1扇区"></a>将0:200中的内容写入0面0道1扇区</h2><p>入口参数：</p>
+<ol>
+<li><p><code>(ah)</code>=<code>int 13h</code>的功能号(3表示读扇区)</p>
+</li>
+<li><p><code>(al)</code>=写入的扇区数</p>
+</li>
+<li><p><code>(ch)</code>=磁道号</p>
+</li>
+<li><p><code>(cl)</code>=扇区号</p>
+</li>
+<li><p><code>(dh)</code>=磁头号(即面号)</p>
+</li>
+<li><p><code>(dl)</code>=驱动器号(软驱从0开始，0为软驱<code>A</code>，1为软驱<code>B</code>)(硬盘从<code>80h</code>开始，<code>80h</code>为硬盘<code>C</code>，<code>81h</code>为硬盘<code>D</code>)</p>
+</li>
+<li><p><code>es:bx</code>指向将写入磁盘的内存单元</p>
+</li>
+</ol>
+<p>返回参数：</p>
+<ol>
+<li><p>操作成功：<code>(ah)=0</code>，<code>(al)</code>=写入的扇区数</p>
+</li>
+<li><p>操作失败：<code>(ah)</code>=出错代码</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0</span><br><span class="line">mov es,ax</span><br><span class="line">mov bx,200h		;es:bx指向要写入的内存单元</span><br><span class="line"></span><br><span class="line">mov al,1		;写入的扇区数</span><br><span class="line">mov ch,0		;磁道号</span><br><span class="line">mov cl,1		;扇区号</span><br><span class="line">mov dl,0		;驱动器号</span><br><span class="line">mov dh,0		;磁头号(面号)</span><br><span class="line"></span><br><span class="line">mov ah,3		;int 13h的功能号3，写扇区</span><br><span class="line">int 13h</span><br></pre></td></tr></table></figure>
+<h2 id="编程-将当前屏幕的内容保存到磁盘上"><a href="#编程-将当前屏幕的内容保存到磁盘上" class="headerlink" title="编程:将当前屏幕的内容保存到磁盘上"></a>编程:将当前屏幕的内容保存到磁盘上</h2><p>分析：</p>
+<p>一屏的内容占4000个字节，需要8个扇区，用0面0道的1–8扇区存储显存中的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:	mov ax,0b800h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov bx,0		;es:bx指向显存单元</span><br><span class="line"></span><br><span class="line">	mov al,8		;写入的扇区数</span><br><span class="line">	mov ch,0		;磁道号</span><br><span class="line">	mov cl,1		;扇区号</span><br><span class="line">	mov dl,0		;驱动器号</span><br><span class="line">	mov dh,0		;磁头号(面号)</span><br><span class="line">    </span><br><span class="line">	mov ah,3		;int 13h的功能号3，写扇区</span><br><span class="line">	int 13h</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="逻辑扇区编号"><a href="#逻辑扇区编号" class="headerlink" title="逻辑扇区编号"></a>逻辑扇区编号</h1><p>使用面号、磁道号、扇区号来范问磁盘不太方便。可以对位于不同的磁道、面上的所有扇区进行统一编址。编号从0开始，一直到2879，称为逻辑扇区编号</p>
+<p>编号方法：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">物理扇区号</th>
+<th style="text-align:center">逻辑扇区号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0面0道1扇区</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">0面0道2扇区</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">0面0道3扇区</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">0面0道4扇区</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">…</td>
+<td style="text-align:center">…</td>
+</tr>
+<tr>
+<td style="text-align:center">0面0道18扇区</td>
+<td style="text-align:center">17</td>
+</tr>
+<tr>
+<td style="text-align:center">0面1道1扇区</td>
+<td style="text-align:center">18</td>
+</tr>
+<tr>
+<td style="text-align:center">0面1道2扇区</td>
+<td style="text-align:center">19</td>
+</tr>
+<tr>
+<td style="text-align:center">…</td>
+<td style="text-align:center">…</td>
+</tr>
+<tr>
+<td style="text-align:center">0面79道18扇区</td>
+<td style="text-align:center">1439</td>
+</tr>
+<tr>
+<td style="text-align:center">1面0道1扇区</td>
+<td style="text-align:center">1440</td>
+</tr>
+<tr>
+<td style="text-align:center">…</td>
+<td style="text-align:center">…</td>
+</tr>
+</tbody>
+</table>
+<p><strong>逻辑扇区号和物理扇区号关系：逻辑扇区号=(面号*80+磁道号)*18+扇区号-1</strong></p>
+<p>根据逻辑扇区号计算出物理编号：</p>
+<p><code>int()</code>：描述性运算符，取商</p>
+<p><code>rem()</code>：描述性运算符，取余数</p>
+<p>逻辑扇区号=(面号*80+磁道号)*18+扇区号-1</p>
+<p>面号=<code>int</code>(逻辑扇区号/1440)</p>
+<p>磁道号=<code>int</code>(<code>rem</code>(逻辑扇区号/1440)/18)</p>
+<p>扇区号=<code>rem</code>(<code>rem</code>(逻辑扇区号/1440)/18)+1</p>
+<hr>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/8086汇编语言/" <i class="fa fa-tag"></i> 8086汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/28/汇编语言-王爽-直接定址表/" rel="next" title="汇编语言(王爽)-直接定址表">
+                <i class="fa fa-chevron-left"></i> 汇编语言(王爽)-直接定址表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/30/汇编语言-王爽-Intel系列微处理器的3种工作模式/" rel="prev" title="汇编语言(王爽)-Intel系列微处理器的3种工作模式">
+                汇编语言(王爽)-Intel系列微处理器的3种工作模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#int-9中断例程对键盘输入的处理"><span class="nav-number">1.</span> <span class="nav-text">int 9中断例程对键盘输入的处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用int-16h中断例程读取键盘缓冲区"><span class="nav-number">2.</span> <span class="nav-text">使用int 16h中断例程读取键盘缓冲区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程，接收用户的键盘输入，更改字符颜色"><span class="nav-number">2.1.</span> <span class="nav-text">编程，接收用户的键盘输入，更改字符颜色</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串的输入"><span class="nav-number">3.</span> <span class="nav-text">字符串的输入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编写一个接收字符串输入的子程序"><span class="nav-number">3.1.</span> <span class="nav-text">编写一个接收字符串输入的子程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用int-13h中断例程对磁盘进行读写"><span class="nav-number">4.</span> <span class="nav-text">应用int 13h中断例程对磁盘进行读写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#读取0面0道1扇面的内容到0-200"><span class="nav-number">4.1.</span> <span class="nav-text">读取0面0道1扇面的内容到0:200</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将0-200中的内容写入0面0道1扇区"><span class="nav-number">4.2.</span> <span class="nav-text">将0:200中的内容写入0面0道1扇区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程-将当前屏幕的内容保存到磁盘上"><span class="nav-number">4.3.</span> <span class="nav-text">编程:将当前屏幕的内容保存到磁盘上</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑扇区编号"><span class="nav-number">5.</span> <span class="nav-text">逻辑扇区编号</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

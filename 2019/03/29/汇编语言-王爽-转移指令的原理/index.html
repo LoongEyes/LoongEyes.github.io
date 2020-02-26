@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="8086汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言(王爽)-转移指令的原理">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/汇编语言-王爽-转移指令的原理/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/9/1.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/9/2.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/9/3.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/9/4.png">
+<meta property="og:updated_time" content="2019-05-01T08:12:38.218Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言(王爽)-转移指令的原理">
+<meta name="twitter:image" content="http://yoursite.com/images/huibianyuyanwangshuang/9/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/29/汇编语言-王爽-转移指令的原理/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>汇编语言(王爽)-转移指令的原理 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/汇编语言-王爽-转移指令的原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汇编语言(王爽)-转移指令的原理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-29 14:17:00" itemprop="dateCreated datePublished" datetime="2019-03-29T14:17:00+08:00">2019-03-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 16:12:38" itemprop="dateModified" datetime="2019-05-01T16:12:38+08:00">2019-05-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/汇编与逆向/" itemprop="url" rel="index"><span itemprop="name">汇编与逆向</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<p><strong>可以修改<code>IP</code>,或同时修改<code>CS</code>和<code>IP</code>的指令统称为转移指令</strong></p>
+<p>转移指令就是可以控制<code>CPU</code>执行内存中某处代码的指令</p>
+<p><code>8086CPU</code>的转移行为分为：</p>
+<ol>
+<li><p>只修改<code>IP</code>时，称为段内转移。如：<code>jmp ax</code></p>
+</li>
+<li><p>同时修改<code>CS</code>和<code>IP</code>时，称为段间转移。如：<code>jmp 1000:0</code></p>
+</li>
+</ol>
+<p>段内转移分为：</p>
+<ol>
+<li><p>短转移，<code>IP</code>的修改范围为-128–127(字节)</p>
+</li>
+<li><p>近转移，<code>IP</code>的修改范围为-32768–32767(字节)</p>
+</li>
+</ol>
+<p><code>8086CPU</code>的转移指令分为：</p>
+<ol>
+<li><p>无条件转移指令(如：<code>jmp</code>)</p>
+</li>
+<li><p>条件转移指令</p>
+</li>
+<li><p>循环指令(如：<code>loop</code>)</p>
+</li>
+<li><p>过程</p>
+</li>
+<li><p>中断</p>
+</li>
+</ol>
+<hr>
+<h1 id="操作符offset"><a href="#操作符offset" class="headerlink" title="操作符offset"></a>操作符offset</h1><p>操作符<code>offset</code>在汇编语言中是由编译器处理的符号</p>
+<p>功能：取得标号的偏移地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line">start:	mov ax,offset start		;相当于mov ax,0</span><br><span class="line">s:	mov ax,offset s		;相当于mov ax,3</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p><code>offset</code>操作符取得了标号<code>start</code>和<code>s</code>的偏移地址0和3</p>
+<p><code>mov ax,offset start</code>相当于指令<code>mov ax,0</code>，因<code>start</code>是代码段中的标号，它所标记的指令是代码段中的第一条指令，偏移地址为0</p>
+<p><code>mov ax,offset s</code>相当于指令<code>mov ax,3</code>,因<code>s</code>是代码段中的标号，它所标记的指令是代码段中的第二条指令，第一条指令长度为3个字节，则<code>s</code>的偏移地址为3</p>
+<hr>
+<h1 id="jmp指令"><a href="#jmp指令" class="headerlink" title="jmp指令"></a>jmp指令</h1><p><code>jmp</code>为无条件转移指令，可以只修改<code>IP</code>，也可以同时修改<code>CS</code>和<code>IP</code></p>
+<p><code>jmp</code>指令要给出两种信息：</p>
+<ol>
+<li><p>转移的目的地址</p>
+</li>
+<li><p>转移的距离(段间转移、段内短转移、段内近转移)</p>
+</li>
+</ol>
+<hr>
+<h1 id="依据位移进行转移的jmp指令"><a href="#依据位移进行转移的jmp指令" class="headerlink" title="依据位移进行转移的jmp指令"></a>依据位移进行转移的jmp指令</h1><p>格式：<code>jmp short 标号</code></p>
+<p>功能：转到标号处执行指令</p>
+<p>实现段内短转移，<code>IP</code>修改范围为向前转移最多128个字节，向后转移最多127个字节</p>
+<p><code>short</code>符号说明指令进行的是短转移</p>
+<p>“标号”指明了指令要转移的目的地，转移指令结束后，<code>CS:IP</code>应指向标号处的指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line">start:	mov ax,0</span><br><span class="line">	jmp short s</span><br><span class="line">	add ax,1</span><br><span class="line">s:	inc ax</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>在一般的汇编指令中，汇编指令中的<code>idata</code>，不论是表示一个数据还是内存单元的偏移地址，都会在对应的机器指令中出现，因为<code>CPU</code>执行的是机器指令，它必须处理这些数据或地址</p>
+<p><img src="/images/huibianyuyanwangshuang/9/1.png" alt="1.png"></p>
+<p><code>jmp short s</code>所对应的机器码为<code>EB03</code>，<strong>说明<code>CPU</code>在执行<code>jmp</code>指令的时候并不需要转移的目的地址</strong></p>
+<p><code>CPU</code>执行指令的过程</p>
+<ol>
+<li><p>从<code>CS:IP</code>指向的内存单元读取指令，读取的指令进入指令缓冲器</p>
+</li>
+<li><p><code>(IP)=(IP)+所读取指令的长度</code>，从而指向下一条指令</p>
+</li>
+<li><p>执行指令。转到1，重复这个过程</p>
+</li>
+</ol>
+<p>当<code>CPU</code>执行到机器指令<code>EB03</code>时，机器指令中未包含转移的目的地址，却告诉了<code>CPU</code>要转移的位移，重点在“03”上，它指将当前<code>IP</code>向后移动3个字节。当<code>CPU</code>执行<code>EB03</code>时，当前<code>(IP)=0005H</code>,执行<code>EB03</code>后，将当前<code>IP</code>值加3，使<code>(IP)=0008H</code>，从而实现转移</p>
+<p>所以，在<code>jmp short 标号</code>指令所对应的机器码中，并不包含转移的目的地址，而包含的是转移的位移。</p>
+<p>这个位移，是编译器根据汇编指令中的“标号”计算出来的</p>
+<p><img src="/images/huibianyuyanwangshuang/9/2.png" alt="2.png"></p>
+<p>实际上，<strong><code>jmp short 标号</code>的功能是：<code>(IP)=(IP)+8位位移</code></strong></p>
+<ol>
+<li><p>8位位移=标号处的地址-<code>jmp</code>指令后的第一个字节的地址</p>
+</li>
+<li><p><code>short</code>指明此处的位移为8位位移</p>
+</li>
+<li><p>8位位移的范围是-128–127，以补码表示</p>
+</li>
+<li><p>8位位移由编译程序在编译时算出</p>
+</li>
+</ol>
+<p><code>jmp near ptr 标号</code>，实现段内近转移</p>
+<p><strong><code>jmp near ptr 标号</code>的功能是：<code>(IP)=(IP)+16位位移</code></strong></p>
+<ol>
+<li><p>16位位移=标号处的地址-<code>jmp</code>指令后的第一个字节的地址</p>
+</li>
+<li><p><code>near ptr</code>指明此处的位移为16位位移，进行段内近转移</p>
+</li>
+<li><p>16位位移的范围是-32768–32767，以补码表示</p>
+</li>
+<li><p>16位位移由编译程序在编译时算出</p>
+</li>
+</ol>
+<hr>
+<h1 id="转移的目的地址在指令中的jmp指令"><a href="#转移的目的地址在指令中的jmp指令" class="headerlink" title="转移的目的地址在指令中的jmp指令"></a>转移的目的地址在指令中的jmp指令</h1><p><code>jmp far ptr 标号</code>实现的是段间转移，又称远转移</p>
+<p><code>(CS)</code>=标号所在段的段地址</p>
+<p><code>(IP)</code>=标号在段中的偏移地址</p>
+<p><code>far ptr</code>表示指令用标号的段地址和偏移地址修改<code>CS</code>和<code>IP</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line"></span><br><span class="line">start:	mov ax,0</span><br><span class="line">	mov bx,0</span><br><span class="line">	jmp far ptr s</span><br><span class="line">	db 256 dup (0)</span><br><span class="line">s:	add ax,1</span><br><span class="line">	inc ax</span><br><span class="line"></span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p><img src="/images/huibianyuyanwangshuang/9/3.png" alt="3.png"></p>
+<p><code>jmp far ptr s</code>所对应的机器码中，包含转移的目的地址</p>
+<p><code>0B01BD0B</code>是目的地址在指令中的存储顺序，高地址的<code>BD0B</code>是转移的段地址：<code>0BBDH</code>，低地址的<code>0B01</code>是偏移地址：<code>010BH</code></p>
+<hr>
+<h1 id="转移地址在寄存器中的jmp指令"><a href="#转移地址在寄存器中的jmp指令" class="headerlink" title="转移地址在寄存器中的jmp指令"></a>转移地址在寄存器中的jmp指令</h1><p>指令格式：<code>jmp 16位reg</code></p>
+<p>功能：<code>(IP)=(16位reg)</code></p>
+<hr>
+<h1 id="转移地址在内存中的jmp指令"><a href="#转移地址在内存中的jmp指令" class="headerlink" title="转移地址在内存中的jmp指令"></a>转移地址在内存中的jmp指令</h1><p>转移地址在内存中的<code>jmp</code>指令有两种格式：</p>
+<ol>
+<li><p><code>jmp word ptr 内存单元地址</code>(段内转移)</p>
+<p> 功能：从内存单元地址处开始存放着一个字，是转移的目的偏移地址</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0123H</span><br><span class="line">mov [bx],ax</span><br><span class="line">jmp word ptr [bx]</span><br><span class="line"></span><br><span class="line">执行后，(IP)=0123H</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li><p><code>jmp dword ptr 内存单元地址</code>(段间转移)</p>
+<p> 功能：从内存单元地址处开始存放着两个字，高地址处的字是转移的目的段地址，低地址处是转移的目的偏移地址</p>
+<p> <code>(CS)=(内存单元地址+2)</code></p>
+<p> <code>(IP)=(内存单元地址)</code></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0123H</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">mov word ptr ds:[2],0</span><br><span class="line">jmp dword ptr ds:[0]</span><br><span class="line"></span><br><span class="line">执行后，(CS)=0，(IP)=0123H，CS:IP指向0000:0123</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h1 id="jcxz指令"><a href="#jcxz指令" class="headerlink" title="jcxz指令"></a>jcxz指令</h1><p>有条件转移指令</p>
+<p>所有的有条件转移指令都是短转移，在对应的机器码中包含转移的位移，而不是目的地址，对<code>IP</code>的修改范围都为：-128–127</p>
+<p>指令格式：<code>jcxz 标号</code></p>
+<p>条件：如果<code>(cx)=0</code>,转移到标号处执行</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果<code>(cx)</code>&ne;0，什么也不做，程序向下执行</p>
+<p>操作：当<code>(cx)=0</code>时，<code>(IP)=(IP)+8位位移</code></p>
+<p>8位位移=标号处的地址-<code>jcxz</code>指令后的第一个字节的地址</p>
+<p>8位位移的范围为-128–127，以补码表示</p>
+<p>8位位移由编译程序在编译时算出</p>
+<hr>
+<h1 id="loop指令"><a href="#loop指令" class="headerlink" title="loop指令"></a>loop指令</h1><p>循环指令</p>
+<p>所有的循环指令都是短转移，在对应的机器码中包含转移的位移，而不是目的地址，对<code>IP</code>的修改范围为-128–127</p>
+<p>指令格式：<code>loop 标号</code></p>
+<p>操作：</p>
+<ol>
+<li><p><code>(cx)=(cx)-1</code></p>
+</li>
+<li><p>若<code>(cx)</code>&ne;0，<code>(IP)=(IP)+8位位移</code>，转移到标号处执行</p>
+<p> 若<code>(cx)=0</code>，什么也不做，程序向下执行</p>
+</li>
+</ol>
+<p>8位位移=标号处的地址-<code>loop</code>指令后的第一个字节的地址</p>
+<p>8位位移的范围为-128–127，以补码表示</p>
+<p>8位位移由编译程序在编译时算出</p>
+<hr>
+<h1 id="根据位移进行转移的意义"><a href="#根据位移进行转移的意义" class="headerlink" title="根据位移进行转移的意义"></a>根据位移进行转移的意义</h1><p><code>jmp short 标号</code></p>
+<p><code>jmp near ptr 标号</code></p>
+<p><code>jcxz 标号</code></p>
+<p><code>loop 标号</code></p>
+<p>等几种汇编指令，对<code>IP</code>的修改是根据转移目的地址和转移起始地址之间的位移来进行的。它们对应的机器码中不包含转移的目的地址，而包含的是到目的地址的位移</p>
+<p>这种设计，方便了程序段在内存中的浮动装配</p>
+<p>这种程序装在内存中的不同位置都可正确执行，只涉及位移，而不涉及目的地址，目的地址根据装载内存位置不同会出现偏差，而转移位移是不变的</p>
+<hr>
+<h1 id="编译器对转移位移超界的检测"><a href="#编译器对转移位移超界的检测" class="headerlink" title="编译器对转移位移超界的检测"></a>编译器对转移位移超界的检测</h1><p>根据位移进行转移的指令，它们的转移范围受转移位移的限制，如果在源程序中出现了转移范围超界的问题，在编译的时候，编译器将报错</p>
+<p>形如<code>jmp 2000:0100</code>的转移指令，可在<code>Debug</code>中使用，汇编编译器并不认识，如在源程序中使用，编译时也会报错</p>
+<hr>
+<h1 id="80-25彩色字符模式显示缓冲区结构"><a href="#80-25彩色字符模式显示缓冲区结构" class="headerlink" title="80*25彩色字符模式显示缓冲区结构"></a>80*25彩色字符模式显示缓冲区结构</h1><p>显示缓冲区：内存空间<code>B8000H-BFFFFH</code>，共<code>32KB</code>空间</p>
+<p>显示器一屏显示25行，每行80个字符，每个字符256种属性(背景、前景、闪烁、高亮等组合信息)</p>
+<p>一个字符在显示缓冲区占两个字节的存储空间(一个字)，分别存放字符的<code>ASCII</code>码和属性，低位字节存储字符的<code>ASCII</code>码，高位字节存储字符的属性。<strong>一行共有80个字符，占160个字节</strong></p>
+<p>一屏内容在显示缓冲区占4000个字节，可用于显示的为2000个字节(25*80)，其他2000个字节为字符属性设置</p>
+<p>显示缓冲区分为8页，每页<code>4KB</code>，通常显示第0页内容，即<code>B8000H-B8F9FH</code>中的4000个字节的内容将出现在显示器上</p>
+<p>显示缓冲区中，偶地址存放字符，奇地址存放字符的颜色属性</p>
+<p>属性字节的格式：</p>
+<p><img src="/images/huibianyuyanwangshuang/9/4.png" alt="4.png"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/8086汇编语言/" <i class="fa fa-tag"></i> 8086汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/28/汇编语言-王爽-数据处理的两个基本问题/" rel="next" title="汇编语言(王爽)-数据处理的两个基本问题">
+                <i class="fa fa-chevron-left"></i> 汇编语言(王爽)-数据处理的两个基本问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/01/汇编语言-王爽-CALL和RET指令/" rel="prev" title="汇编语言(王爽)-CALL和RET指令">
+                汇编语言(王爽)-CALL和RET指令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作符offset"><span class="nav-number">1.</span> <span class="nav-text">操作符offset</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jmp指令"><span class="nav-number">2.</span> <span class="nav-text">jmp指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依据位移进行转移的jmp指令"><span class="nav-number">3.</span> <span class="nav-text">依据位移进行转移的jmp指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转移的目的地址在指令中的jmp指令"><span class="nav-number">4.</span> <span class="nav-text">转移的目的地址在指令中的jmp指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转移地址在寄存器中的jmp指令"><span class="nav-number">5.</span> <span class="nav-text">转移地址在寄存器中的jmp指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转移地址在内存中的jmp指令"><span class="nav-number">6.</span> <span class="nav-text">转移地址在内存中的jmp指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jcxz指令"><span class="nav-number">7.</span> <span class="nav-text">jcxz指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#loop指令"><span class="nav-number">8.</span> <span class="nav-text">loop指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#根据位移进行转移的意义"><span class="nav-number">9.</span> <span class="nav-text">根据位移进行转移的意义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器对转移位移超界的检测"><span class="nav-number">10.</span> <span class="nav-text">编译器对转移位移超界的检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#80-25彩色字符模式显示缓冲区结构"><span class="nav-number">11.</span> <span class="nav-text">80*25彩色字符模式显示缓冲区结构</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

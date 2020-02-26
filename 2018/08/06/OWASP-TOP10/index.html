@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="信息安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OWASP TOP10">
+<meta property="og:url" content="http://yoursite.com/2018/08/06/OWASP-TOP10/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/OWASP-TOP10/1.png">
+<meta property="og:updated_time" content="2018-09-18T12:53:18.729Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OWASP TOP10">
+<meta name="twitter:image" content="http://yoursite.com/images/OWASP-TOP10/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/06/OWASP-TOP10/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>OWASP TOP10 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/OWASP-TOP10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OWASP TOP10
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-06 19:59:41" itemprop="dateCreated datePublished" datetime="2018-08-06T19:59:41+08:00">2018-08-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-18 20:53:18" itemprop="dateModified" datetime="2018-09-18T20:53:18+08:00">2018-09-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/渗透测试/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h1 id="应用程序安全风险"><a href="#应用程序安全风险" class="headerlink" title="应用程序安全风险"></a>应用程序安全风险</h1><p>攻击者可以通过应用程序中许多不同的路径方法去危害业务或者企业组织。<strong>每种路径方法都代表了一种风险</strong>。</p>
+<p><img src="/images/OWASP-TOP10/1.png" alt="1.png"> </p>
+<hr>
+<h1 id="A1-注入"><a href="#A1-注入" class="headerlink" title="A1 注入"></a>A1 注入</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>几乎任何数据源都能成为注入载体， 包括环境变量、所有类型的用户、参数、外部和内部<code>Web</code>服务。<strong>当攻击者可以向解释器发送恶意数据时，注入漏洞产生</strong>。</p>
+<h2 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h2><p>注入漏洞十分普遍，尤其是在遗留代码中。注入漏洞 通常能在<code>SQL</code>、<code>LDAP</code>、<code>XPath</code>或是<code>NoSQL</code>查询语句、<code>OS</code> 命令、<code>XML</code>解析器、<code>SMTP</code>包头、表达式语句及<code>ORM</code>查询语句中找到。</p>
+<p>注入漏洞很容易通过代码审查发现。扫描器和模糊测试工具可以帮助攻击者找到这些漏洞。</p>
+<p>当您的应用存在如下点时，是脆弱的并易受到攻击：</p>
+<ol>
+<li><p>用户提供的数据没有经过应用程序的验证、过滤或净化。</p>
+</li>
+<li><p>动态查询语句或非参数化的调用，在没有上下文感知转义的情况下，被用于解释器。 </p>
+</li>
+<li><p>在<code>ORM</code>搜索参数中使用了恶意数据，这样搜索就获得包含敏感或未授权的数据。</p>
+</li>
+<li><p>恶意数据直接被使用或连接，诸如<code>SQL</code>语句或命令在动态查询语句、命令或存储过程中包含结构和恶意数据。</p>
+</li>
+</ol>
+<h2 id="对业务的影响"><a href="#对业务的影响" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p>注入能导致数据丢失、破坏或泄露给无授权方，缺乏可审计性或是拒绝服务。注入有时甚至能导致主机被完全接管。</p>
+<h2 id="防范"><a href="#防范" class="headerlink" title="防范"></a>防范</h2><p>防止注入漏洞需要将数据与命令语句、查询语句分隔开来。</p>
+<ol>
+<li><p>最佳选择是使用安全的<code>API</code>，完全避免使用解释器，或提供参数化界面的接口，或迁移到<code>ORM</code>或实体框架。</p>
+<p>注意：当参数化时，<strong>存储过程仍然可以引入SQL注入</strong>，如果 <code>PL/SQL</code>或<code>T-SQL</code>将查询和数据连接在一起，或者执行带有立即执行或<code>exec()</code>的恶意数据。 </p>
+</li>
+<li><p>使用正确的或“白名单”的具有恰当规范化的输入验证方法同样 会有助于防止注入攻击，但这不是一个完整的防御，因为许多应用程序在输入中需要特殊字符，例如文本区域或移动应用程序的<code>API</code>。</p>
+</li>
+<li><p>对于任何剩余的动态查询，可以使用该解释器的特定转义语法转义特殊字符。OWASP的Java Encoder和类似的库提供了这样的转义例程。 </p>
+<p>注意：<code>SQL</code>结构，比如：表名、列名等无法转义，因此用户提供 的结构名是非常危险的。这是编写软件中的一个常见问题。</p>
+</li>
+<li><p>在查询中使用<code>LIMIT</code>和其他<code>SQL</code>控件，以防止在<code>SQL</code>注入时大量地泄露记录。</p>
+</li>
+</ol>
+<hr>
+<h1 id="A2-失效的身份认证"><a href="#A2-失效的身份认证" class="headerlink" title="A2 失效的身份认证"></a>A2 失效的身份认证</h1><h2 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h2><p>攻击者可以获得数百万的有效用户名和密码组合，包括证书填充、默认的管理帐户列表、自动的暴力破解和字典攻击工具，以及高级的<code>GPU</code>破解工具。 会话管理攻击很容易被理解，尤其是没有过期的会话密匙。 </p>
+<h2 id="检测-1"><a href="#检测-1" class="headerlink" title="检测"></a>检测</h2><p>大多数身份和访问管理系统的设计和实现，普遍存在身份认证失效问题。会话管理是身份验证和访问控制的基础，并且存在于所有有状态应用程序中。</p>
+<p>确认用户的身份、身份验证和会话管理非常重要，这些措施可用于将恶意的未经身份验证的攻击者与授权用户进行分离。 </p>
+<p>如果您的应用程序存在如下问题，那么可能存在身份验证的脆弱性： </p>
+<ol>
+<li><p>允许凭证填充，这使得攻击者获得有效用户名和密码的列表。</p>
+</li>
+<li><p>允许暴力破解或其他自动攻击。</p>
+</li>
+<li><p>允许默认的、弱的或众所周知的密码（例如<code>Password1</code>或 <code>admin/admin</code>）。 </p>
+</li>
+<li><p>使用弱的或失效的验证凭证，忘记密码程序，例如“基于知识的答案”，这是不安全的。 </p>
+</li>
+<li><p>使用明文、加密或弱散列密码。 </p>
+</li>
+<li><p>缺少或失效的多因素身份验证。</p>
+</li>
+<li><p>暴露<code>URL</code>中的会话<code>ID</code>（例如<code>URL</code>重写）。</p>
+</li>
+<li><p>在成功登录后不会更新会话<code>ID</code>。 </p>
+</li>
+<li><p>不正确地使会话<code>ID</code>失效。当用户不活跃的时候，用户会话或认证令牌（特别是单点登录（<code>SSO</code>）令牌）没有正确注销或失效。</p>
+</li>
+</ol>
+<h2 id="对业务的影响-1"><a href="#对业务的影响-1" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p>攻击者只需要访问几个帐户，或者只需要一个管理员帐户就可以破坏我们的系统。根据应用程序领域的不同， 可能会导致放任洗钱、社会安全欺诈以及用户身份盗窃、泄露法律高度保护的敏感信息。</p>
+<h2 id="防范-1"><a href="#防范-1" class="headerlink" title="防范"></a>防范</h2><ol>
+<li><p>在可能的情况下，实现多因素身份验证，以防止自动、凭证填充、 暴力破解和被盗凭据再利用攻击。 </p>
+</li>
+<li><p>不要使用发送或部署默认的凭证，特别是管理员用户。 </p>
+</li>
+<li><p>执行弱密码检查，例如测试新或变更的密码</p>
+</li>
+<li><p>将密码长度、复杂性和循环策略与<code>NIST-800-63B</code>的指导方针的 5.1.1章节-记住秘密，或其他现代的基于证据的密码策略相一致。 </p>
+</li>
+<li><p>确认注册、凭据恢复和<code>API</code>路径，通过对所有输出结果使用相同的消息，用以抵御账户枚举攻击。</p>
+</li>
+<li><p>限制或逐渐延迟失败的登录尝试。记录所有失败信息并在凭据填充、暴力破解或其他攻击被检测时提醒管理员。</p>
+</li>
+<li><p>使用服务器端安全的内置会话管理器，<strong>在登录后生成高度复杂的新随机会话<code>ID</code></strong>。会话<code>ID</code>不能在<code>URL</code>中，可以安全地存储和当登出、 闲置、绝对超时后使其失效。</p>
+</li>
+</ol>
+<hr>
+<h1 id="A3-敏感数据泄露"><a href="#A3-敏感数据泄露" class="headerlink" title="A3 敏感数据泄露"></a>A3 敏感数据泄露</h1><h2 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h2><p>攻击者不是直接攻击密码，而是在传输过程中或从客户端（例如：浏览器） 窃取密钥、发起中间人攻击，或从服务器端窃取明文数据。这通常需要手动攻击。通过使用图形处理单元 （<code>GPU</code>），早前检索的密码数据库可能被暴力破解。</p>
+<h2 id="检测-2"><a href="#检测-2" class="headerlink" title="检测"></a>检测</h2><p>在最近几年，这是最常见的、最具影响力的攻击。这个领域最常见的漏洞是<strong>不对敏感信息进行加密</strong>。在数据加密过程中，<strong>常见的问题是不安全的密钥生成和管理以及使用弱加密算法、弱协议和弱密码。特别是使用弱的哈希算法来保护密码。</strong>在服务器端，检测传输过程中的数据弱点很容易，但检测存储数据的弱点却非常困难。</p>
+<p>首先你需要确认的是哪些数据是<strong>敏感数据</strong>（包含：传输过程中的数据、存储数据）而需要被加密。例如：密码、信用卡卡号、医 疗记录、个人信息应该被加密，特别是隐私法律或条例中规定需 要加密的数据。对于这些数据，要确定：</p>
+<ol>
+<li><p>在数据传输过程中是否使用明文传输？这和传输协议相关，如： <code>HTTP</code>、<code>SMTP</code>和<code>FTP</code>。外部网络流量非常危险。验证所有的内部通信，如：负载平衡器、<code>Web</code>服务器或后端系统之间的通信。</p>
+</li>
+<li><p>当数据被长期存储时，无论存储在哪里，它们是否都被加密，加密包含备份数据？ </p>
+</li>
+<li><p>无论默认条件还是源代码中，是否还在使用任何旧的或脆弱的加密算法？ </p>
+</li>
+<li><p>是否使用默认加密密钥，生成或重复使用脆弱的加密密钥，或者缺少恰当的密钥管理或密钥回转？</p>
+</li>
+<li><p>是否强制加密敏感数据，例如：用户代理（如：浏览器）指令和传输协议是否被加密？</p>
+</li>
+<li><p>用户代理（如：应用程序、邮件客户端）是否未验证服务器端证书的有效性？ </p>
+</li>
+</ol>
+<h2 id="对业务的影响-2"><a href="#对业务的影响-2" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p>这个领域的错误频繁影响那些本应该加密的数据。通常情况下，这些数据通常包括很多个人敏感信息（<code>PII</code>）， 例如：医疗记录、认证凭证、个人隐私、信用卡信息等。</p>
+<h2 id="防范-2"><a href="#防范-2" class="headerlink" title="防范"></a>防范</h2><p>对一些需要加密的敏感数据，应该起码做到以下几点：</p>
+<ol>
+<li><p>对系统处理、存储或传输的数据分类，并根据分类进行访问控制。 </p>
+</li>
+<li><p>熟悉与敏感数据保护相关的法律和条例，并根据每项法规要求保护敏感数据。 </p>
+</li>
+<li><p>对于没必要存放的、重要的敏感数据，应当尽快清除，或者通过 <code>PCI DSS</code>标记或拦截。未存储的数据不能被窃取。 </p>
+</li>
+<li><p>确保存储的所有敏感数据被加密。</p>
+</li>
+<li><p>确保使用了最新的、强大的标准算法或密码、参数、协议和密匙， 并且密钥管理到位。 </p>
+</li>
+<li><p>确保传输过程中的数据被加密，如：使用<code>TLS</code>。确保数据加密被强制执行，如：使用<code>HTTP</code>严格安全传输协议（<code>HSTS</code>）。</p>
+</li>
+<li><p>禁止缓存对包含敏感数据的响应。</p>
+</li>
+<li><p>确保使用密码专用算法存储密码，如：<code>Argon2</code> 、 <code>scrypt</code> 、 <code>bcrypt</code> 或者<code>PBKDF2</code> 。将工作因素（延迟因素）设置在可接受范围。 </p>
+</li>
+<li><p>单独验证每个安全配置项的有效性。</p>
+</li>
+</ol>
+<hr>
+<h1 id="A4-XML外部实体（XXE）"><a href="#A4-XML外部实体（XXE）" class="headerlink" title="A4 XML外部实体（XXE）"></a>A4 XML外部实体（XXE）</h1><h2 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h2><p>如果攻击者可以上传<code>XML</code>文档或者在<code>XML</code>文档中添加恶意内容，通过易受攻击的代码、依赖项或集成，他们就能够攻击含有缺陷的<code>XML</code>处理器。</p>
+<h2 id="检测-3"><a href="#检测-3" class="headerlink" title="检测"></a>检测</h2><p>默认情况下，许多旧的<code>XML</code>处理器能够对外部实体、 <code>XML</code>进程中被引用和评估的<code>URI</code>进行规范。 </p>
+<p><code>SAST</code>工具可以通过检查依赖项和安全配置来发现<code>XXE</code>缺陷。<code>DAST</code>工具需要额外的手动步骤来检测和利用<code>XXE</code>缺陷。因为<code>XXE</code>漏洞测试在2017年并不常见， 因此手动测试人员需要通过接受培训来了解如何进行 <code>XXE</code>漏洞测试。</p>
+<p>应用程序和特别是基于<code>XML</code>的<code>Web</code>服务或向下集成，可能在以下 方面容易受到攻击： </p>
+<ol>
+<li><p>您的应用程序直接接受<code>XML</code>文件或者接受<code>XML</code>文件上传，特别来自不受信任源的文件，或者将不受信任的数据插入<code>XML</code>文件， 并提交给<code>XML</code>处理器解析。</p>
+</li>
+<li><p>在应用程序或基于<code>Web</code>服务的<code>SOAP</code>中，所有<code>XML</code>处理器都启用 了文档类型定义（<code>DTDs</code>） </p>
+</li>
+<li><p>如果为了实现安全性或单点登录（<code>SSO</code>），您的应用程序使用<code>SAML</code>进行身份认证。而<code>SAML</code>使用<code>XML</code>进行身份确认，那么您的应用程序就容易受到<code>XXE</code>攻击。 </p>
+</li>
+<li><p>如果您的应用程序使用第1.2版之前的<code>SOAP</code>，并将XML实体传递到<code>SOAP</code>框架，那么它可能受到<code>XXE</code>攻击。</p>
+</li>
+<li><p>存在<code>XXE</code>缺陷的应用程序更容易受到拒绝服务攻击，包括： <code>Billion Laughs</code>攻击。</p>
+</li>
+</ol>
+<h2 id="对业务的影响-3"><a href="#对业务的影响-3" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p><code>XXE</code>缺陷可用于提取数据、执行远程服务器请求、扫描内部系统、执行拒绝服务攻击和其他攻击。</p>
+<h2 id="防范-3"><a href="#防范-3" class="headerlink" title="防范"></a>防范</h2><p>开发人员培训是识别和减少<code>XXE</code>缺陷的关键，此外，防止<code>XXE</code>缺陷还需要：</p>
+<ol>
+<li><p>尽可能使用简单的数据格式（如：<code>JSON</code>），避免对敏感数据进行<strong>序列化</strong>。</p>
+</li>
+<li><p>及时修复或更新应用程序或底层操作系统使用的所有<code>XML</code>处理器和库。同时，通过依赖项检测，将<code>SOAP</code>更新到1.2版本或更高版本。</p>
+</li>
+<li><p>在应用程序的所有<code>XML</code>解析器中禁用<code>XML</code>外部实体和<code>DTD</code>进程。</p>
+</li>
+<li><p>在服务器端实施积极的（“白名单”）输入验证、过滤和清理， 以防止在<code>XML</code>文档、标题或节点中出现恶意数据。</p>
+</li>
+<li><p>验证<code>XML</code>或<code>XSL</code>文件上传功能是否使用<code>XSD</code>验证或其他类似验证方法来验证上传的<code>XML</code>文件。 </p>
+</li>
+<li><p>尽管在许多集成环境中，手动代码审查是大型、复杂应用程序的最佳选择，但是<code>SAST</code>工具可以检测源代码中的<code>XXE</code>漏洞。</p>
+</li>
+<li><p>如果无法实现这些控制，请考虑使用虚拟修复程序、<code>API</code>安全网关或<code>Web</code>应用程序防火墙（<code>WAF</code>）来检测、监控和防止<code>XXE</code>攻击。</p>
+</li>
+</ol>
+<hr>
+<h1 id="A5-失效的访问控制"><a href="#A5-失效的访问控制" class="headerlink" title="A5 失效的访问控制"></a>A5 失效的访问控制</h1><h2 id="描述-4"><a href="#描述-4" class="headerlink" title="描述"></a>描述</h2><p>对访问控制的利用是渗透测试人员的 一项核心技能。<code>SAST</code>工具和<code>DAST</code>工具可以检测到访问控制的缺失，但不能验证其功能是否正常。访问控制可通过手动方式检测，或在某些特定框架下通过自动化检测访问控制缺失。</p>
+<h2 id="检测-4"><a href="#检测-4" class="headerlink" title="检测"></a>检测</h2><p>由于缺乏自动化的检测和应用程序开发人员缺乏有效 的功能测试，因而访问控制缺陷很常见。</p>
+<p>访问控制检测通常不适用于自动化的静态或动态测试。 手动测试是检测访问控制缺失或失效的最佳方法，包括：<code>HTTP</code>方法（如：<code>GET</code>和<code>PUT</code>）、控制器、直接对象引用等。</p>
+<p>访问控制强制实施策略，使用户无法在其预期的权限之外执行行为。失败的访问控制通常导致未经授权的信息泄露、修改或销毁所有数据、或在用户权限之外执行业务功能。</p>
+<p>常见的访问控制脆弱点包括：</p>
+<ol>
+<li><p>通过修改<code>URL</code>、内部应用程序状态或<code>HTML</code>页面绕过访问控制检查，或简单地使用自定义的<code>API</code>攻击工具。</p>
+</li>
+<li><p>允许将主键更改为其他用户的记录，例如查看或编辑他人的帐户。 </p>
+</li>
+<li><p>特权提升。在不登录的情况下假扮用户，或以用户身份登录时充当管理员。</p>
+</li>
+<li><p>元数据操作，如重放或篡改<code>JWT</code>访问控制令牌，或作以提升权限的<code>cookie</code>或隐藏字段。 </p>
+</li>
+<li><p><code>CORS</code>配置错误允许未授权的<code>API</code>访问。 </p>
+</li>
+<li><p>以未通过身份验证的用户身份强制浏览的通过身份验证时才能看到的页面、或作为标准用户访问具有相关权限的页面、或<code>API</code>没有对<code>POST</code>、<code>PUT</code>和<code>DELETE</code>强制执行访问控制。</p>
+</li>
+</ol>
+<h2 id="对业务的影响-4"><a href="#对业务的影响-4" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p>技术影响是攻击者可以冒充用户、管理员或拥有特权的用户，或者创建、访问、更新或删除任何记录。</p>
+<h2 id="防范-4"><a href="#防范-4" class="headerlink" title="防范"></a>防范</h2><p>访问控制只有在受信服务器端代码或没有服务器的<code>API</code>中有效，这样攻击者才无法修改访问控制检查或元数据。</p>
+<ol>
+<li><p>除公有资源外，默认情况下拒绝访问。 </p>
+</li>
+<li><p>使用一次性的访问控制机制，并在整个应用程序中不断重用它们，包括最小化<code>CORS</code>使用。</p>
+</li>
+<li><p>建立访问控制模型以强制执行所有权记录，而不是接受用户创建、 读取、更新或删除的任何记录。</p>
+</li>
+<li><p>域访问控制对每个应用程序都是唯一的，但业务限制要求应由域模型强制执行。</p>
+</li>
+<li><p>禁用<code>Web</code>服务器目录列表，并确保文件元数据（如：<code>git</code>）不存在于<code>Web</code>的根目录中。 </p>
+</li>
+<li><p>记录失败的访问控制，并在适当时向管理员告警（如：重复故障）。</p>
+</li>
+<li><p>对<code>API</code>和控制器的访问进行速率限制，以最大限度地降低自动化攻击工具的危害。</p>
+</li>
+<li><p>当用户注销后，服务器上的<code>JWT</code>令牌应失效。</p>
+</li>
+</ol>
+<hr>
+<h1 id="A6-安全配置错误"><a href="#A6-安全配置错误" class="headerlink" title="A6 安全配置错误"></a>A6 安全配置错误</h1><h2 id="描述-5"><a href="#描述-5" class="headerlink" title="描述"></a>描述</h2><p>通常，攻击者能够通过未修复的漏洞、 访问默认账户、不再使用的页面、未受保护的文件和目录等来取得对系统的未授权的访问或了解</p>
+<h2 id="检测-5"><a href="#检测-5" class="headerlink" title="检测"></a>检测</h2><p>安全配置错误可以发生在一个应用程序堆栈的任何层面，包括网络服务、平台、<code>Web</code>服务器、应用服务器、 数据库、框架、自定义代码和预安装的虚拟机、容器和存储。</p>
+<p>自动扫描器可用于检测错误的安全配置、默认帐户的使用或配置、不必要的服务、遗留选项等。</p>
+<p>您的应用程序可能受到攻击，如果应用程序是：</p>
+<ol>
+<li><p>应用程序栈堆的任何部分都缺少适当的安全加固，或者云服务的权限配置错误。</p>
+</li>
+<li><p>应用程序启用或安装了不必要的功能（例如：不必要的端口、服务、网页、帐户或权限）。 </p>
+</li>
+<li><p>默认帐户的密码仍然可用且没有更改。 </p>
+</li>
+<li><p>错误处理机制向用户披露堆栈跟踪或其他大量错误信息。</p>
+</li>
+<li><p>对于更新的系统，禁用或不安全地配置最新的安全功能。 </p>
+</li>
+<li><p>应用程序服务器、应用程序框架（如：<code>Struts</code>、<code>Spring</code>、 <code>ASP.NET</code>）、库文件、数据库等没有进行安全配置。</p>
+</li>
+<li><p>服务器不发送安全标头或指令，或者未对服务器进行安全配置。</p>
+</li>
+<li><p>您的应用软件已过期或易受攻击。</p>
+</li>
+</ol>
+<p>缺少一个体系的、可重复的应用程序安全配置过程，系统将处于高风险中。</p>
+<h2 id="对业务的影响-5"><a href="#对业务的影响-5" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p>这些漏洞使攻击者能经常访问一些未授权的系统数据或功能。有时，这些漏洞导致系统的完全攻破。 </p>
+<h2 id="防范-5"><a href="#防范-5" class="headerlink" title="防范"></a>防范</h2><ol>
+<li><p>一个可以快速且易于部署在另一个锁定环境的可重复的加固过程。 开发、质量保证和生产环境都应该进行相同配置，并且，在每个环境中使用不同的密码。这个过程应该是自动化的，以尽量减少安装一个新安全环境的耗费。</p>
+</li>
+<li><p>搭建最小化平台，该平台不包含任何不必要的功能、组件、文档 和示例。移除或不安装不适用的功能和框架。</p>
+</li>
+<li><p>检查和修复安全配置项来适应最新的安全说明、更新和补丁，并将其作为更新管理过程的一部分。在检查过程中，应特别注意云存储权限（如：S3桶权限）。</p>
+</li>
+<li><p>一个能在组件和用户间提供有效的分离和安全性的分段应用程序架构，包括：分段、容器化和云安全组。 </p>
+</li>
+<li><p>向客户端发送安全指令，如：安全标头。 </p>
+</li>
+<li><p>在所有环境中能够进行正确安全配置和设置的自动化过程。</p>
+</li>
+</ol>
+<hr>
+<h1 id="A7-跨站脚本（XSS）"><a href="#A7-跨站脚本（XSS）" class="headerlink" title="A7 跨站脚本（XSS）"></a>A7 跨站脚本（XSS）</h1><h2 id="描述-6"><a href="#描述-6" class="headerlink" title="描述"></a>描述</h2><p>存在三种<code>XSS</code>类型，通常针对用户的浏览器： </p>
+<ol>
+<li><p>反射式<code>XSS</code>：应用程序或<code>API</code>包括未经验证和未经转义的用户输入， 作为<code>HTML</code>输出的一部分。一个成功的攻击可以让攻击者在受害者 的浏览器中执行任意的<code>HTML</code>和<code>JavaScript</code>。 通常，用户将需要与指向攻击者控制页面的某些恶意链接进行交互，例如恶意漏洞网站， 广告或类似内容。</p>
+</li>
+<li><p>存储式<code>XSS</code>：你的应用或者<code>API</code>将未净化的用户输入存储下来了， 并在后期在其他用户或者管理员的页面展示出来。 存储型<code>XSS</code>一般被认为是高危或严重的风险。</p>
+</li>
+<li><p>基于<code>DOM</code>的<code>XSS</code>：会动态的将攻击者可控的内容加入页面的<code>JavaScript</code>框架、单页面程序或<code>API</code>存在这种类型的漏洞。理想的来说，你应该避免将攻击者可控的数据发送给不安全的<code>JavaScript API</code>。</p>
+</li>
+</ol>
+<h2 id="检测-6"><a href="#检测-6" class="headerlink" title="检测"></a>检测</h2><p>不同类型的<code>xss</code>漏洞的检测方法详见 <a href="http://blogs.loongeyes.cn/2018/07/29/WEB%E5%AE%89%E5%85%A8/" target="_blank" rel="noopener">http://blogs.loongeyes.cn/2018/07/29/WEB%E5%AE%89%E5%85%A8/</a></p>
+<h2 id="对业务的影响-6"><a href="#对业务的影响-6" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p><code>XSS</code>对于反射和<code>DOM</code>的影响是中等的，而对于存储的<code>XSS</code>，<code>XSS</code>的影响更为严重，譬如在受攻击者的浏览器上执行远程代码，例如：窃取凭证和会话或传递恶意软件等。</p>
+<p>典型的<code>XSS</code>攻击可导致盗取<code>session</code>、账户、绕过<code>MFA</code>、<code>DIV</code>替换、 对用户浏览器的攻击（例如：恶意软件下载、键盘记录）以及其 他用户侧的攻击。</p>
+<h2 id="防范-6"><a href="#防范-6" class="headerlink" title="防范"></a>防范</h2><p>防止<code>XSS</code>需要<strong>将不可信数据与动态的浏览器内容区分开</strong>。这可以 通过如下步骤实现：</p>
+<ol>
+<li><p>使用设计上就会自动编码来解决<code>XSS</code>问题的框架，如：<code>Ruby 3.0</code> 或 <code>React JS</code>。了解每个框架的<code>XSS</code>保护的局限性，并适当地处 理未覆盖的用例。</p>
+</li>
+<li><p>为了避免反射式或存储式的<code>XSS</code>漏洞，最好的办法是根据<code>HTML</code>输出的上下文（包括：主体、属性、<code>JavaScript</code>、<code>CSS</code>或<code>URL</code>） 对所有不可信的<code>HTTP</code>请求数据进行恰当的转义 。</p>
+</li>
+<li><p>在客户端修改浏览器文档时，为了避免<code>DOM XSS</code>攻击，最好的 选择是实施上下文敏感数据编码。如果这种情况不能避免，可以采用类似上下文敏感的转义技术应用于浏览器<code>API</code>。</p>
+</li>
+<li><p>使用内容安全策略（<code>CSP</code>）是对抗<code>XSS</code>的深度防御策略。如果不存在可以通过本地文件放置恶意代码的其他漏洞（例如：路径遍历覆盖和允许在网络中传输的易受攻击的库），则该策略是有效的。</p>
+</li>
+</ol>
+<hr>
+<h1 id="A8-不安全的反序列化"><a href="#A8-不安全的反序列化" class="headerlink" title="A8 不安全的反序列化"></a>A8 不安全的反序列化</h1><h2 id="描述-7"><a href="#描述-7" class="headerlink" title="描述"></a>描述</h2><p>对反序列化的利用是有点困难的。因为在不更改或调整底层可被利用代码的情况下，现成的反序列化漏洞很难被使用。</p>
+<h2 id="检测-7"><a href="#检测-7" class="headerlink" title="检测"></a>检测</h2><p>在应用程序中，序列化可能被用于: </p>
+<ol>
+<li><p>远程和进程间通信（<code>RPC</code>/<code>IPC</code>） </p>
+</li>
+<li><p>连线协议、<code>Web</code>服务、消息代理 </p>
+</li>
+<li><p>缓存/持久性 • 数据库、缓存服务器、文件系统 </p>
+</li>
+<li><p><code>HTTP cookie</code>、<code>HTML</code>表单参数、<code>API</code>身份验证令牌</p>
+</li>
+</ol>
+<p>如果反序列化进攻者提供的敌意或者篡改过的对象将会使将应用 程序和<code>API</code>变的脆弱。</p>
+<p>这可能导致两种主要类型的攻击： </p>
+<ol>
+<li><p>如果应用中存在可以在反序列化过程中或者之后被改变行为的类， 则攻击者可以通过改变应用逻辑或者实现远程代码执行攻击。我们将其称为对象和数据结构攻击。</p>
+</li>
+<li><p>典型的数据篡改攻击，如访问控制相关的攻击，其中使用了现有的数据结构，但内容发生了变化。</p>
+</li>
+</ol>
+<h2 id="对业务的影响-7"><a href="#对业务的影响-7" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p>反序列化缺陷的影响不能被低估。它们<strong>可能导致远程代码执行攻击</strong>，这是可能发生的最严重的攻击之一。</p>
+<h2 id="防范-7"><a href="#防范-7" class="headerlink" title="防范"></a>防范</h2><p>唯一安全的架构模式是不接受来自不受信源的序列化对象，或使用只允许原始数据类型的序列化媒体。</p>
+<p>如果上述不可能的话，考虑使用下述方法： </p>
+<ol>
+<li><p>执行完整性检查，如：任何序列化对象的数字签名，以防止恶意对象创建或数据篡改。</p>
+</li>
+<li><p>在创建对象之前强制执行严格的类型约束，因为代码通常被期望成一组可定义的类。绕过这种技术的方法已经被证明，所以完全依赖于它是不可取的。</p>
+</li>
+<li><p>如果可能，隔离运行那些在低特权环境中反序列化的代码。</p>
+</li>
+<li><p>记录反序列化的例外情况和失败信息，如：传入的类型不是预期的类型，或者反序列处理引发的例外情况。</p>
+</li>
+<li><p>限制或监视来自于容器或服务器传入和传出的反序列化网络连接。</p>
+</li>
+<li><p>监控反序列化，当用户持续进行反序列化时，对用户进行警告。</p>
+</li>
+</ol>
+<hr>
+<h1 id="A9-使用含有已知漏洞的组件"><a href="#A9-使用含有已知漏洞的组件" class="headerlink" title="A9 使用含有已知漏洞的组件"></a>A9 使用含有已知漏洞的组件</h1><h2 id="描述-8"><a href="#描述-8" class="headerlink" title="描述"></a>描述</h2><p>对一些漏洞很容易找到其利用程序， 但对其它的漏洞则需要定制开发。</p>
+<h2 id="检测-8"><a href="#检测-8" class="headerlink" title="检测"></a>检测</h2><p>这种安全漏洞普遍存在。基于组件开发的模式使得多 数开发团队根本不了解其应用或<code>API</code>中使用的组件，更谈不上及时更新这些组件了。 </p>
+<p>如果满足下面的某个条件，那么你的应用就易受此类攻击：</p>
+<ol>
+<li><p>如果你不知道所有使用的组件版本信息（包括：服务端和客户端）。这包括了直接使用的组件或其依赖的组件。 </p>
+</li>
+<li><p>如果软件易受攻击，不再支持或者过时。这包括：<code>OS</code>、<code>Web</code>服务器、应用程序服务器、数据库管理系统（<code>DBMS</code>）、应用程序、 <code>API</code>和所有的组件、运行环境和库。 </p>
+</li>
+<li><p>如果你不会定期做漏洞扫描和订阅你使用组件的安全公告。</p>
+</li>
+<li><p>如果你不基于风险并及时修复或升级底层平台、框架和依赖库。很可能发生这种情况：根据变更控制，每月或每季度进行升级， 这使得组织在这段时间内会受到已修复但未修补的漏洞的威胁。</p>
+</li>
+<li><p>如果软件工程师没有对更新的、升级的或打过补丁的组件进行兼容性测试。 </p>
+</li>
+<li><p>如果你没有对组件进行安全配置。</p>
+</li>
+</ol>
+<h2 id="对业务的影响-8"><a href="#对业务的影响-8" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p>虽然对于一些已知的漏洞其影响很小， 但目前很多严重的安全事件都是利用 组件中的已知漏洞。根据你所要保护 的资产，此类风险等级可能会很高。</p>
+<h2 id="防范-8"><a href="#防范-8" class="headerlink" title="防范"></a>防范</h2><p>应该制定一个补丁管理流程：</p>
+<ol>
+<li><p>移除不使用的依赖、不需要的功能、组件、文件和文档。 </p>
+</li>
+<li><p>利用如 <code>versions</code>、<code>DependencyCheck</code>、<code>retire.js</code>等工具来持续的记录客户端和服务器端以及它们的依赖库的版本信息。持续监控 如<code>CVE</code>和<code>NVD</code>等是否发布已使用组件的漏洞信息，可以使用软件分析工具来自动完成此功能。订阅关于使用组件安全漏洞的警 告邮件。 </p>
+</li>
+<li><p>仅从官方渠道安全的获取组件，并使用签名机制来降低组件被篡改或加入恶意漏洞的风险 </p>
+</li>
+<li><p>监控那些不再维护或者不发布安全补丁的库和组件。如果不能打补丁，可以考虑部署虚拟补丁来监控、检测或保护。</p>
+</li>
+</ol>
+<p><strong>每个组织都应该制定相应的计划，对整个软件生命周期进行监控、 评审、升级或更改配置。</strong></p>
+<hr>
+<h1 id="A10-不足的日志记录和监控"><a href="#A10-不足的日志记录和监控" class="headerlink" title="A10 不足的日志记录和监控"></a>A10 不足的日志记录和监控</h1><h2 id="描述-9"><a href="#描述-9" class="headerlink" title="描述"></a>描述</h2><p>对不足的日志记录及监控的利用几乎是每一个重大安全事件的温床。攻击者依靠监控的不足和响应的不及时来达成他们的目标而不被知晓。</p>
+<h2 id="检测-9"><a href="#检测-9" class="headerlink" title="检测"></a>检测</h2><p>判断你是否有足够监控的一个策略是在渗透测试后检查日志。 测试者的活动应被充分的记录下来，能够反映出他们造成了什么样的影响。</p>
+<p>下列情况会导致不足的日志记录、检测、监控和响应：</p>
+<ol>
+<li><p>未记录可审计性事件，如：登录、登录失败和高额交易。 </p>
+</li>
+<li><p>告警和错误事件未能产生或产生不足的和不清晰的日志信息。 </p>
+</li>
+<li><p>没有利用应用系统和<code>API</code>的日志信息来监控可疑活动。 </p>
+</li>
+<li><p>日志信息仅在本地存储。 </p>
+</li>
+<li><p>没有定义合理的告警阈值和制定响应处理流程。 </p>
+</li>
+<li><p>渗透测试和使用<code>DAST</code>工具（如：<code>OWASP ZAP</code>）扫描没有触发告警 </p>
+</li>
+<li><p>对于实时或准实时的攻击，应用程序无法检测、处理和告警。</p>
+</li>
+</ol>
+<p>如果你的应用使得日志信息或告警信息对用户或者攻击者可见， 你就很容易遭受信息泄露攻击</p>
+<h2 id="对业务的影响-9"><a href="#对业务的影响-9" class="headerlink" title="对业务的影响"></a>对业务的影响</h2><p>多数成功的攻击往往从漏洞探测开始。 允许这种探测会将攻击成功的可能性提高到近100% 据统计，在2016年确定一起数据泄露事件平均需要花191天时间，这么长时间里损害早已发生。</p>
+<h2 id="防范-9"><a href="#防范-9" class="headerlink" title="防范"></a>防范</h2><p>根据应用程序存储或处理的数据的风险：</p>
+<ol>
+<li><p>确保所有登录、访问控制失败、输入验证失败能够被记录到日志中去，并保留足够的用户上下文信息，以识别可疑或恶意帐户，并为后期取证预留足够时间。</p>
+</li>
+<li><p>确保日志以一种能被集中日志管理解决方案使用的形式生成</p>
+</li>
+<li><p>确保高额交易有完整性控制的审计信息，以防止篡改或删除， 例如审计信息保存在只能进行记录增加的数据库表中。 </p>
+</li>
+<li><p>建立有效的监控和告警机制，使可疑活动在可接受的时间内被发现和应对。 </p>
+</li>
+<li><p>建立或采取一个应急响应机制和恢复计划，例如：<code>NIST 80061 rev 2</code>或更新版本。</p>
+</li>
+</ol>
+<p>目前已有商业的和开源的应用程序防护框架（例如：<code>OWASP AppSensor</code>）、<code>Web</code>应用防火墙（例如 ：<code>Modsecurity with the OWASP Core Rule Set</code>）、带有自定义仪表盘和告警功能的日志关联软件。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/信息安全/" <i class="fa fa-tag"></i> 信息安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/06/手工杀马/" rel="next" title="查杀'一路赚钱'木马">
+                <i class="fa fa-chevron-left"></i> 查杀'一路赚钱'木马
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/07/可视化监控/" rel="prev" title="可视化监控Zabbix">
+                可视化监控Zabbix <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#应用程序安全风险"><span class="nav-number">1.</span> <span class="nav-text">应用程序安全风险</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A1-注入"><span class="nav-number">2.</span> <span class="nav-text">A1 注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述"><span class="nav-number">2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测"><span class="nav-number">2.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响"><span class="nav-number">2.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范"><span class="nav-number">2.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A2-失效的身份认证"><span class="nav-number">3.</span> <span class="nav-text">A2 失效的身份认证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-1"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-1"><span class="nav-number">3.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响-1"><span class="nav-number">3.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-1"><span class="nav-number">3.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A3-敏感数据泄露"><span class="nav-number">4.</span> <span class="nav-text">A3 敏感数据泄露</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-2"><span class="nav-number">4.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-2"><span class="nav-number">4.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响-2"><span class="nav-number">4.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-2"><span class="nav-number">4.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A4-XML外部实体（XXE）"><span class="nav-number">5.</span> <span class="nav-text">A4 XML外部实体（XXE）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-3"><span class="nav-number">5.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-3"><span class="nav-number">5.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响-3"><span class="nav-number">5.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-3"><span class="nav-number">5.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A5-失效的访问控制"><span class="nav-number">6.</span> <span class="nav-text">A5 失效的访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-4"><span class="nav-number">6.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-4"><span class="nav-number">6.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响-4"><span class="nav-number">6.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-4"><span class="nav-number">6.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A6-安全配置错误"><span class="nav-number">7.</span> <span class="nav-text">A6 安全配置错误</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-5"><span class="nav-number">7.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-5"><span class="nav-number">7.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响-5"><span class="nav-number">7.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-5"><span class="nav-number">7.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A7-跨站脚本（XSS）"><span class="nav-number">8.</span> <span class="nav-text">A7 跨站脚本（XSS）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-6"><span class="nav-number">8.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-6"><span class="nav-number">8.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响-6"><span class="nav-number">8.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-6"><span class="nav-number">8.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A8-不安全的反序列化"><span class="nav-number">9.</span> <span class="nav-text">A8 不安全的反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-7"><span class="nav-number">9.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-7"><span class="nav-number">9.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响-7"><span class="nav-number">9.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-7"><span class="nav-number">9.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A9-使用含有已知漏洞的组件"><span class="nav-number">10.</span> <span class="nav-text">A9 使用含有已知漏洞的组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-8"><span class="nav-number">10.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-8"><span class="nav-number">10.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响-8"><span class="nav-number">10.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-8"><span class="nav-number">10.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A10-不足的日志记录和监控"><span class="nav-number">11.</span> <span class="nav-text">A10 不足的日志记录和监控</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-9"><span class="nav-number">11.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-9"><span class="nav-number">11.2.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对业务的影响-9"><span class="nav-number">11.3.</span> <span class="nav-text">对业务的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-9"><span class="nav-number">11.4.</span> <span class="nav-text">防范</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

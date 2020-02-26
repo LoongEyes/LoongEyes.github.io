@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="8086汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言(王爽)-[BX]和loop指令">
+<meta property="og:url" content="http://yoursite.com/2019/03/21/汇编语言-王爽-BX-和loop指令/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/1.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/2.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/3.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/4.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/5.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/6.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/7.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/8.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/9.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/10.png">
+<meta property="og:updated_time" content="2019-05-01T08:16:05.788Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言(王爽)-[BX]和loop指令">
+<meta name="twitter:image" content="http://yoursite.com/images/huibianyuyanwangshuang/5/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/21/汇编语言-王爽-BX-和loop指令/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>汇编语言(王爽)-[BX]和loop指令 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/汇编语言-王爽-BX-和loop指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汇编语言(王爽)-[BX]和loop指令
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-21 15:48:00" itemprop="dateCreated datePublished" datetime="2019-03-21T15:48:00+08:00">2019-03-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 16:16:05" itemprop="dateModified" datetime="2019-05-01T16:16:05+08:00">2019-05-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/汇编与逆向/" itemprop="url" rel="index"><span itemprop="name">汇编与逆向</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h2 id="bx-和内存单元的描述"><a href="#bx-和内存单元的描述" class="headerlink" title="[bx]和内存单元的描述"></a>[bx]和内存单元的描述</h2><p>要完整的描述一个内存单元，需要两种信息：</p>
+<ol>
+<li><p>内存单元的地址</p>
+<p> [0]表示一个内存单元时，0表示单元的偏移地址，段地址默认在<code>ds</code>中</p>
+<p> [bx]表示一个内存单元时，偏移地址在<code>bx</code>中，段地址在<code>ds</code>中</p>
+</li>
+<li><p>内存单元的长度(类型)</p>
+<p> 单元的长度(类型)可由具体指令中的其他操作对象(如寄存器)指出</p>
+</li>
+</ol>
+<h2 id="约定描述性符号"><a href="#约定描述性符号" class="headerlink" title="约定描述性符号"></a>约定描述性符号</h2><ol>
+<li><p>()</p>
+<p> 表示一个寄存器或一个内存单元中存放的内容</p>
+<p><code>()</code>中的元素有三种类型：</p>
+<ol>
+<li><p>寄存器名</p>
+</li>
+<li><p>段寄存器名</p>
+</li>
+<li><p>内存单元的物理地址(一个20位的数据)</p>
+</li>
+</ol>
+<p><code>()</code>所表示的数据类型有两类：</p>
+<ol>
+<li><p>字节</p>
+</li>
+<li><p>字</p>
+<p> 是哪种类型由寄存器名或具体的运算决定</p>
+</li>
+</ol>
+</li>
+<li><p><code>idata</code></p>
+<p> 表示常量</p>
+</li>
+</ol>
+<hr>
+<h1 id="BX"><a href="#BX" class="headerlink" title="[BX]"></a>[BX]</h1><h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ol>
+<li><p><code>mov ax,[bx]</code></p>
+<p> <code>bx</code>中存放的数据为偏移地址<code>EA</code>，段地址<code>SA</code>默认在<code>ds</code>中，将<code>SA:EA</code>处的数据送入<code>ax</code>中，即：<code>(ax)=((ds)*16+(bx))</code></p>
+</li>
+<li><p><code>mov [bx],ax</code></p>
+<p> <code>bx</code>中存放的数据为偏移地址<code>EA</code>，段地址<code>SA</code>默认在<code>ds</code>中，将<code>ax</code>中的数据送入内存<code>SA:EA</code>处，即：<code>((ds)*16+(bx))=(ax)</code></p>
+</li>
+</ol>
+<hr>
+<h1 id="loop指令"><a href="#loop指令" class="headerlink" title="loop指令"></a>loop指令</h1><p>格式：<code>loop</code> 标号</p>
+<p><code>CPU</code>执行<code>loop</code>指令时，要进行两步操作：</p>
+<ol>
+<li><p><code>(cx)=(cx)-1</code></p>
+</li>
+<li><p>判断<code>cx</code>中的值，不为零则转至标号处执行程序，为零则向下执行</p>
+</li>
+</ol>
+<p><strong>通常，使用<code>loop</code>指令来实现循环功能，<code>cx</code>中存放循环次数</strong></p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>计算2^12</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ax,2</span><br><span class="line">	mov cx,11</span><br><span class="line">s:      add ax,ax</span><br><span class="line">	loop s</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>在<code>cx</code>中存放循环次数</p>
+</li>
+<li><p><code>loop</code>指令中的标号标识要循环执行的语句，标号所标识地址要在前面</p>
+</li>
+<li><p>要循环执行的程序段，要写在标号和<code>loop</code>指令中间</p>
+</li>
+</ol>
+<p>用<code>cx</code>和<code>loop</code>指令相配合实现循环功能的程序框架：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">	mov cx,循环次数</span><br><span class="line">s:</span><br><span class="line">	循环执行的程序段</span><br><span class="line">	loop s</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="在Debug中跟踪用loop指令实现的循环程序"><a href="#在Debug中跟踪用loop指令实现的循环程序" class="headerlink" title="在Debug中跟踪用loop指令实现的循环程序"></a>在Debug中跟踪用loop指令实现的循环程序</h1><p>计算<code>ffff:0006</code>单元中的数乘以3，结果存储在<code>dx</code>中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ax,0ffffh</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov bx,6		;以上，设置ds:bx指向ffff:0006</span><br><span class="line">   </span><br><span class="line">	mov al,[bx]</span><br><span class="line">	mov ah,0		;以上，设置(al)=((ds*16)+(bx)),(ah)=0</span><br><span class="line">   </span><br><span class="line">	mov dx,0		;累加寄存器清0</span><br><span class="line">   </span><br><span class="line">	mov cx,3		;循环3次</span><br><span class="line">s:	add dx,ax</span><br><span class="line">	loop s		 	;以上累加计算(ax)*3</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h			;程序返回</span><br><span class="line">   </span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>程序中第一条指令<code>mov ax,0ffffh</code>，<strong>在汇编源程序中，数据不能以字母开头</strong>，所以在前面加0</p>
+<p><img src="/images/huibianyuyanwangshuang/5/1.png" alt="1.png"></p>
+<p><code>(ds)=0b3dh</code>，则程序在<code>0b3d:0</code>处(程序内存前存在256个字节的程序段前缀)</p>
+<p><code>(cs)=0b3dh,(IP)=0</code>指向程序的第一条指令</p>
+<p><img src="/images/huibianyuyanwangshuang/5/2.png" alt="2.png"></p>
+<p>使用<code>u</code>命令查看被<code>Debug</code>加载入内存的程序，此时，<code>loop s</code>已变为<code>loop 0012h</code>,用于实现跳转</p>
+<p><img src="/images/huibianyuyanwangshuang/5/3.png" alt="3.png"></p>
+<p><img src="/images/huibianyuyanwangshuang/5/4.png" alt="4.png"></p>
+<p><img src="/images/huibianyuyanwangshuang/5/5.png" alt="5.png"></p>
+<p><img src="/images/huibianyuyanwangshuang/5/6.png" alt="6.png"></p>
+<p><img src="/images/huibianyuyanwangshuang/5/7.png" alt="7.png"></p>
+<p><img src="/images/huibianyuyanwangshuang/5/8.png" alt="8.png"></p>
+<p>程序执行结束</p>
+<p>可以使用<code>g</code>命令跳过某些不想单步执行的代码段，<code>g 0012</code>将使<code>Debug</code>从当前的<code>CS:IP</code>指向的指令开始执行，一直到<code>(IP)=0012h</code>为止</p>
+<p><img src="/images/huibianyuyanwangshuang/5/9.png" alt="9.png"></p>
+<p>可以使用<code>p</code>命令来让<code>Debug</code>自动重复执行循环中的指令，直到<code>(cx)=0</code>为止</p>
+<p>使用<code>g</code>命令同样可以达到跳过循环过程的效果</p>
+<p><img src="/images/huibianyuyanwangshuang/5/10.png" alt="10.png"></p>
+<hr>
+<h1 id="Debug和汇编编译器masm对指令的不同处理"><a href="#Debug和汇编编译器masm对指令的不同处理" class="headerlink" title="Debug和汇编编译器masm对指令的不同处理"></a>Debug和汇编编译器masm对指令的不同处理</h1><p>对于类似<code>mov ax,[0]</code>的汇编指令</p>
+<p>在<code>Debug</code>中，表示将<code>ds:0</code>内存单元处的数据送入<code>ax</code>中</p>
+<p>在<code>masm</code>中，被当作<code>mov ax,0</code>处理，表示将<code>ax</code>寄存器赋值为0</p>
+<p>汇编源程序中以下指令的含义：</p>
+<ol>
+<li><p><code>mov al,[0]</code>：<code>(al)=0</code>，将常量0送入<code>al</code>中</p>
+</li>
+<li><p><code>mov al,ds:[0]</code>：<code>(al)=((ds)*16+0)</code>，将内存单元中的数据送入<code>al</code>中</p>
+</li>
+<li><p><code>mov al,[bx]</code>：<code>(al)=((ds)*16+(bx))</code>，将内存单元中的数据送入<code>al</code>中</p>
+</li>
+<li><p><code>mov al,ds:[bx]</code>：与<code>mov al,[bx]</code>含义相同</p>
+</li>
+</ol>
+<p>如何实现在源程序中将内存单元中的数据送入寄存器呢？</p>
+<ol>
+<li>使用<code>bx</code>，间接给出内存单元的偏移地址，则段地址默认存储在<code>ds</code>中 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2000h</span><br><span class="line">mov ds,ax</span><br><span class="line">mov bx,0</span><br><span class="line">mov al,[bx]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li>在汇编源程序中，若在<code>[]</code>中用一个常量直接给出内存单元的偏移地址，需在<code>[]</code>前显式的给出段地址所在的段寄存器，如：<code>mov al,ds:[0]</code></li>
+</ol>
+<hr>
+<h1 id="loop与-bx-的联合应用"><a href="#loop与-bx-的联合应用" class="headerlink" title="loop与[bx]的联合应用"></a>loop与[bx]的联合应用</h1><p>计算<code>ffff:0-ffff:b</code>单元中的数据的和，结果存储在<code>dx</code>中</p>
+<p>问题：</p>
+<ol>
+<li><p>结果是否会超出<code>dx</code>范围</p>
+<p> 一个存储单元存储一个字节数据，范围在0-255，12个字节型数据相加，结果不大于65535，不会超出存储范围</p>
+</li>
+<li><p>能否将数据直接累加到<code>dx</code>中</p>
+<p> 不行，内存单元数据为8位，不可直接累加到16位寄存器中</p>
+</li>
+<li><p>能否将内存单元中数据累加到<code>dl</code>中，设置<code>(dh)=0</code>，实现累加</p>
+<p> 不行，会出现进位丢失</p>
+</li>
+</ol>
+<p>可使用一个16位寄存器做中介，将内存单元中的数据送入16位寄存器<code>ax</code>中，再将<code>ax</code>中数据加到<code>dx</code>中，实现运算对象类型匹配且结果不会超界</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov ax,0ffffh</span><br><span class="line">	mov ds,ax</span><br><span class="line">   </span><br><span class="line">	mov dx,0</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[0]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[1]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[2]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[3]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[4]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[5]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[6]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[7]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[8]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[9]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[0ah]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov al,ds:[0bh]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">   </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">   </span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>使用<code>loop</code>指令，使程序更简洁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov ax,0ffffh</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov bx,0</span><br><span class="line">   </span><br><span class="line">	mov dx,0</span><br><span class="line">   </span><br><span class="line">	mov cx,12</span><br><span class="line">   </span><br><span class="line">s:      mov al,[bx]</span><br><span class="line">	mov ah,0</span><br><span class="line">	add dx,ax</span><br><span class="line">	inc bx		;bx中的值自加1，使ds:bx指向下一个单元</span><br><span class="line">	loop s</span><br><span class="line">   </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">   </span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="段前缀"><a href="#段前缀" class="headerlink" title="段前缀"></a>段前缀</h1><p>如：<code>mov ax,ds:[bx]</code>，出现在访问内存单元的指令中，用于显式指明内存单元的段地址的<code>ds</code>等，在汇编语言中称为段前缀</p>
+<hr>
+<h1 id="一段安全的空间"><a href="#一段安全的空间" class="headerlink" title="一段安全的空间"></a>一段安全的空间</h1><p>在8086模式中，随意向一段内存空间中写入内容是非常危险的，因为这段空间中可能存放着重要的系统数据或代码</p>
+<p>在纯<code>DOS</code>方式(实模式)下，可直接使用汇编语言去操作真实的硬件，因为在<code>CPU</code>实模式下的<code>DOS</code>，没有能力对硬件系统进行全面、严格的管理</p>
+<p>在运行于<code>CPU</code>保护模式下的操作系统中，无法用汇编语言去操作真实的硬件，硬件已被操作系统利用<code>CPU</code>保护模式所提供的功能全面而严格的管理了</p>
+<p>总结</p>
+<ol>
+<li><p>我们需要直接向一段内存中写入内容</p>
+</li>
+<li><p>这段内存空间不应该存放系统或其他程序的数据或代码，否则写入操作可能引发错误</p>
+</li>
+<li><p><code>DOS</code>方式下，一般情况，<code>0:200-0:2ff</code>空间中没有系统或其他程序的数据或代码</p>
+</li>
+<li><p>在使用内存空间时，可使用<code>Debug</code>查看内存空间是否被使用</p>
+</li>
+</ol>
+<hr>
+<h1 id="段前缀的使用"><a href="#段前缀的使用" class="headerlink" title="段前缀的使用"></a>段前缀的使用</h1><p>将内存<code>ffff:0-ffff:b</code>单元中的数据复制到<code>0:200-0:20b</code>单元中</p>
+<p><code>0:200-0:20b</code>单元等同于<code>0020:0-0020:b</code>单元，它们描述的是同一段内存空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov bx,0		;偏移地址从0开始</span><br><span class="line">	mov cx,12		;循环次数12</span><br><span class="line">s:	mov ax,0ffffh		;循环开始，设置ax</span><br><span class="line">	mov ds,ax		;设置源段地址</span><br><span class="line">	mov dl,[bx]		;将源内存单元数据赋值到dl中</span><br><span class="line">    </span><br><span class="line">	mov ax,0020h		;重新设置ax</span><br><span class="line">	mov ds,ax		;设置目的段地址</span><br><span class="line">	mov [bx],dl		;将dl中的数据赋值到目的内存单元中</span><br><span class="line">    </span><br><span class="line">	inc bx			;bx自加1，用于下一单元数据复制</span><br><span class="line">	loop s</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h		;程序返回 </span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>程序中使用<code>dl</code>寄存器作为中介进行数据复制</p>
+<p>每次循环需要设置两次<code>ds</code>，用于切换源段地址与目的段地址，源内存单元与目的内存单元相距大于<code>64KB</code>，效率不高，可以设置两个段寄存器，分别用于存放源段地址与目的段地址，即可省略每次循环需设置两次<code>ds</code>的操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov ax,0ffffh		;设置ax</span><br><span class="line">	mov ds,ax		;设置源段地址</span><br><span class="line">    </span><br><span class="line">	mov ax,0020h		;设置ax</span><br><span class="line">	mov es,ax		;设置目的段地址</span><br><span class="line">    </span><br><span class="line">	mov bx,0		;设置逻辑地址bx</span><br><span class="line"></span><br><span class="line">	mov cx,12		;设置循环次数</span><br><span class="line">    </span><br><span class="line">s:	mov dl,[bx]		;将源内存单元数据赋值给dl，默认段地址在ds中</span><br><span class="line">	mov es:[bx],dl		;将dl中值赋值给目的内存单元</span><br><span class="line">	inc bx			;bx自加1，用于下一内存单元数据复制(源段地址与目的段地址共用一个逻辑地址)</span><br><span class="line">	loop s</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h		;程序返回</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/8086汇编语言/" <i class="fa fa-tag"></i> 8086汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/21/Raspberry-Pi-3-B-入门/" rel="next" title="Raspberry Pi 3 B+入门">
+                <i class="fa fa-chevron-left"></i> Raspberry Pi 3 B+入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/26/汇编语言-王爽-包含多个段的程序/" rel="prev" title="汇编语言(王爽)-包含多个段的程序">
+                汇编语言(王爽)-包含多个段的程序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#bx-和内存单元的描述"><span class="nav-number">1.</span> <span class="nav-text">[bx]和内存单元的描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约定描述性符号"><span class="nav-number">2.</span> <span class="nav-text">约定描述性符号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BX"><span class="nav-number"></span> <span class="nav-text">[BX]</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能"><span class="nav-number">1.</span> <span class="nav-text">功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#loop指令"><span class="nav-number"></span> <span class="nav-text">loop指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-number">1.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Debug中跟踪用loop指令实现的循环程序"><span class="nav-number"></span> <span class="nav-text">在Debug中跟踪用loop指令实现的循环程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debug和汇编编译器masm对指令的不同处理"><span class="nav-number"></span> <span class="nav-text">Debug和汇编编译器masm对指令的不同处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#loop与-bx-的联合应用"><span class="nav-number"></span> <span class="nav-text">loop与[bx]的联合应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#段前缀"><span class="nav-number"></span> <span class="nav-text">段前缀</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一段安全的空间"><span class="nav-number"></span> <span class="nav-text">一段安全的空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#段前缀的使用"><span class="nav-number"></span> <span class="nav-text">段前缀的使用</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

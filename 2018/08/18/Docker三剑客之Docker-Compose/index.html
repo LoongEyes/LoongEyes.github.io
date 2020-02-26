@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker三剑客之Docker Compose">
+<meta property="og:url" content="http://yoursite.com/2018/08/18/Docker三剑客之Docker-Compose/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-20T08:17:26.158Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker三剑客之Docker Compose">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/18/Docker三剑客之Docker-Compose/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Docker三剑客之Docker Compose | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/18/Docker三剑客之Docker-Compose/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker三剑客之Docker Compose
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-18 21:53:00" itemprop="dateCreated datePublished" datetime="2018-08-18T21:53:00+08:00">2018-08-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-20 16:17:26" itemprop="dateModified" datetime="2018-08-20T16:17:26+08:00">2018-08-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Docker技术/" itemprop="url" rel="index"><span itemprop="name">Docker技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<p>编排功能是复杂系统实现灵活可操作性的关键。在<code>Docker</code>中，编排意味着用户可以灵活的对各种容器资源实现定义和管理</p>
+<p><code>Compose</code>可以让用户通过编写一个简单的模板文件，快速的创建和管理基于<code>Docker</code>容器的应用集群</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>Compose</code>定位是：定义和运行多个<code>Docker</code>容器的应用</p>
+<p>使用<code>Dockerfile</code>模板文件，可以让用户方便的定义一个<strong>单独的应用容器</strong></p>
+<p><code>Compose</code>允许用户通过一个单独的<code>docker-compose.yml</code>模板文件(<code>YAML</code>格式)来定义一组<strong>相关联的应用容器</strong>为一个项目</p>
+<p><code>Compose</code>中的概念：</p>
+<ol>
+<li><p>服务：一个应用的容器，实际上可以包含若干个运行相同镜像的容器实例</p>
+</li>
+<li><p>项目：由一组关联的应用容器组成的一个完整的业务单元，在<code>docker-compose.yml</code>文件中定义</p>
+</li>
+</ol>
+<p><code>Compose</code>的默认管理对象是项目，通过子命令对项目中的一组容器进行便捷的生命周期管理</p>
+<p><code>Compose</code>实现上调用了<code>Docker</code>服务提供的<code>API</code>来对容器进行管理</p>
+<hr>
+<h1 id="安装与卸载"><a href="#安装与卸载" class="headerlink" title="安装与卸载"></a>安装与卸载</h1><p>安装<code>Compose</code>之前，先安装<code>Docker</code></p>
+<p><code>Compose</code>可以通过<code>pip</code>工具进行安装，下载编译好的二进制文件直接使用，直接运行在<code>Docker</code>容器中</p>
+<p>前两种方式为传统方式，适合本地环境安装使用；第三种则不破坏系统环境，更适合云计算场景</p>
+<h2 id="pip安装"><a href="#pip安装" class="headerlink" title="pip安装"></a>pip安装</h2><p>将<code>Compose</code>当作一个<code>Python</code>应用来从<code>pip</code>源中安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -U docker-compose</span><br></pre></td></tr></table></figure>
+<p>之后可以添加<code>docker-compose</code>的<code>bash</code>补全命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/docker/compose/1.8.0/contrib/completion/bash/docker-compose &gt; /etc/bash_completion.d/docker-compose</span><br></pre></td></tr></table></figure>
+<h2 id="二进制包"><a href="#二进制包" class="headerlink" title="二进制包"></a>二进制包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-Linux-x86_64 &gt; /usr/local/bin/docker-compose</span><br><span class="line">chmod a+x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p>测试是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose version</span><br></pre></td></tr></table></figure>
+<h2 id="容器中运行"><a href="#容器中运行" class="headerlink" title="容器中运行"></a>容器中运行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://github.com/docker/compose/releases/download/1.22.0/run.sh &gt; /usr/local/bin/docker-compose</span><br><span class="line">chmod a+x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p><code>run.sh</code>执行，其实是下载了<code>docker/compose</code>镜像并运行</p>
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><h3 id="二进制包安装方式"><a href="#二进制包安装方式" class="headerlink" title="二进制包安装方式"></a>二进制包安装方式</h3><p>直接删除二进制文件即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<h3 id="pip安装方式"><a href="#pip安装方式" class="headerlink" title="pip安装方式"></a>pip安装方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip uninstall docker-compose</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Compose命令"><a href="#Compose命令" class="headerlink" title="Compose命令"></a>Compose命令</h1><p>对于<code>Compose</code>来说，大部分命令的对象既可以是项目本身，也可以是指定为项目中的服务或者容器</p>
+<p>格式：<code>docker-compose [-f=&lt;tag&gt;...] [options] [command] [args...]</code></p>
+<p>命令选项：</p>
+<ol>
+<li><p><code>-f,--file FILE</code>：指定使用的<code>Compose</code>模板文件，默认为<code>docker-compose.yml</code>,可多次指定</p>
+</li>
+<li><p><code>-p,--project-name NAME</code>：指定项目名称，默认使用所在目录名称作为项目名</p>
+</li>
+<li><p><code>--x-networking</code>：使用<code>Docker</code>的可拔插网络后端特性</p>
+</li>
+<li><p><code>--x-networking-driver DRIVER</code>：制定网络后端的驱动，默认为<code>bridge</code></p>
+</li>
+<li><p><code>--verbose</code>：输出更多调试信息</p>
+</li>
+<li><p><code>-v,--version</code>：打印版本并退出</p>
+</li>
+</ol>
+<h2 id="build"><a href="#build" class="headerlink" title="build"></a>build</h2><p>格式：<code>docker-compose build [options] [SERVICE...]</code></p>
+<p>构建（重构）项目中的服务容器</p>
+<p>选项：</p>
+<ol>
+<li><p><code>--force-rm</code>：删除构建过程中的临时容器</p>
+</li>
+<li><p><code>--no-cache</code>：构建镜像过程中不使用缓存</p>
+</li>
+<li><p><code>--pull</code>：始终尝试通过拉取操作来获取更新版本镜像</p>
+</li>
+</ol>
+<h2 id="help"><a href="#help" class="headerlink" title="help"></a>help</h2><p>获得一个命令的帮助</p>
+<h2 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h2><p>格式：<code>docker-compose kill [options] [SERVICE...]</code></p>
+<p>通过发送<code>SIGKILL</code>信号来强制停止服务容器</p>
+<p>支持通过<code>-s</code>参数来指定发送的信号</p>
+<h2 id="logs"><a href="#logs" class="headerlink" title="logs"></a>logs</h2><p>格式：<code>docker-compose logs [options] [SERVICE...]</code></p>
+<p>查看服务容器的输出</p>
+<h2 id="pause"><a href="#pause" class="headerlink" title="pause"></a>pause</h2><p>格式：<code>docker-compose pause [SERVICE...]</code></p>
+<p>暂停一个服务容器</p>
+<h2 id="port"><a href="#port" class="headerlink" title="port"></a>port</h2><p>格式：<code>docker-compose port [options] SERVICE PRIVATE_PORT</code></p>
+<p>显示某个容器端口所映射的公共端口</p>
+<p>选项：</p>
+<ol>
+<li><p><code>--protocol=proto</code>：指定端口协议，默认<code>TCP</code></p>
+</li>
+<li><p><code>--index=index</code>：如果同一服务器存在多个容器，指定命令对象为容器序号(默认为1)</p>
+</li>
+</ol>
+<h2 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h2><p>格式：<code>docker-compose ps [options] [SERVICE...]</code></p>
+<p>列出项目中目前的所有容器</p>
+<p>选项：</p>
+<p><code>-q</code>：只打印容器的<code>ID</code>信息</p>
+<h2 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h2><p>格式：<code>docker-compose pull [options] [SERVICE...]</code></p>
+<p>拉取服务依赖的镜像</p>
+<p>选项：</p>
+<p><code>--ignore-pull-failures</code>：忽略拉取镜像过程中的错误</p>
+<h2 id="restart"><a href="#restart" class="headerlink" title="restart"></a>restart</h2><p>格式：<code>docker-compose restart [options] [SERVICE...]</code></p>
+<p>重启项目中的服务</p>
+<p>选项：</p>
+<p><code>-t,--timeout TIMEOUT</code>：指定重启前停止容器的超时(默认10秒)</p>
+<h2 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h2><p>格式：<code>docker-compose rm [options] [SERVICE...]</code></p>
+<p>删除所有(停止状态的)服务容器</p>
+<p>选项：</p>
+<ol>
+<li><p><code>-f,--force</code>：强制删除</p>
+</li>
+<li><p><code>-v</code>：删除容器所挂载的数据卷</p>
+</li>
+</ol>
+<h2 id="run"><a href="#run" class="headerlink" title="run"></a>run</h2><p>格式：<code>docker-compose run [options] [-p PORT...] [-e KEY=VAL...] SERVICE [COMMAND] [ARGS...]</code></p>
+<p>在指定服务上执行一条命令</p>
+<p>默认，如果存在关联，则所有关联的服务将会自动启动，除非这些服务已在运行中</p>
+<p>该命令类似于启动容器后运行指定的命令。数据卷，链接等都会按配置自动创建</p>
+<p>有两个不同点：</p>
+<ol>
+<li><p>给定命令将会覆盖原有的自动运行命令</p>
+</li>
+<li><p>不会自动创建端口，避免冲突</p>
+</li>
+</ol>
+<p>可使用<code>--no-deps</code>选项，不自动启动关联的容器</p>
+<p>选项：</p>
+<ol>
+<li><p><code>-d</code>：后台运行服务容器</p>
+</li>
+<li><p><code>--name NAME</code>：指定容器名</p>
+</li>
+<li><p><code>--entrypoint CMD</code>：覆盖默认的容器启动指令</p>
+</li>
+<li><p><code>-e KEY=VAL</code>：设置环境变量，可多次使用此选项</p>
+</li>
+<li><p><code>-u,--user=&quot;&quot;</code>：指定运行容器的用户名或<code>uid</code></p>
+</li>
+<li><p><code>--no-deps</code>：不自动启动关联的服务容器</p>
+</li>
+<li><p><code>--rm</code>：运行命令后自动删除容器，不可与<code>-d</code>同时使用</p>
+</li>
+<li><p><code>-p,--publish=[]</code>：映射端口</p>
+</li>
+<li><p><code>--service-ports</code>：配置服务端口并映射到本地主机</p>
+</li>
+<li><p><code>-T</code>：不分配伪<code>tty</code>，意味着依赖<code>tty</code>的指令将无法运行</p>
+</li>
+</ol>
+<h2 id="scale"><a href="#scale" class="headerlink" title="scale"></a>scale</h2><p>格式：<code>docker-compose scale [options] [SERVICE=NUM...]</code></p>
+<p>设置指定服务运行的容器个数</p>
+<p>例：<code>docker-compose scale web=3 db=2</code></p>
+<p>一般情况下，当指定容器数目多于该服务当前实际运行容器个数，将新创建并启动容器；反之，将停止容器</p>
+<p>选项：</p>
+<ol>
+<li><code>-t,--timeout TIMEOUT</code>：停止容器时的超时时间(默认10秒)</li>
+</ol>
+<h2 id="start"><a href="#start" class="headerlink" title="start"></a>start</h2><p>格式：<code>docker-compose start [SERVICE...]</code></p>
+<p>启动已经存在的服务容器</p>
+<h2 id="stop"><a href="#stop" class="headerlink" title="stop"></a>stop</h2><p>格式：<code>docker-compose stop [options] [SERVICE...]</code></p>
+<p>停止处于运行状态的容器</p>
+<p>选项：</p>
+<ol>
+<li><code>-t,--timeout TIMEOUT</code>：停止容器时的超时时间(默认10秒)</li>
+</ol>
+<h2 id="unpause"><a href="#unpause" class="headerlink" title="unpause"></a>unpause</h2><p>格式：<code>docker-compose unpause [SERVICE...]</code></p>
+<p>恢复处于暂停状态的服务</p>
+<h2 id="up"><a href="#up" class="headerlink" title="up"></a>up</h2><p>格式：<code>docker-compose up [options] [SERVICE...]</code></p>
+<p>该命令将尝试自动完成包括构建镜像，创建和重建服务，启动服务，关联服务相关容器的一系列操作。链接的服务都将会被自动启动，除非已经处于运行状态</p>
+<p>默认，此命令启动的容器都运行在前台，控制台将会同时打印所有容器的输出信息</p>
+<p>默认，如果服务容器已存在，此命令会尝试停止容器，然后重新创建，以保证新启动的服务匹配<code>docker-compose.yml</code>文件最新内容</p>
+<p>选项：</p>
+<ol>
+<li><p><code>-d</code>：在后台运行服务容器</p>
+</li>
+<li><p><code>--no-color</code>：不使用颜色来区分不同服务的控制台输出</p>
+</li>
+<li><p><code>--no-deps</code>：不启动服务所链接的容器,用于重新部署某个服务，不影响其所依赖的服务</p>
+</li>
+<li><p><code>--force-recreate</code>：强制重新创建容器，不可与<code>--no-recreate</code>同时使用</p>
+</li>
+<li><p><code>--no-recreate</code>：如果容器存在，则不重新创建，不可与<code>--force-recreate</code>同时使用</p>
+</li>
+<li><p><code>--no-build</code>：不自动构建缺失的服务镜像</p>
+</li>
+<li><p><code>-t,--timeout TIMEOUT</code>：停止容器时的超时时间(默认10秒)</p>
+</li>
+</ol>
+<h2 id="migrate-to-labels"><a href="#migrate-to-labels" class="headerlink" title="migrate-to-labels"></a>migrate-to-labels</h2><p>格式：<code>docker-compose migrate-to-labels</code></p>
+<p>重新创建容器，并添加<code>label</code>。添加缺失的容器标签</p>
+<h2 id="version"><a href="#version" class="headerlink" title="version"></a>version</h2><p>格式：<code>docker-compose version</code></p>
+<p>打印版本信息</p>
+<hr>
+<h1 id="Compose环境变量"><a href="#Compose环境变量" class="headerlink" title="Compose环境变量"></a>Compose环境变量</h1><h2 id="COMPOSE-PROJECT-NAME"><a href="#COMPOSE-PROJECT-NAME" class="headerlink" title="COMPOSE_PROJECT_NAME"></a>COMPOSE_PROJECT_NAME</h2><p>设置<code>Compose</code>的项目名称，默认为当前工作目录(<code>docker-compose.yml</code>文件所在目录)的名称</p>
+<p><code>Compose</code>会为每一个启动的容器前添加的项目名称</p>
+<h2 id="COMPOSE-FILE"><a href="#COMPOSE-FILE" class="headerlink" title="COMPOSE_FILE"></a>COMPOSE_FILE</h2><p>设置要使用的<code>docker-compose.yml</code>的路径</p>
+<h2 id="COMPOSE-API-VERSION"><a href="#COMPOSE-API-VERSION" class="headerlink" title="COMPOSE_API_VERSION"></a>COMPOSE_API_VERSION</h2><p>通过指定<code>API</code>版本来临时解决<code>Compose</code>发出的<code>Docker</code>请求版本可能<code>Docker</code>服务端并不支持的问题</p>
+<h2 id="DOCKER-HOST"><a href="#DOCKER-HOST" class="headerlink" title="DOCKER_HOST"></a>DOCKER_HOST</h2><p>设置<code>Docker</code>服务器的监听地址</p>
+<h2 id="DOCKER-TLS-VERIFY"><a href="#DOCKER-TLS-VERIFY" class="headerlink" title="DOCKER_TLS_VERIFY"></a>DOCKER_TLS_VERIFY</h2><p>如果该环境变量不为空，则与<code>Docker</code>服务端的所有交互都通过<code>TLS</code>协议进行加密</p>
+<h2 id="DOCKER-CERT-PATH"><a href="#DOCKER-CERT-PATH" class="headerlink" title="DOCKER_CERT_PATH"></a>DOCKER_CERT_PATH</h2><p>配置<code>TLS</code>通信所需要的验证文件的路径，默认为<code>~/.docker</code></p>
+<h2 id="COMPOSE-HTTP-TIMEOUT"><a href="#COMPOSE-HTTP-TIMEOUT" class="headerlink" title="COMPOSE_HTTP_TIMEOUT"></a>COMPOSE_HTTP_TIMEOUT</h2><p><code>Compose</code>发送往<code>Docker</code>服务端的请求的超时，默认60秒</p>
+<hr>
+<h1 id="Compose模板文件"><a href="#Compose模板文件" class="headerlink" title="Compose模板文件"></a>Compose模板文件</h1><p>默认的模板文件名称为<code>docker-compose.yml</code>,格式为<code>YAML</code>格式</p>
+<p>在版本1中，其中每个顶级元素为服务名称，次级元素为服务容器的配置信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">webapp:</span><br><span class="line">	image: examples/web</span><br><span class="line">    ports:</span><br><span class="line">    	- &quot;80:80&quot;</span><br><span class="line">    volumes:</span><br><span class="line">    	- &quot;/data&quot;</span><br></pre></td></tr></table></figure>
+<p>版本2中，除了可以声明网络和存储信息外，最大的不同是：</p>
+<ol>
+<li><p>添加了版本信息</p>
+</li>
+<li><p>需要将所有的服务放到<code>services</code>根下面</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;2&quot;</span><br><span class="line">services:</span><br><span class="line">	webapp:</span><br><span class="line">    	image: examples/web</span><br><span class="line">        ports:</span><br><span class="line">        	- &quot;80:80&quot;</span><br><span class="line">        volumes:</span><br><span class="line">        	- &quot;/data&quot;</span><br></pre></td></tr></table></figure>
+<p>每个服务都必须通过<code>image</code>指令指定镜像或<code>build</code>指令(需要<code>Dockerfile</code>)等来自动构建生成镜像</p>
+<p>如果使用<code>build</code>指令，在<code>Dockerfile</code>中设置的选项将会自动被获取，无需在<code>docker-compose.yml</code>中再次设置</p>
+<h2 id="build-1"><a href="#build-1" class="headerlink" title="build"></a>build</h2><p>指定<code>Dockerfile</code>所在的目录路径(绝对路径或者相对路径)，<code>Compose</code>将会利用它自动构建镜像，然后使用这个镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build: /path/to/build/dir</span><br></pre></td></tr></table></figure>
+<h2 id="cap-add-cap-drop"><a href="#cap-add-cap-drop" class="headerlink" title="cap_add,cap_drop"></a>cap_add,cap_drop</h2><p>指定容器的内核能力分配</p>
+<p>让容器拥有所有能力</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cap_add:</span><br><span class="line">	- ALL</span><br></pre></td></tr></table></figure>
+<p>去掉<code>NET_ADMIN</code>能力</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cap_drop:</span><br><span class="line">	- NET_ADMIN</span><br></pre></td></tr></table></figure>
+<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><p>覆盖容器启动后默认执行的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command: echo &quot;hello&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="cgroup-parent"><a href="#cgroup-parent" class="headerlink" title="cgroup_parent"></a>cgroup_parent</h2><p>指定父<code>cgroup</code>组，意味着将继承该组的资源限制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cgroup_parent: cgroups_1</span><br></pre></td></tr></table></figure>
+<h2 id="container-name"><a href="#container-name" class="headerlink" title="container_name"></a>container_name</h2><p>指定容器名称，默认“项目名称<em>服务名称</em>序号”格式</p>
+<p>指定容器名称后，该服务无法进行扩展，因<code>Docker</code>不允许多个容器具有相同的名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">container_name: docker-web-container</span><br></pre></td></tr></table></figure>
+<h2 id="devices"><a href="#devices" class="headerlink" title="devices"></a>devices</h2><p>指定设备映射关系</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">devices:</span><br><span class="line">	- &quot;/dev/ttyusb1:/dev/ttyusb0&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="dns"><a href="#dns" class="headerlink" title="dns"></a>dns</h2><p>自定义<code>DNS</code>服务器。可以是一个值，也可以是一个列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dns: 8.8.8.8</span><br><span class="line"></span><br><span class="line">dns:</span><br><span class="line">	- 8.8.8.8</span><br><span class="line">    - 9.9.9.9</span><br></pre></td></tr></table></figure>
+<h2 id="dns-search"><a href="#dns-search" class="headerlink" title="dns_search"></a>dns_search</h2><p>配置<code>DNS</code>搜索域</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dns_search: example.com</span><br><span class="line"></span><br><span class="line">dns_search:</span><br><span class="line">	- domain1.example.com</span><br><span class="line">    - domain2.example.com</span><br></pre></td></tr></table></figure>
+<h2 id="dockerfile"><a href="#dockerfile" class="headerlink" title="dockerfile"></a>dockerfile</h2><p>指定额外的编译镜像的<code>Dockerfile</code>文件</p>
+<p>不可与<code>image</code>指令同时使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dockerfile: ...</span><br></pre></td></tr></table></figure>
+<h2 id="env-file"><a href="#env-file" class="headerlink" title="env_file"></a>env_file</h2><p>从文件中获取环境变量</p>
+<p>如果通过<code>docker-compose -f FILE</code>方式指定<code>Compose</code>模板文件，则<code>env_file</code>中变量的路径会基于模板文件的路径</p>
+<p>如果有变量名称与<code>environment</code>指令冲突，则以<code>environment</code>为准</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">env_file: .env</span><br><span class="line"></span><br><span class="line">env_file:</span><br><span class="line">	- ./common.env</span><br><span class="line">    - ./apps/web.env</span><br><span class="line">    - ./opt/secrets.env</span><br></pre></td></tr></table></figure>
+<p>环境变量文件每一行必须符合格式，支持<code>#</code>开头的注释行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># common.env</span><br><span class="line">PROG_ENV=development</span><br></pre></td></tr></table></figure>
+<h2 id="environment"><a href="#environment" class="headerlink" title="environment"></a>environment</h2><p>设置环境变量，数组或字典格式</p>
+<p>只给定名称的变量会自动获取运行<code>Compose</code>主机上对应变量的值，用来防止泄露不必要的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">environment:</span><br><span class="line">	RACK_ENV: development</span><br><span class="line">    SESSION_SECRET:</span><br></pre></td></tr></table></figure>
+<p>如果变量名称或者值中用到<code>true|false,yes|no</code>等布尔值，最好放到引号里</p>
+<h2 id="expose"><a href="#expose" class="headerlink" title="expose"></a>expose</h2><p>暴露端口，但不映射到宿主机，只允许能被连接的服务访问</p>
+<p>仅可以指定内部端口为参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">expose:</span><br><span class="line">	- &quot;3000&quot;</span><br><span class="line">    - &quot;8000&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h2><p>基于其他模板文件进行扩展</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extends:</span><br><span class="line">	file: common.yml     #其他模板文件</span><br><span class="line">    service: webapp		 #其他模板文件中的服务</span><br></pre></td></tr></table></figure>
+<p>会自动继承<code>common.yml</code>中的<code>webapp</code>服务及环境变量定义</p>
+<p>注意：</p>
+<ol>
+<li><p>避免出现循环依赖，例如A依赖B，B依赖C，C依赖A的情况</p>
+</li>
+<li><p><code>extends</code>不会继承<code>links</code>和<code>volumes_from</code>中定义的容器和数据卷资源</p>
+</li>
+</ol>
+<h2 id="external-links"><a href="#external-links" class="headerlink" title="external_links"></a>external_links</h2><p>链接到<code>docker-compose.yml</code>外部的容器，甚至可以是非<code>Compose</code>管理的外部容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">external_links:</span><br><span class="line">	- readis</span><br><span class="line">    - mysql</span><br></pre></td></tr></table></figure>
+<h2 id="extra-hosts"><a href="#extra-hosts" class="headerlink" title="extra_hosts"></a>extra_hosts</h2><p>指定额外的<code>host</code>名称映射信息，类似于<code>Docker</code>中的<code>--add-host</code>参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extra_hosts:</span><br><span class="line">	- &quot;googledns:8.8.8.8&quot;</span><br><span class="line">    - &quot;dockerhub:52.1.157.61&quot;</span><br></pre></td></tr></table></figure>
+<p>会在启动后的服务容器中<code>/etc/hosts</code>文件中添加如下条目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">8.8.8.8 googledns</span><br><span class="line">52.1.157.61 dockerhub</span><br></pre></td></tr></table></figure>
+<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>指定为镜像名称或镜像ID，如果镜像不存在，<code>Compose</code>将会尝试拉取这个镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image: ubuntu</span><br><span class="line">image: a4bc</span><br></pre></td></tr></table></figure>
+<h2 id="labels"><a href="#labels" class="headerlink" title="labels"></a>labels</h2><p>为容器添加<code>Docker</code>元数据信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">labels:</span><br><span class="line">	com.startupteam.release: &quot;rc3 for v1&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="links"><a href="#links" class="headerlink" title="links"></a>links</h2><p>链接到其他服务中的容器</p>
+<p>使用服务名称或服务别名或“服务名称:服务别名”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">links:</span><br><span class="line">	- db</span><br><span class="line">    - db:database</span><br><span class="line">    - redis</span><br></pre></td></tr></table></figure>
+<p>使用的别名将会自动在服务容器中的<code>/etc/hosts</code>中创建</p>
+<p>所连接容器中相应的环境变量也将创建</p>
+<h2 id="log-driver"><a href="#log-driver" class="headerlink" title="log_driver"></a>log_driver</h2><p>指定日志驱动类型，支持三种日志驱动类型，类似于<code>Docker</code>中的<code>--log-driver</code>参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_driver: &quot;json-file&quot;</span><br><span class="line">log_driver: &quot;syslog&quot;</span><br><span class="line">log_driver: &quot;none&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="log-opt"><a href="#log-opt" class="headerlink" title="log_opt"></a>log_opt</h2><p>日志驱动的相关参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_driver: &quot;syslog&quot;</span><br><span class="line">log_opt:</span><br><span class="line">	syslog-address: &quot;tcp://192.168.0.42:123&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="net"><a href="#net" class="headerlink" title="net"></a>net</h2><p>设置网络模式，类似于<code>docker client</code>的<code>--net</code>参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net: &quot;bridge&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="pid"><a href="#pid" class="headerlink" title="pid"></a>pid</h2><p>跟主机系统共享进程命名空间</p>
+<p>打开该选项的容器之间，以及容器与宿主机系统之间可以通过进程ID来相互访问和参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pid: &quot;host&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="ports"><a href="#ports" class="headerlink" title="ports"></a>ports</h2><p>暴露端口信息</p>
+<p>“宿主机:容器”格式或仅指定容器的端口(宿主机会选择随机端口)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ports:</span><br><span class="line">	- &quot;3000&quot;</span><br><span class="line">    - &quot;80:80&quot;</span><br><span class="line">    - &quot;127.0.0.1:8000:8000&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="security-opt"><a href="#security-opt" class="headerlink" title="security_opt"></a>security_opt</h2><p>指定容器模板标签(label)机制的默认属性(用户，角色，类型，级别等)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">security_opt:</span><br><span class="line">	- label:user:USER</span><br><span class="line">    - label:role:ROLE</span><br></pre></td></tr></table></figure>
+<h2 id="ulimits"><a href="#ulimits" class="headerlink" title="ulimits"></a>ulimits</h2><p>指定容器的<code>ulimits</code>限制值</p>
+<p>最大进程数65535，文件句柄数20000(软限制，应用可随时更改，不可超过硬限制)和40000(系统硬限制，只能root用户提高)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ulimits:</span><br><span class="line">	nproc: 65535</span><br><span class="line">    nofile:</span><br><span class="line">    	soft: 20000</span><br><span class="line">        hard: 40000</span><br></pre></td></tr></table></figure></p>
+<h2 id="volumes"><a href="#volumes" class="headerlink" title="volumes"></a>volumes</h2><p>数据卷所挂载路径设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">volumes:</span><br><span class="line">	- /var/lib/mysql</span><br><span class="line">    - cache/:/tmp/cache</span><br><span class="line">    - ~/configs:/etc/configs/:ro</span><br></pre></td></tr></table></figure>
+<h2 id="volumes-driver"><a href="#volumes-driver" class="headerlink" title="volumes_driver"></a>volumes_driver</h2><p>数据卷的插件驱动</p>
+<p>用户可以先使用第三方驱动创建一个数据卷，然后使用名称来访问它</p>
+<p>通过<code>volumes_driver</code>来指定驱动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">volumes_driver: mydriver</span><br></pre></td></tr></table></figure>
+<h2 id="volumes-from"><a href="#volumes-from" class="headerlink" title="volumes_from"></a>volumes_from</h2><p>从另一个服务或容器挂载它的数据卷</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">volumes_from:</span><br><span class="line">	- service_name</span><br><span class="line">    - container_name</span><br></pre></td></tr></table></figure>
+<h2 id="其他指令"><a href="#其他指令" class="headerlink" title="其他指令"></a>其他指令</h2><p>指定使用<code>CPU</code>核0和核1，只是用50%资源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cpuset: 0,1</span><br><span class="line">cpu_shares: 50</span><br></pre></td></tr></table></figure>
+<p>指定服务容器启动后执行的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">entrypoint: /code/entrypoint.sh</span><br></pre></td></tr></table></figure>
+<p>指定容器中运行应用的用户名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user: nginx</span><br></pre></td></tr></table></figure>
+<p>指定容器中工作目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">working_dir: /code</span><br></pre></td></tr></table></figure>
+<p>指定容器中搜索域名，主机名，<code>mac</code>地址等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">domainname: your_website.com</span><br><span class="line">hostname: test</span><br><span class="line">mac_address: ...</span><br></pre></td></tr></table></figure>
+<p>指定容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipc: host</span><br></pre></td></tr></table></figure>
+<p>指定容器中内存和内存交换区限制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mem_limit: 1g</span><br><span class="line">memswap_limit: 1g</span><br></pre></td></tr></table></figure>
+<p>允许容器中运行一些特权命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">privileged: true</span><br></pre></td></tr></table></figure>
+<p>指定容器退出后的重启策略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restart: always</span><br></pre></td></tr></table></figure>
+<p>以只读模式挂载容器的<code>root</code>文件系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read_only: true</span><br></pre></td></tr></table></figure>
+<p>打开标准输入，可以接受外部输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stdin_open: true</span><br></pre></td></tr></table></figure>
+<p>模拟一个假的远程控制台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tty: true</span><br></pre></td></tr></table></figure>
+<h2 id="读取环境变量"><a href="#读取环境变量" class="headerlink" title="读取环境变量"></a>读取环境变量</h2><p><code>Compose</code>模板文件支持动态读取主机的系统环境变量</p>
+<p>从运行模板文件的环境中读取变量<code>${MONGO_VERSION}</code>的值，并将其写入执行的指令中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db:</span><br><span class="line">	image: &quot;mongo:$&#123;MONGO_VERSION&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" <i class="fa fa-tag"></i> Docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/18/Docker三剑客之Docker-Machine/" rel="next" title="Docker三剑客之Docker Machine">
+                <i class="fa fa-chevron-left"></i> Docker三剑客之Docker Machine
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/25/SQLMAP使用/" rel="prev" title="SQLMAP使用">
+                SQLMAP使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装与卸载"><span class="nav-number">2.</span> <span class="nav-text">安装与卸载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pip安装"><span class="nav-number">2.1.</span> <span class="nav-text">pip安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二进制包"><span class="nav-number">2.2.</span> <span class="nav-text">二进制包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器中运行"><span class="nav-number">2.3.</span> <span class="nav-text">容器中运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载"><span class="nav-number">2.4.</span> <span class="nav-text">卸载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制包安装方式"><span class="nav-number">2.4.1.</span> <span class="nav-text">二进制包安装方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pip安装方式"><span class="nav-number">2.4.2.</span> <span class="nav-text">pip安装方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Compose命令"><span class="nav-number">3.</span> <span class="nav-text">Compose命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#build"><span class="nav-number">3.1.</span> <span class="nav-text">build</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#help"><span class="nav-number">3.2.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kill"><span class="nav-number">3.3.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#logs"><span class="nav-number">3.4.</span> <span class="nav-text">logs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pause"><span class="nav-number">3.5.</span> <span class="nav-text">pause</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#port"><span class="nav-number">3.6.</span> <span class="nav-text">port</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ps"><span class="nav-number">3.7.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pull"><span class="nav-number">3.8.</span> <span class="nav-text">pull</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#restart"><span class="nav-number">3.9.</span> <span class="nav-text">restart</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rm"><span class="nav-number">3.10.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run"><span class="nav-number">3.11.</span> <span class="nav-text">run</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scale"><span class="nav-number">3.12.</span> <span class="nav-text">scale</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#start"><span class="nav-number">3.13.</span> <span class="nav-text">start</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stop"><span class="nav-number">3.14.</span> <span class="nav-text">stop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unpause"><span class="nav-number">3.15.</span> <span class="nav-text">unpause</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#up"><span class="nav-number">3.16.</span> <span class="nav-text">up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#migrate-to-labels"><span class="nav-number">3.17.</span> <span class="nav-text">migrate-to-labels</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#version"><span class="nav-number">3.18.</span> <span class="nav-text">version</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Compose环境变量"><span class="nav-number">4.</span> <span class="nav-text">Compose环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#COMPOSE-PROJECT-NAME"><span class="nav-number">4.1.</span> <span class="nav-text">COMPOSE_PROJECT_NAME</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COMPOSE-FILE"><span class="nav-number">4.2.</span> <span class="nav-text">COMPOSE_FILE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COMPOSE-API-VERSION"><span class="nav-number">4.3.</span> <span class="nav-text">COMPOSE_API_VERSION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOCKER-HOST"><span class="nav-number">4.4.</span> <span class="nav-text">DOCKER_HOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOCKER-TLS-VERIFY"><span class="nav-number">4.5.</span> <span class="nav-text">DOCKER_TLS_VERIFY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOCKER-CERT-PATH"><span class="nav-number">4.6.</span> <span class="nav-text">DOCKER_CERT_PATH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COMPOSE-HTTP-TIMEOUT"><span class="nav-number">4.7.</span> <span class="nav-text">COMPOSE_HTTP_TIMEOUT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Compose模板文件"><span class="nav-number">5.</span> <span class="nav-text">Compose模板文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#build-1"><span class="nav-number">5.1.</span> <span class="nav-text">build</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cap-add-cap-drop"><span class="nav-number">5.2.</span> <span class="nav-text">cap_add,cap_drop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#command"><span class="nav-number">5.3.</span> <span class="nav-text">command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cgroup-parent"><span class="nav-number">5.4.</span> <span class="nav-text">cgroup_parent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#container-name"><span class="nav-number">5.5.</span> <span class="nav-text">container_name</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#devices"><span class="nav-number">5.6.</span> <span class="nav-text">devices</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dns"><span class="nav-number">5.7.</span> <span class="nav-text">dns</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dns-search"><span class="nav-number">5.8.</span> <span class="nav-text">dns_search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dockerfile"><span class="nav-number">5.9.</span> <span class="nav-text">dockerfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#env-file"><span class="nav-number">5.10.</span> <span class="nav-text">env_file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#environment"><span class="nav-number">5.11.</span> <span class="nav-text">environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#expose"><span class="nav-number">5.12.</span> <span class="nav-text">expose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extends"><span class="nav-number">5.13.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#external-links"><span class="nav-number">5.14.</span> <span class="nav-text">external_links</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extra-hosts"><span class="nav-number">5.15.</span> <span class="nav-text">extra_hosts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#image"><span class="nav-number">5.16.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#labels"><span class="nav-number">5.17.</span> <span class="nav-text">labels</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#links"><span class="nav-number">5.18.</span> <span class="nav-text">links</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#log-driver"><span class="nav-number">5.19.</span> <span class="nav-text">log_driver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#log-opt"><span class="nav-number">5.20.</span> <span class="nav-text">log_opt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#net"><span class="nav-number">5.21.</span> <span class="nav-text">net</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pid"><span class="nav-number">5.22.</span> <span class="nav-text">pid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ports"><span class="nav-number">5.23.</span> <span class="nav-text">ports</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#security-opt"><span class="nav-number">5.24.</span> <span class="nav-text">security_opt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ulimits"><span class="nav-number">5.25.</span> <span class="nav-text">ulimits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volumes"><span class="nav-number">5.26.</span> <span class="nav-text">volumes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volumes-driver"><span class="nav-number">5.27.</span> <span class="nav-text">volumes_driver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volumes-from"><span class="nav-number">5.28.</span> <span class="nav-text">volumes_from</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他指令"><span class="nav-number">5.29.</span> <span class="nav-text">其他指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取环境变量"><span class="nav-number">5.30.</span> <span class="nav-text">读取环境变量</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

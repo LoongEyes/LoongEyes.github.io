@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="WEB工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Burp Suite">
+<meta property="og:url" content="http://yoursite.com/2019/05/17/urpSuite/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/1.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/2.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/3.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/4.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/5.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/6.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/7.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/8.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/10.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/13.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/11.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/12.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/9.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/14.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/15.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/16.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/17.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/18.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/19.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/20.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/21.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/22.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/23.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/24.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/25.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/26.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/31.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/32.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/33.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/34.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/35.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/36.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/37.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/38.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/27.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/39.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/40.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/28.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/29.png">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/30.png">
+<meta property="og:updated_time" content="2020-02-24T04:27:10.024Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Burp Suite">
+<meta name="twitter:image" content="http://yoursite.com/images/shentouceshi_tools/Burp%20Suite/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/17/urpSuite/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Burp Suite | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/urpSuite/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Burp Suite
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-17 20:23:00" itemprop="dateCreated datePublished" datetime="2019-05-17T20:23:00+08:00">2019-05-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-24 12:27:10" itemprop="dateModified" datetime="2020-02-24T12:27:10+08:00">2020-02-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>Burp Suite</code>是用于攻击<code>web</code>应用程序的集成平台，包含了许多工具.它包含了许多工具，并为这些工具设计了许多接口，以促进加快攻击应用程序的过程。所有的工具都共享一个能处理并显示<code>HTTP</code>消息，持久性，认证，代理，日志，警报的一个强大的可扩展的框架</p>
+<p><code>Burp Suite</code>是一个<code>Java</code>应用程序，并分发作为一个独立的<code>.jar</code>扩展的<code>Java</code>可执行文件</p>
+<p><code>Burp Suite</code>的模块几乎包含整个安全测试过程，从最初对目标程序的信息采集，到漏洞扫描及其利用，多模块间高融合的配合，使得安全测试的过程更加高效</p>
+<p>具体模块分类为：</p>
+<ol>
+<li><p><code>Dashboard</code>(仪表盘)——显示任务、实践日志等</p>
+</li>
+<li><p><code>Target</code>(目标)——显示目标目录结构的的一个功能</p>
+</li>
+<li><p><code>Proxy</code>(代理)——拦截<code>HTTP/HTTPS</code>的代理服务器，作为一个在浏览器和目标应用程序之间的中间人，允许你拦截，查看，修改在两个方向上的原始数据流</p>
+</li>
+<li><p><code>Intruder</code>(入侵)——一个定制的高度可配置的工具，对<code>web</code>应用程序进行自动化攻击，如：枚举标识符，收集有用的数据，以及使用<code>fuzzing</code>技术探测常规漏洞</p>
+</li>
+<li><p><code>Repeater</code>(中继器)——一个靠手动操作来触发单独的<code>HTTP</code>请求，并分析应用程序响应的工具</p>
+</li>
+<li><p><code>Sequencer</code>(会话)——用来分析那些不可预知的应用程序会话令牌和重要数据项的随机性的工具</p>
+</li>
+<li><p><code>Decoder</code>(解码器)——进行手动执行或对应用程序数据者智能解码编码的工具</p>
+</li>
+<li><p><code>Comparer</code>(对比)——通常是通过一些相关的请求和响应得到两项数据的一个可视化的“差异”</p>
+</li>
+<li><p><code>Extender</code>(扩展)——可以让你加载<code>Burp Suite</code>的扩展，使用你自己的或第三方代码来扩展<code>Burp Suit</code>的功能</p>
+</li>
+<li><p><code>Options</code>(设置)——包括<code>Project options</code>和<code>User options</code>，是对<code>Burp Suite</code>的一些设置</p>
+</li>
+</ol>
+<p><img src="/images/shentouceshi_tools/Burp Suite/1.png" alt="1.png"></p>
+<hr>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="配置java环境"><a href="#配置java环境" class="headerlink" title="配置java环境"></a>配置java环境</h2><p>版本<code>jdk</code>1.8</p>
+<h2 id="Burp-Suite破解版"><a href="#Burp-Suite破解版" class="headerlink" title="Burp Suite破解版"></a>Burp Suite破解版</h2><ol>
+<li><p>运行<code>burp-loader-keygen-jas502n.jar</code>程序，点击<code>run</code></p>
+<p> <img src="/images/shentouceshi_tools/Burp Suite/2.png" alt="2.png"></p>
+</li>
+<li><p>此时会自动打开文件<code>burpsuite_pro_v2.0.11beta.jar</code>，点击<code>I Accept</code></p>
+<p> <img src="/images/shentouceshi_tools/Burp Suite/3.png" alt="3.png"></p>
+</li>
+<li><p>输入<code>license</code></p>
+<p> <img src="/images/shentouceshi_tools/Burp Suite/4.png" alt="4.png"></p>
+</li>
+<li><p>选择<code>manual activation</code></p>
+<p> <img src="/images/shentouceshi_tools/Burp Suite/5.png" alt="5.png"></p>
+</li>
+<li><p>复制<code>Activation Request</code></p>
+<p> <img src="/images/shentouceshi_tools/Burp Suite/6.png" alt="6.png"></p>
+</li>
+<li><p>复制<code>Activation Response</code></p>
+<p> <img src="/images/shentouceshi_tools/Burp Suite/7.png" alt="7.png"></p>
+</li>
+<li><p>成功，可以使用</p>
+<p> <img src="/images/shentouceshi_tools/Burp Suite/8.png" alt="8.png">    </p>
+</li>
+</ol>
+<hr>
+<h1 id="Burp-Suite使用"><a href="#Burp-Suite使用" class="headerlink" title="Burp Suite使用"></a>Burp Suite使用</h1><h2 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理"></a>配置代理</h2><p><img src="/images/shentouceshi_tools/Burp Suite/10.png" alt="10.png"></p>
+<hr>
+<h2 id="两个小问题"><a href="#两个小问题" class="headerlink" title="两个小问题"></a>两个小问题</h2><h3 id="修改软件字体大小，HTTP数据包字体大小，数据包编码格式"><a href="#修改软件字体大小，HTTP数据包字体大小，数据包编码格式" class="headerlink" title="修改软件字体大小，HTTP数据包字体大小，数据包编码格式"></a>修改软件字体大小，HTTP数据包字体大小，数据包编码格式</h3><p><img src="/images/shentouceshi_tools/Burp Suite/13.png" alt="13.png"></p>
+<p>重启<code>Burp Suite</code>生效</p>
+<h3 id="导入证书"><a href="#导入证书" class="headerlink" title="导入证书"></a>导入证书</h3><p>为使<code>Burp Suite</code>可以拦截<code>HTTPS</code>流量，需导入<code>Burp Suite</code>证书</p>
+<ol>
+<li><p>配置好<code>Burp Suite</code>浏览器代理</p>
+</li>
+<li><p>访问<code>http://burp</code>，下载证书</p>
+<p> <img src="/images/shentouceshi_tools/Burp Suite/11.png" alt="11.png"></p>
+</li>
+<li><p>将证书导入浏览器</p>
+<p> <img src="/images/shentouceshi_tools/Burp Suite/12.png" alt="12.png"></p>
+</li>
+</ol>
+<hr>
+<h2 id="Scan-扫描"><a href="#Scan-扫描" class="headerlink" title="Scan(扫描)"></a>Scan(扫描)</h2><p>在<code>Dashboard</code>中可以创建扫描任务，进行扫描</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/9.png" alt="9.png"></p>
+<p><code>Event log</code>中显示事件列表</p>
+<p><code>Issue activity</code>显示任务中发现的漏洞</p>
+<hr>
+<h2 id="Target-目标"><a href="#Target-目标" class="headerlink" title="Target(目标)"></a>Target(目标)</h2><h3 id="site-map"><a href="#site-map" class="headerlink" title="site map"></a>site map</h3><p>站点地图</p>
+<p>用于显示通过爬站、扫描或代理获取到的目标站点</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/14.png" alt="14.png"></p>
+<h3 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h3><p>用于在<code>site map</code>中包含或排除<code>URL</code>地址</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/15.png" alt="15.png"></p>
+<h3 id="Issue-definitions"><a href="#Issue-definitions" class="headerlink" title="Issue definitions"></a>Issue definitions</h3><p>包含所有可由<code>Burp</code>扫描检测到的问题的定义</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/16.png" alt="16.png"></p>
+<hr>
+<h2 id="Proxy-代理"><a href="#Proxy-代理" class="headerlink" title="Proxy(代理)"></a>Proxy(代理)</h2><p><code>Burp Suite</code>中最重要、最常用的模块</p>
+<p>代理模块作为<code>Burp Suite</code>的核心功能，拦截<code>HTTP/HTTPS</code>的代理服务器，作为一个在浏览器和目标应用程序之间的中间人，允许拦截，查看，修改在两个方向上的原始数据流</p>
+<h3 id="Intercept"><a href="#Intercept" class="headerlink" title="Intercept"></a>Intercept</h3><p>用于显示修改<code>HTTP</code>请求及响应内容，并可以将拦截的<code>HTTP</code>请求快速发送至其他模块处理</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/17.png" alt="17.png"></p>
+<ol>
+<li><p><code>Forward</code>：用于发送数据。当把所需要的HTTP请求编辑编辑完成后，手动发送数据</p>
+</li>
+<li><p><code>Drop</code>：将该请求包丢弃</p>
+</li>
+<li><p><code>Intercept is off/on</code>:拦截开关。当处于<code>off</code>状态下时，<code>Burp Suite</code>会自动转发所拦截的所有请求；当处于<code>on</code>状态下时，<code>Burp Suite</code>会将所有拦截所有符合规则的请求并将它显示出来等待编辑或其他操作</p>
+</li>
+<li><p><code>Action</code>:功能菜单，与右键菜单内容相同，在这可以将请求包发送到其他的模块或者对数据包进行其他的操作</p>
+</li>
+</ol>
+<h3 id="http-history"><a href="#http-history" class="headerlink" title="http history"></a>http history</h3><p><img src="/images/shentouceshi_tools/Burp Suite/18.png" alt="18.png"></p>
+<p>这里将记录经过代理服务器访问的所有请求，即使当<code>Intercept is off</code>时也会记录</p>
+<p>记录包括：</p>
+<ol>
+<li><p><code>#</code>(请求索引号)</p>
+</li>
+<li><p><code>Host</code>(主机)</p>
+</li>
+<li><p><code>Method</code>(请求方式)</p>
+</li>
+<li><p><code>URL</code>(请求地址)</p>
+</li>
+<li><p><code>Params</code>(参数)</p>
+</li>
+<li><p><code>Edited</code>(编辑)</p>
+</li>
+<li><p><code>Status</code>(状态)</p>
+</li>
+<li><p><code>Length</code>(响应字节长度)</p>
+</li>
+<li><p><code>MIME type</code>(响应的<code>MLME</code>类型)</p>
+</li>
+<li><p><code>Extension</code>(地址文件扩展名)</p>
+</li>
+<li><p><code>Title</code>(页面标题)</p>
+</li>
+<li><p><code>Comment</code>(注释)</p>
+</li>
+<li><p><code>SSL</code></p>
+</li>
+<li><p><code>IP</code>(目标<code>IP</code>地址)</p>
+</li>
+<li><p><code>Cookies</code></p>
+</li>
+<li><p><code>Time</code>(发出请求时间)</p>
+</li>
+<li><p><code>Listener port</code>(监听端口)</p>
+</li>
+</ol>
+<p>下方窗口可以显示请求的详细内容（<code>Request</code>）及其响应内容（<code>Response</code>），通过右键菜单也可以将请求发送至其他模块。双击某个请求即可打开详情,通过<code>Previous/next</code>可以快速切换请求，并且<code>Action</code>也可以将请求发送至其他模块</p>
+<h3 id="WebSockets-history"><a href="#WebSockets-history" class="headerlink" title="WebSockets history"></a>WebSockets history</h3><p>用于记录<code>WebSockets</code>的数据包，是<code>HTML5</code>中最强大的通信功能，定义了一个全双工的通信信道，只需<code>Web</code>上的一个<code>Socket</code>即可进行通信，能减少不必要的网络流量并降低网络延迟</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/19.png" alt="19.png"></p>
+<h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><p>主要用于设置代理监听、请求和响应，拦截反应，匹配和替换，<code>ssl</code>等</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/20.png" alt="20.png"></p>
+<ol>
+<li><p><code>Proxy Listeners</code>：代理侦听器是侦听从您的浏览器传入的连接本地HTTP代理服务器。它允许您监视和拦截所有的请求和响应，并且位于<code>BurpProxy</code>的工作流的心脏。默认情况下，<code>Burp</code>默认监听127.0.0.1地址，端口8080。要使用这个监听器，你需要配置你的浏览器使用127.0.0.1:8080作为代理服务器。此默认监听器是必需的测试几乎所有的基于浏览器的所有<code>Web</code>应用程序。</p>
+</li>
+<li><p><code>Intercept Client Requests</code>：配置拦截规则，设置拦截的匹配规则。当<code>Intercept request based on the following rules</code>为选中状态时，<code>burpsuite</code>会配置列表中的规则进行拦截或转发。注意：如果该复选框未选中，那么即使<code>Intercept is on</code>也无法截取数据包。</p>
+<p> 规则可以通过<code>Enabled</code>列中的复选框选择开启或关闭。</p>
+<p> 规则可以是域名，<code>IP</code>地址，协议，<code>HTTP</code>方法，<code>URL</code>，文件扩展名，参数，<code>cookie</code>，头/主体内容，状态代码，<code>MIME</code>类型，<code>HTML</code>页面标题等</p>
+<p> 规则按顺序处理，并且使用布尔运算符<code>AND</code>和<code>OR</code>组合</p>
+</li>
+<li><p><code>Intercept Server Responses</code>：功能类似于配置拦截规则，设置拦截的匹配规则，不过这个选项是基于服务端拦截，当选小的<code>Intercept request based on the following rules</code>为选中状态时，<code>burpsuite</code>会匹配响应包</p>
+</li>
+<li><p><code>Intercept WebSockets Messages</code>：用于设置拦截<code>WebSockets</code>数据</p>
+</li>
+<li><p><code>Response Modification</code>：用于执行响应的自动修改。可以使用这些选项来自动修改<code>HTML</code>应用程序响应中匹配的内容</p>
+</li>
+<li><p><code>Match and replace</code>：用于自动替换请求和响应通过代理的部分。对于每一个<code>HTTP</code>消息，已启用的匹配和替换规则依次执行，选择适用的规则进行匹配执行。规则可以分别被定义为请求和响应，对于消息头和身体，并且还特别为只请求的第一行。每个规则可以指定一个文字字符串或正则表达式来匹配，和一个字符串来替换它。对于邮件头，如果匹配条件，整个头和替换字符串匹配留空，然后头被删除。如果指定一个空的匹配表达式，然后替换字符串将被添加为一个新的头。有可协助常见任务的各种缺省规则，这些都是默认为禁用。 匹配多行区域。您可以使用标准的正则表达式语法来匹配邮件正文的多行区域</p>
+</li>
+<li><p><code>SSL Pass Through</code>：指定<code>WEB</code>服务器在经过<code>burpsuite</code>连接时使用<code>SSL</code>连接</p>
+</li>
+<li><p><code>Miscellaneous</code>：其他选项，这些选项控制着<code>Burp</code>代理的行为的一些具体细节</p>
+</li>
+</ol>
+<hr>
+<h2 id="Intruder-暴力破解"><a href="#Intruder-暴力破解" class="headerlink" title="Intruder(暴力破解)"></a>Intruder(暴力破解)</h2><p><code>intruder</code>是一个强大的工具，用于自动对<code>Web</code>应用程序自定义的攻击。它可以用来自动执行您的测试过程中可能出现的所有类型的任务。例如目录爆破，注入，密码爆破等</p>
+<h3 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h3><p>用于配置目标服务器进行攻击的详细信息。</p>
+<ol>
+<li><p><code>Host</code>：这是目标服务器的IP地址或主机名</p>
+</li>
+<li><p><code>Port</code>：这是目标服务的端口号</p>
+</li>
+<li><p><code>Use HTTPS</code>：这指定的<code>SSL</code>是否应该被使用</p>
+</li>
+</ol>
+<p>在<code>BurpSuite</code>任何请求处，右键菜单选择<code>Send to intruder</code>选项，将自动发送到此模块下并自动填充以上内容</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/21.png" alt="21.png"></p>
+<h3 id="Positions"><a href="#Positions" class="headerlink" title="Positions"></a>Positions</h3><p>设置<code>Payloads</code>的插入点以及攻击类型（攻击模式）</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/22.png" alt="22.png"></p>
+<ol>
+<li><p><code>ttack type</code>：攻击模式设置</p>
+<ol>
+<li><p><code>sniper</code>：对变量依次进行破解。多个标记依次进行</p>
+</li>
+<li><p><code>battering ram</code>：对变量同时进行破解。多个标记同时进行</p>
+</li>
+<li><p><code>pitchfork</code>：每一个变量标记对应一个字典，取每个字典的对应项</p>
+</li>
+<li><p><code>cluster bomb</code>：每个变量对应一个字典，并且进行交集破解，尝试各种组合。适用于用户名+密码的破解</p>
+</li>
+</ol>
+</li>
+<li><p><code>add</code>：插入一个新的标记</p>
+</li>
+<li><p><code>clear</code>：清除所有的标记</p>
+</li>
+<li><p><code>auto</code>：自动设置标记，一个请求发到该模块后<code>burpsuite</code>会自动标记<code>cookie</code>、<code>URL</code>等参数</p>
+</li>
+<li><p><code>refresh</code>：如果必要的话，这可以要求模板编辑器的语法高亮</p>
+</li>
+</ol>
+<h3 id="Payloads"><a href="#Payloads" class="headerlink" title="Payloads"></a>Payloads</h3><p>设置<code>payload</code>，配置字典</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/23.png" alt="23.png"></p>
+<ol>
+<li><p><code>Payload Sets</code>：<code>Payload</code>数量类型设置</p>
+<ol>
+<li><p><code>Payload Set</code>：指定需要配置的变量</p>
+</li>
+<li><p><code>Payload type</code>：<code>Payload</code>类型</p>
+<ol>
+<li><p><code>Simple list</code>：简单字典</p>
+</li>
+<li><p><code>Runtime file</code>：运行文件</p>
+</li>
+<li><p><code>Custom iterator</code>：自定义迭代器</p>
+</li>
+<li><p><code>Character substitution</code>：字符替换</p>
+</li>
+<li><p><code>Recursive grep</code>：递归查找</p>
+</li>
+<li><p><code>lllegal unicode</code>：非法字符</p>
+</li>
+<li><p><code>Character blocks</code>：字符块</p>
+</li>
+<li><p><code>Numbers</code>：数字组合</p>
+</li>
+<li><p><code>Dates</code>：日期组合</p>
+</li>
+<li><p><code>Brute forcer</code>：暴力破解</p>
+</li>
+<li><p><code>Null payloads</code>：空<code>payload</code></p>
+</li>
+<li><p><code>Username generator</code>：用户名生成</p>
+</li>
+<li><p><code>copy other payload</code>：复制其他<code>payload</code></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p><code>Payload Opetions\[Payload type\]</code>：该选项会根据上个选项中<code>Payload type</code>的设置而改变</p>
+</li>
+<li><p><code>Payload Processing</code>：对生成的<code>Payload</code>进行编码、加密、截取等操作</p>
+</li>
+<li><p><code>Payload Encoding</code>：可以配置哪些有效载荷中的字符应该是<code>URL</code>编码的<code>HTTP</code>请求中的安全传输。任何已配置的<code>URL</code>编码最后应用，任何有效载荷处理规则执行之后。这是推荐使用此设置进行最终<code>URL</code>编码，而不是一个有效载荷处理规则，因为可以用来有效载荷的<code>grep</code>选项来检查响应为呼应有效载荷的最终<code>URL</code>编码应用之前</p>
+</li>
+</ol>
+<h3 id="Opetions"><a href="#Opetions" class="headerlink" title="Opetions"></a>Opetions</h3><p>此选项卡包含了<code>request headers</code>，<code>request engine</code>，<code>attack results</code>，<code>grep match</code>，<code>grep_extrack</code>，<code>grep payloads</code>和<code>redirections</code>。可以发动攻击之前，在主要<code>Intruder</code>的<code>UI</code>上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改    </p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/24.png" alt="24.png"></p>
+<hr>
+<h2 id="Repeater（上传绕过）"><a href="#Repeater（上传绕过）" class="headerlink" title="Repeater（上传绕过）"></a>Repeater（上传绕过）</h2><p><code>Repeater</code>是用于手动操作和发送个别<code>HTTP</code>请求，并分析应用程序的响应一个简单的工具。可以发送一个内部请求从<code>Burp</code>任何地方到<code>Repeater</code>，修改请求并且发送</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/25.png" alt="25.png"></p>
+<p>可以从<code>Proxy history</code>、<code>site map</code>、<code>Scanner</code>等模块中右键菜单<code>send to repeater</code>发送到<code>repeater</code>，对页面数据进行修改发送</p>
+<p>点击<code>go</code>，发送请求，右边响应请求</p>
+<p>可以通过<code>&lt;</code>和<code>&gt;</code>来返回上一次和下一个操作</p>
+<p>单击<code>x</code>可以删除当前测试请求页面</p>
+<p>底部的功能用于搜索条件，可以用正则表达式，底部右边显示匹配结果数</p>
+<p>该模块的设置在菜单栏<code>Repeater</code>中:</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/26.png" alt="26.png"></p>
+<ol>
+<li><p><code>Update Content-length</code>：更新头部长度</p>
+</li>
+<li><p><code>Unpack gzip/deflate</code>：该选项控制<code>Burp</code>是否自动解压缩在收到的答复的<code>gzip</code>和<code>deflate</code>压缩内容</p>
+</li>
+<li><p><code>Follow redirections</code>：在遇到重定向时<code>Burp</code>该怎么处理</p>
+</li>
+<li><p><code>Never</code>：不会跟随任何重定向</p>
+</li>
+<li><p><code>On-site only</code>：中继器将只跟随重定向到使用相同的主机，端口和协议的<code>URL</code></p>
+</li>
+<li><p><code>In-scope Only</code>：中继器将只跟随重定向到的目标范围之内的<code>URL</code></p>
+</li>
+<li><p><code>Always</code>：中继器将跟随重定向到任何<code>URL</code>任何责任。</p>
+</li>
+<li><p><code>Process cookies in redirections</code>：当被重定向后是否提交<code>cookie</code></p>
+</li>
+<li><p><code>View</code>：设置响应/请求版块的布局方式</p>
+</li>
+<li><p><code>Action</code>：形同于右键菜单</p>
+</li>
+</ol>
+<hr>
+<h2 id="Sequencer-定序器"><a href="#Sequencer-定序器" class="headerlink" title="Sequencer(定序器)"></a>Sequencer(定序器)</h2><p>用于分析数据项的一个样本中的随机性质量</p>
+<p>可以用它来测试应用程序的<code>session tokens</code>或其他重要数据项是否是不可预测的</p>
+<h3 id="Live-capture"><a href="#Live-capture" class="headerlink" title="Live capture"></a>Live capture</h3><p><img src="/images/shentouceshi_tools/Burp Suite/31.png" alt="31.png"></p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/32.png" alt="32.png"></p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/33.png" alt="33.png"></p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/34.png" alt="34.png"></p>
+<h3 id="Manual-load"><a href="#Manual-load" class="headerlink" title="Manual load"></a>Manual load</h3><p><img src="/images/shentouceshi_tools/Burp Suite/35.png" alt="35.png"></p>
+<h3 id="Analysis-options"><a href="#Analysis-options" class="headerlink" title="Analysis options"></a>Analysis options</h3><p><img src="/images/shentouceshi_tools/Burp Suite/36.png" alt="36.png"></p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/37.png" alt="37.png"></p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/38.png" alt="38.png"></p>
+<hr>
+<h2 id="Decoder-编码模块"><a href="#Decoder-编码模块" class="headerlink" title="Decoder(编码模块)"></a>Decoder(编码模块)</h2><p>将原始数据转换成各种编码和哈希表的简单工具。它能够智能地识别多种编码格式采用启发式技术</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/27.png" alt="27.png"></p>
+<ol>
+<li><p><code>Decode as...</code>：解码</p>
+</li>
+<li><p><code>Encode as...</code>：编码</p>
+<p> 支持的编码解码类型：</p>
+<ol>
+<li><p><code>url</code></p>
+</li>
+<li><p><code>HTML</code></p>
+</li>
+<li><p><code>Base64</code></p>
+</li>
+<li><p><code>ASCII</code>码 </p>
+</li>
+<li><p><code>Hex</code>(十六进制)</p>
+</li>
+<li><p><code>octal</code>(八进制) </p>
+</li>
+<li><p><code>binary</code>(二进制) </p>
+</li>
+<li><p><code>GZIP</code></p>
+</li>
+</ol>
+</li>
+<li><p><code>hash</code>：支持的<code>hash</code>算法：</p>
+<ol>
+<li><p><code>SHA-384</code></p>
+</li>
+<li><p><code>SHA-224</code> </p>
+</li>
+<li><p><code>SHA-256</code></p>
+</li>
+<li><p><code>MD2</code> </p>
+</li>
+<li><p><code>SHA</code> </p>
+</li>
+<li><p><code>SHA-512</code> </p>
+</li>
+<li><p><code>MD5</code></p>
+</li>
+</ol>
+</li>
+<li><p><code>Smart decoding</code>：智能解码，<code>burpsuite</code>会递归查询自己所支持的格式尝试解码。通过有请求的任意模块的右键菜单<code>send to Decoder</code>或输入数据选择相应的数据格式即可进行解码编码操作，或直接点击<code>Smart decoding</code>进行智能解码</p>
+</li>
+</ol>
+<hr>
+<h2 id="Comparer-比较器"><a href="#Comparer-比较器" class="headerlink" title="Comparer(比较器)"></a>Comparer(比较器)</h2><p><code>Comparer</code>是一个简单的工具，用于以图形化方式在任意两项数据之间进行比较</p>
+<p>常见用途如下：</p>
+<ol>
+<li><p>在查找用户名枚举条件时，您可以使用有效和无效的用户名比较对失败登录的响应，以查找响应中的细微差异</p>
+</li>
+<li><p>当入侵者攻击导致一些非常大的响应，其长度不同于基本响应时，您可以比较这些响应以快速查看差异所在</p>
+</li>
+<li><p>在比较不同类型用户生成的站点地图或代理历史记录条目时，您可以比较相似请求对，以查看产生不同应用程序行为的差异所在</p>
+</li>
+<li><p>当使用布尔条件注入和其他类似测试测试<code>SQL</code>盲注入错误时，您可以比较两个响应，以查看注入不同条件是否导致响应的相关差异</p>
+</li>
+</ol>
+<p>将数据加载到<code>Comparer</code>中的方式：</p>
+<ol>
+<li><p>直接从剪贴板粘贴它</p>
+</li>
+<li><p>从文件加载它</p>
+</li>
+<li><p>在<code>Burp</code>中的任何位置选择数据，然后从上下文菜单中选择<code>Send to Comparer</code></p>
+</li>
+</ol>
+<p><img src="/images/shentouceshi_tools/Burp Suite/39.png" alt="39.png"></p>
+<p>结果会通过高亮显示不同：</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/40.png" alt="40.png"></p>
+<hr>
+<h2 id="Extender-扩充器"><a href="#Extender-扩充器" class="headerlink" title="Extender(扩充器)"></a>Extender(扩充器)</h2><p><code>BurpSuite</code>给出了两种插件安装方法，一种是在线安装：通过<code>BApp Store</code>安装插件；第二种是本地安装：添加本地环境中的插件</p>
+<h3 id="在BApp-Store中安装插件"><a href="#在BApp-Store中安装插件" class="headerlink" title="在BApp Store中安装插件"></a>在BApp Store中安装插件</h3><p><code>Extender</code>选项卡，在<code>BApp Store</code>中可以下载安装很多插件</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/28.png" alt="28.png"></p>
+<h3 id="安装自定义插件"><a href="#安装自定义插件" class="headerlink" title="安装自定义插件"></a>安装自定义插件</h3><p><code>Extender</code>选项卡中的<code>Extensions</code>中点击<code>add</code>按钮，会弹出根据插件类型选择插件的目录</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/29.png" alt="29.png"></p>
+<hr>
+<h2 id="过滤器的使用"><a href="#过滤器的使用" class="headerlink" title="过滤器的使用"></a>过滤器的使用</h2><p>在<code>burpsuite</code>中在多个模块都可以看到<code>Fitter</code>过滤器的身影，它们使用方法相同</p>
+<p><img src="/images/shentouceshi_tools/Burp Suite/30.png" alt="30.png"></p>
+<ol>
+<li><p><code>Fitter by Request type</code>：按照请求类型筛选</p>
+<ol>
+<li><p><code>Show only in-scope items</code>：只显示范围内的</p>
+</li>
+<li><p><code>Show only requested items</code>：只显示请求的</p>
+</li>
+<li><p><code>Show only parameterized requests</code>：只显示带有参数的请求</p>
+</li>
+<li><p><code>Hide not-found items</code>：隐藏未找到的</p>
+</li>
+</ol>
+</li>
+<li><p><code>Fitter by search term</code>：通过关键字筛选</p>
+<ol>
+<li><p><code>regex</code>：通过正则表达式匹配</p>
+</li>
+<li><p><code>case sensitive</code>：是否区分大小写</p>
+</li>
+<li><p><code>negative search</code>：消极搜索，选择后将筛选出不包含该关键字的请求</p>
+</li>
+</ol>
+</li>
+<li><p><code>Fitter by MIME type</code>：通过文件类型筛选</p>
+<ol>
+<li><p><code>HTML</code>：是否显示<code>HTML</code>文件请求</p>
+</li>
+<li><p><code>Script</code>：是否显示脚本文件请求</p>
+</li>
+<li><p><code>XML</code>：是否显示标记文件请求</p>
+</li>
+<li><p><code>CSS</code>：是否显示层叠样式文件请求</p>
+</li>
+<li><p><code>Other text</code>：是否显示其他类型文本请求</p>
+</li>
+<li><p><code>images</code>：是否显示图片请求</p>
+</li>
+<li><p><code>Flash</code>：是否显示<code>Flash</code>动画请求</p>
+</li>
+<li><p><code>Other binary</code>：是否显示其他二进制文件</p>
+</li>
+</ol>
+</li>
+<li><p><code>Fitter by file extension</code>：通过文件后缀筛选</p>
+<ol>
+<li><p><code>Show only</code>：只显示自定义的后缀请求</p>
+</li>
+<li><p><code>Hide</code>：隐藏自定义的后缀请求</p>
+</li>
+</ol>
+</li>
+<li><p><code>Fitter by status code</code>：根据<code>HTTP</code>响应状态码筛选</p>
+<ol>
+<li><p><code>2xx</code>：显示成功的请求</p>
+</li>
+<li><p><code>3xx</code>：显示重定向的请求</p>
+</li>
+<li><p><code>4xx</code>：显示请求错误的请求</p>
+</li>
+<li><p><code>5xx</code>：显示服务器错误的请求</p>
+</li>
+</ol>
+</li>
+<li><p><code>Fitter by annotation</code>:显示仅显示用户提供的注释或亮点的项目</p>
+<ol>
+<li><p><code>Show only commented items</code>：只显示注释项目</p>
+</li>
+<li><p><code>Show only highlighted items</code>：只显示突出显示的项目</p>
+<p> <code>-Folders</code>：是否显示文件夹</p>
+</li>
+<li><p><code>hide empty folders</code>：隐藏空文件夹</p>
+</li>
+</ol>
+</li>
+</ol>
+<hr>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WEB工具/" <i class="fa fa-tag"></i> WEB工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/15/洞扫描/" rel="next" title="漏洞扫描">
+                <i class="fa fa-chevron-left"></i> 漏洞扫描
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/19/VWA1-10之SQL盲注/" rel="prev" title="DVWA1.10之SQL盲注">
+                DVWA1.10之SQL盲注 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置java环境"><span class="nav-number">2.1.</span> <span class="nav-text">配置java环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Burp-Suite破解版"><span class="nav-number">2.2.</span> <span class="nav-text">Burp Suite破解版</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Burp-Suite使用"><span class="nav-number">3.</span> <span class="nav-text">Burp Suite使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置代理"><span class="nav-number">3.1.</span> <span class="nav-text">配置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两个小问题"><span class="nav-number">3.2.</span> <span class="nav-text">两个小问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改软件字体大小，HTTP数据包字体大小，数据包编码格式"><span class="nav-number">3.2.1.</span> <span class="nav-text">修改软件字体大小，HTTP数据包字体大小，数据包编码格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入证书"><span class="nav-number">3.2.2.</span> <span class="nav-text">导入证书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scan-扫描"><span class="nav-number">3.3.</span> <span class="nav-text">Scan(扫描)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Target-目标"><span class="nav-number">3.4.</span> <span class="nav-text">Target(目标)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#site-map"><span class="nav-number">3.4.1.</span> <span class="nav-text">site map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scope"><span class="nav-number">3.4.2.</span> <span class="nav-text">scope</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Issue-definitions"><span class="nav-number">3.4.3.</span> <span class="nav-text">Issue definitions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy-代理"><span class="nav-number">3.5.</span> <span class="nav-text">Proxy(代理)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Intercept"><span class="nav-number">3.5.1.</span> <span class="nav-text">Intercept</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-history"><span class="nav-number">3.5.2.</span> <span class="nav-text">http history</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSockets-history"><span class="nav-number">3.5.3.</span> <span class="nav-text">WebSockets history</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Options"><span class="nav-number">3.5.4.</span> <span class="nav-text">Options</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intruder-暴力破解"><span class="nav-number">3.6.</span> <span class="nav-text">Intruder(暴力破解)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Target"><span class="nav-number">3.6.1.</span> <span class="nav-text">Target</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Positions"><span class="nav-number">3.6.2.</span> <span class="nav-text">Positions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Payloads"><span class="nav-number">3.6.3.</span> <span class="nav-text">Payloads</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Opetions"><span class="nav-number">3.6.4.</span> <span class="nav-text">Opetions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repeater（上传绕过）"><span class="nav-number">3.7.</span> <span class="nav-text">Repeater（上传绕过）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequencer-定序器"><span class="nav-number">3.8.</span> <span class="nav-text">Sequencer(定序器)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Live-capture"><span class="nav-number">3.8.1.</span> <span class="nav-text">Live capture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Manual-load"><span class="nav-number">3.8.2.</span> <span class="nav-text">Manual load</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Analysis-options"><span class="nav-number">3.8.3.</span> <span class="nav-text">Analysis options</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decoder-编码模块"><span class="nav-number">3.9.</span> <span class="nav-text">Decoder(编码模块)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparer-比较器"><span class="nav-number">3.10.</span> <span class="nav-text">Comparer(比较器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extender-扩充器"><span class="nav-number">3.11.</span> <span class="nav-text">Extender(扩充器)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在BApp-Store中安装插件"><span class="nav-number">3.11.1.</span> <span class="nav-text">在BApp Store中安装插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装自定义插件"><span class="nav-number">3.11.2.</span> <span class="nav-text">安装自定义插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤器的使用"><span class="nav-number">3.12.</span> <span class="nav-text">过滤器的使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

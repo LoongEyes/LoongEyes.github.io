@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="8086汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言(王爽)-标志寄存器">
+<meta property="og:url" content="http://yoursite.com/2019/04/08/汇编语言-王爽-标志寄存器/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/11/1.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/11/2.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/11/4.png">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/11/5.png">
+<meta property="og:updated_time" content="2019-05-01T08:11:14.220Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言(王爽)-标志寄存器">
+<meta name="twitter:image" content="http://yoursite.com/images/huibianyuyanwangshuang/11/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/08/汇编语言-王爽-标志寄存器/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>汇编语言(王爽)-标志寄存器 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/08/汇编语言-王爽-标志寄存器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汇编语言(王爽)-标志寄存器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-08 10:57:00" itemprop="dateCreated datePublished" datetime="2019-04-08T10:57:00+08:00">2019-04-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 16:11:14" itemprop="dateModified" datetime="2019-05-01T16:11:14+08:00">2019-05-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/汇编与逆向/" itemprop="url" rel="index"><span itemprop="name">汇编与逆向</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<p>特殊的寄存器(不同的处理机，个数和结构可能不同)</p>
+<p>作用：</p>
+<ol>
+<li><p>用来存储相关指令的某些执行结果</p>
+</li>
+<li><p>用来为<code>CPU</code>执行相关指令提供行为依据</p>
+</li>
+<li><p>用来控制<code>CPU</code>的相关工作方式</p>
+</li>
+</ol>
+<p><code>8086CPU</code>的标志寄存器<code>(flag)</code>有16位，其中存储的信息通常被称为程序状态字<code>(PSW)</code></p>
+<p><img src="/images/huibianyuyanwangshuang/11/1.png" alt="1.png"></p>
+<p><code>flag</code>的1、3、5、12、13、14、15位在<code>8086CPU</code>中没有使用，不具有任何含义</p>
+<p><code>flag</code>的0、2、4、6、7、8、9、10、11位都具有特殊的含义</p>
+<hr>
+<h1 id="ZF标志"><a href="#ZF标志" class="headerlink" title="ZF标志"></a>ZF标志</h1><p><code>flag</code>的第6位</p>
+<p>零标志位</p>
+<p>用于记录相关指令执行后，其结果是否为0。</p>
+<p>若结果为0，则<code>ZF</code>=1</p>
+<p>若结果不为0，则<code>ZF</code>=0</p>
+<p>在<code>8086CPU</code>指令集中，有的指令的执行是影响标志寄存器的，如<code>add、sub、mul、div、inc、or、and</code>等运算指令(逻辑或算数运算)；有的指令的执行对标志寄存器没有影响，如<code>mov、push、pop</code>等传送指令</p>
+<hr>
+<h1 id="PF指令"><a href="#PF指令" class="headerlink" title="PF指令"></a>PF指令</h1><p><code>flag</code>的第2位</p>
+<p>奇偶标志位</p>
+<p>用于记录相关指令执行后，其结果的所有<code>bit</code>位中1的个数是否为偶数</p>
+<p>若1的个数为偶数，则<code>PF</code>=1</p>
+<p>若1的个数为奇数，则<code>PF</code>=0</p>
+<hr>
+<h1 id="SF标志"><a href="#SF标志" class="headerlink" title="SF标志"></a>SF标志</h1><p><code>flag</code>的第7位</p>
+<p>符号标志位</p>
+<p>用于记录相关指令执行后，其结果是否为负</p>
+<p>若结果为负，<code>SF</code>=1</p>
+<p>若结果不为负，<code>SF</code>=0</p>
+<p>计算机中通常用补码来表示有符号数据</p>
+<p>计算机中的一个数据可以看作是有符号数，也可以看作是无符号数</p>
+<p><code>SF</code>标志，就是<code>CPU</code>对有符号数运算结果的一种记录，它记录数据的正负。当数据当作有符号数来运算的时候，可通过<code>SF</code>来得知结果的正负；当数据当作无符号数来运算的时候，<code>SF</code>的值则无意义，虽然相关的指令影响了它的值</p>
+<hr>
+<h1 id="CF标志"><a href="#CF标志" class="headerlink" title="CF标志"></a>CF标志</h1><p><code>flag</code>的第0位</p>
+<p>进位标志位</p>
+<p>在进行<strong>无符号数</strong>运算时，用于记录运算结果的最高有效位向更高位的进位值，或从更高位的借位值</p>
+<p>对于位数为<code>N</code>的无符号数来说，其对应的二进制信息的最高位，即第<code>N-1</code>位，就是它的最高有效位，而假想存在的第<code>N</code>位，就是相对于最高有效位的更高位</p>
+<p><img src="/images/huibianyuyanwangshuang/11/2.png" alt="2.png"></p>
+<p><code>8086CPU</code>使用<code>flag</code>的<code>CF</code>位来记录进位值与借位值</p>
+<hr>
+<h1 id="OF标志"><a href="#OF标志" class="headerlink" title="OF标志"></a>OF标志</h1><h2 id="溢出"><a href="#溢出" class="headerlink" title="溢出"></a>溢出</h2><p>当进行有符号数运算的时候，如果结果超过了机器所能表示的范围称为溢出</p>
+<p>比如指令运算的结果用8位寄存器或内存单元来存放，那机器所能表示的范围就是-128–127，16位有符号数据，机器所能表示的范围是-32768–32767</p>
+<p>由于在进行有符号数运算时，可能发生溢出而造成结果的错误，则<code>CPU</code>需要对指令执行后是否产生溢出进行记录</p>
+<h2 id="OF标志-1"><a href="#OF标志-1" class="headerlink" title="OF标志"></a>OF标志</h2><p><code>flag</code>的第11位</p>
+<p>溢出标志位</p>
+<p>用于记录<strong>有符号数</strong>运算的结果是否发生了溢出</p>
+<p>若发生溢出，<code>OF</code>=1</p>
+<p>若未发生溢出，<code>OF</code>=0</p>
+<p><strong><code>CF</code>是对无符号数运算有意义的标志位</strong></p>
+<p><strong><code>OF</code>是对有符号数运算有意义的标志位</strong></p>
+<p><strong><code>CF</code>与<code>OF</code>之间无任何关系</strong></p>
+<hr>
+<h1 id="adc指令"><a href="#adc指令" class="headerlink" title="adc指令"></a>adc指令</h1><p>带进位的加法指令，利用<code>CF</code>位上记录的进位值</p>
+<p>指令格式：<code>adc</code> 操作对象1，操作对象2</p>
+<p>功能：操作对象1=操作对象1+操作对象2+<code>CF</code></p>
+<p>例：</p>
+<ol>
+<li> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2</span><br><span class="line">mov bx,1</span><br><span class="line">sub bx,ax		;(bx)=(bx)-(ax)=1-2=-1 CF=1</span><br><span class="line">adc ax,1		;(ax)=(ax)+1+CF=2+1+1=4</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,98H</span><br><span class="line">add al,al		;(al)=(al)+(al)=98H+98H=130H al中最高位1丢弃,CF=1</span><br><span class="line">adc al,3		;(al)=(al)+3+CF=30H+3+1=34H</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在执行<code>abc</code>指令的时候加上<code>CF</code>的值的含义，是由<code>abc</code>指令前面的指令决定的。如果<code>CF</code>的值是被<code>sub</code>指令设置的，那么<code>CF</code>的含义为借位值；如果<code>CF</code>的值是被<code>add</code>指令设置的，那么<code>CF</code>的含义为进位值</p>
+<p>加法分为两步进行：</p>
+<ol>
+<li><p>低位相加</p>
+</li>
+<li><p>高位相加再加上低位相加产生的进位值</p>
+</li>
+</ol>
+<p><code>CPU</code>提供<code>adc</code>指令的目的，就是来进行加法的第二步运算的</p>
+<p><code>adc</code>指令和<code>add</code>指令相配合就可以对更大的数据进行加法运算</p>
+<h2 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h2><p>计算<code>1EF0001000H+2010001EF0H</code>，结果放在<code>ax</code>(高16位)和<code>bx</code>(次低16位)，<code>cx</code>(低16位)中</p>
+<p>计算分3步：</p>
+<ol>
+<li><p>先将低16位相加，完成后，<code>CF</code>中记录本次相加的进位值</p>
+</li>
+<li><p>再将次高16位和<code>CF</code>(来自低16位的进位值)相加，完成后，<code>CF</code>中记录本次相加的进位值</p>
+</li>
+<li><p>最后高16位和<code>CF</code>(来自次高16位的进位值)相加，完成后，<code>CF</code>中记录本次相加的进位值</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax,001EH</span><br><span class="line">mov bx,0F000H		;不可直接使用字母开头的立即数</span><br><span class="line">mov cx,1000H</span><br><span class="line">add cx,1EF0H</span><br><span class="line">adc bx,1000H</span><br><span class="line">adc ax,0020H</span><br></pre></td></tr></table></figure>
+<h2 id="编写子程序"><a href="#编写子程序" class="headerlink" title="编写子程序"></a>编写子程序</h2><p>对两个128位数据进行相加</p>
+<p>名称：<code>add128</code></p>
+<p>功能：两个128位数据进行相加</p>
+<p>参数：<code>ds:si</code>指向存储第一个数的内存单元，128位的数据，需要8个字单元存储，由低地址单元到高地址单元一次存放128位数据由低到高的各个字，运算结果存储在第一个数的存储空间中。<code>ds:di</code>指向存储第二个数的内存空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">add128:	push ax</span><br><span class="line">	push cx</span><br><span class="line">	push si</span><br><span class="line">	push di</span><br><span class="line">    </span><br><span class="line">	sub ax,ax</span><br><span class="line">    </span><br><span class="line">	mov cx,8</span><br><span class="line">s:	mov ax,[si]</span><br><span class="line">	adc ax,[di]</span><br><span class="line">	mov [si],ax</span><br><span class="line">	inc si</span><br><span class="line">	inc si</span><br><span class="line">	inc di</span><br><span class="line">	inc di</span><br><span class="line">	loop s</span><br><span class="line">    </span><br><span class="line">	pop di</span><br><span class="line">	pop si</span><br><span class="line">	pop cx</span><br><span class="line">	pop ax</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="sbb指令"><a href="#sbb指令" class="headerlink" title="sbb指令"></a>sbb指令</h1><p>带借位的减法指令，利用<code>CF</code>位上记录的借位值</p>
+<p>指令格式：<code>sbb</code> 操作对象1，操作对象2</p>
+<p>功能：操作对象1=操作对象1-操作对象2-<code>CF</code></p>
+<p><code>sbb</code>指令执行后，将对<code>CF</code>进行设置</p>
+<p>利用<code>sub</code>指令和<code>sbb</code>指令可以对任意大的数据进行减法运算</p>
+<hr>
+<h1 id="cmp指令"><a href="#cmp指令" class="headerlink" title="cmp指令"></a>cmp指令</h1><p>比较指令</p>
+<p>功能相当于减法指令，只是不保存结果</p>
+<p>指令格式：<code>cmp</code> 操作对象1，操作对象2</p>
+<p>功能：计算操作对象1-操作对象2，但并不保存结果，仅仅根据计算结果对标志寄存器进行设置</p>
+<h2 id="无符号数比较"><a href="#无符号数比较" class="headerlink" title="无符号数比较"></a>无符号数比较</h2><p><code>cmp ax,bx</code></p>
+<p>若<code>(ax)</code>=<code>(bx)</code>，则<code>(ax)</code>-<code>(bx)</code>=0，所以：<code>ZF=1</code>(零标志位)</p>
+<p>若<code>(ax)</code>&ne;<code>(bx)</code>，则<code>(ax)</code>-<code>(bx)</code>&ne;0，所以：<code>ZF=0</code>(零标志位)</p>
+<p>若<code>(ax)</code>&lt;<code>(bx)</code>，则<code>(ax)</code>-<code>(bx)</code>将产生借位，所以：<code>CF=1</code>(进位标志位)</p>
+<p>若<code>(ax)</code>&ge;<code>(bx)</code>，则<code>(ax)</code>-<code>(bx)</code>不必借位，所以：<code>CF=0</code>(进位标志位)</p>
+<p>若<code>(ax)</code>&gt;<code>(bx)</code>，则<code>(ax)</code>-<code>(bx)</code>既不必借位，结果又不为0，所以：<code>CF=0</code>(进位标志位)且<code>ZF=0</code>(零标志位)</p>
+<p>若<code>(ax)</code>&le;<code>(bx)</code>，则<code>(ax)</code>-<code>(bx)</code>既可能借位，结果可能为0，所以：<code>CF=1</code>(进位标志位)且<code>ZF=1</code>(零标志位)</p>
+<h2 id="有符号数比较"><a href="#有符号数比较" class="headerlink" title="有符号数比较"></a>有符号数比较</h2><p><code>cmp ah,bh</code></p>
+<p>若<code>(ah)</code>=<code>(bh)</code>，则<code>(ah)</code>-<code>(bh)</code>=0，所以：<code>ZF=1</code>(零标志位)</p>
+<p>若<code>(ah)</code>&ne;<code>(bh)</code>，则<code>(ah)</code>-<code>(bh)</code>&ne;0，所以：<code>ZF=0</code>(零标志位)</p>
+<p>对于判断其他情况，并不能通过单纯的考查<code>SF</code>(符号标志位)来判断，必须结合查看<code>OF</code>(溢出标志位)来进行判断</p>
+<p>若<code>SF=1,OF=0</code>，则<code>(ah)</code>&lt;<code>(bh)</code></p>
+<p>若<code>SF=1,OF=1</code>，则<code>(ah)</code>&gt;<code>(bh)</code></p>
+<p>若<code>SF=0,OF=1</code>，则<code>(ah)</code>&lt;<code>(bh)</code></p>
+<p>若<code>SF=0,OF=0</code>，则<code>(ah)</code>&ge;<code>(bh)</code></p>
+<hr>
+<h1 id="检测比较结果的条件转移指令"><a href="#检测比较结果的条件转移指令" class="headerlink" title="检测比较结果的条件转移指令"></a>检测比较结果的条件转移指令</h1><p>所有条件转移指令的转移位移都是-128–127</p>
+<p>因<code>cmp</code>指令可以同时进行无符号数和有符号数的比较，则根据<code>cmp</code>指令的比较结果进行转移的指令也分为根据无符号数的比较结果进行转移的条件转移指令(检测<code>zf</code>、<code>cf</code>的值)和根据有符号数的比较结果进行转移的条件转移指令(检测<code>sf</code>、<code>of</code>、<code>zf</code>的值)</p>
+<p>根据无符号数的比较结果进行转移的条件转移指令：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">指令</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">检测的相关标志位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">je</td>
+<td style="text-align:left">等于则转移</td>
+<td style="text-align:left">ZF=1</td>
+</tr>
+<tr>
+<td style="text-align:left">jne</td>
+<td style="text-align:left">不等于则转移</td>
+<td style="text-align:left">ZF=0</td>
+</tr>
+<tr>
+<td style="text-align:left">jb</td>
+<td style="text-align:left">低于则转移</td>
+<td style="text-align:left">CF=1</td>
+</tr>
+<tr>
+<td style="text-align:left">jnb</td>
+<td style="text-align:left">不低于则转移</td>
+<td style="text-align:left">CF=0</td>
+</tr>
+<tr>
+<td style="text-align:left">ja</td>
+<td style="text-align:left">高于则转移</td>
+<td style="text-align:left">CF=0且ZF=0</td>
+</tr>
+<tr>
+<td style="text-align:left">jna</td>
+<td style="text-align:left">不高于则转移</td>
+<td style="text-align:left">CF=1或ZF=1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>条件转移指令实质是根据所检测的相关标志位来进行条件判断是否发生转移的</strong>，与<code>cmp</code>指令结合使用时才会体现“等于则转移”等含义</p>
+<h2 id="编程-1"><a href="#编程-1" class="headerlink" title="编程"></a>编程</h2><p><code>data</code>段中的8个字节如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data segment</span><br><span class="line">	db 8,11,8,1,8,5,63,38</span><br><span class="line">data ends</span><br></pre></td></tr></table></figure>
+<h3 id="统计data段中数值为8的字节的个数，结果保存在ax中"><a href="#统计data段中数值为8的字节的个数，结果保存在ax中" class="headerlink" title="统计data段中数值为8的字节的个数，结果保存在ax中"></a>统计data段中数值为8的字节的个数，结果保存在ax中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mov ax,data</span><br><span class="line">mov ds,ax</span><br><span class="line">mov bx,0		;ds:bx指向第一个字节</span><br><span class="line">mov ax,0		;重置ax，用于存放个数</span><br><span class="line">mov cx,8</span><br><span class="line">s:	cmp byte ptr [bx],8		;将内存单元内容与8进行比较</span><br><span class="line">	jne next			;不相等转向next</span><br><span class="line">	inc ax			;相等则ax加1</span><br><span class="line">next:	inc bx			;转向下一个内存单元</span><br><span class="line">	loop s</span><br></pre></td></tr></table></figure>
+<h3 id="统计data段中数值大于8的字节个数，ax保存统计结果"><a href="#统计data段中数值大于8的字节个数，ax保存统计结果" class="headerlink" title="统计data段中数值大于8的字节个数，ax保存统计结果"></a>统计data段中数值大于8的字节个数，ax保存统计结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mov ax,data</span><br><span class="line">mov ds,ax</span><br><span class="line">mov ax,0</span><br><span class="line">mov bx,0</span><br><span class="line">mov cx,8</span><br><span class="line">s:	cmp byte ptr [bx],8		;和8进行比较</span><br><span class="line">	jna next			;小于8则转到next</span><br><span class="line">	inc ax				;大于8则ax加1</span><br><span class="line">next:	inc bx</span><br><span class="line">	loop s</span><br></pre></td></tr></table></figure>
+<h3 id="统计data段中数值小于8的字节的个数，ax保存统计结果"><a href="#统计data段中数值小于8的字节的个数，ax保存统计结果" class="headerlink" title="统计data段中数值小于8的字节的个数，ax保存统计结果"></a>统计data段中数值小于8的字节的个数，ax保存统计结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mov ax,data</span><br><span class="line">mov ds,ax</span><br><span class="line">mov ax,0</span><br><span class="line">mov bx,0</span><br><span class="line">mov cx,8</span><br><span class="line">s:	cmp byte ptr [bx],8		;与8进行比较</span><br><span class="line">	jnb next			;大于8转向next</span><br><span class="line">	inc ax				;小于8则ax加1</span><br><span class="line">next:	inc bx</span><br><span class="line">	loop s</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="DF标志和串传送指令"><a href="#DF标志和串传送指令" class="headerlink" title="DF标志和串传送指令"></a>DF标志和串传送指令</h1><h2 id="DF标志"><a href="#DF标志" class="headerlink" title="DF标志"></a>DF标志</h2><p>标志寄存器第10位</p>
+<p>方向标志位</p>
+<p>作用：在串处理指令中，控制每次操作后<code>SI</code>、<code>DI</code>的增减</p>
+<p><code>DF=0</code>：每次操作后<code>SI</code>、<code>DI</code>递增</p>
+<p><code>DF=1</code>：每次操作后<code>SI</code>、<code>DI</code>递减</p>
+<h2 id="串传送指令"><a href="#串传送指令" class="headerlink" title="串传送指令"></a>串传送指令</h2><h3 id="movsb"><a href="#movsb" class="headerlink" title="movsb"></a>movsb</h3><p>格式：<code>movsb</code></p>
+<p>功能：执行<code>movsb</code>指令相当于进行：</p>
+<ol>
+<li><p><code>((es)*16+(di))=((ds)*16+(si))</code></p>
+</li>
+<li><p>若<code>DF=0</code>则：<code>(si)=(si)+1</code>，<code>(di)=(di)+1</code></p>
+<p> 若<code>DF=1</code>则：<code>(si)=(si)-1</code>，<code>(di)=(di)-1</code></p>
+</li>
+</ol>
+<p>将<code>ds:si</code>指向的内存单元中的<strong>字节</strong>送入<code>es:di</code>中，然后根据标志寄存器<code>DF</code>位的值，将<code>si</code>和<code>di</code>递增或递减</p>
+<h3 id="movsw"><a href="#movsw" class="headerlink" title="movsw"></a>movsw</h3><p>功能：将<code>ds:si</code>指向的内存单元中的<strong>字</strong>送入<code>es:di</code>中，然后根据标志寄存器<code>DF</code>位的值，将<code>si</code>和<code>di</code>递增2或递减2</p>
+<p>一般来说，<code>movsb</code>和<code>movsw</code>都与<code>rep</code>配合使用，格式：<code>rep movsb</code></p>
+<p><code>rep movsb</code>的功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s:	movsb</span><br><span class="line">	loop s</span><br></pre></td></tr></table></figure>
+<p><code>rep</code>的作用是：根据<code>CX</code>的值，重复执行后面的串传送指令。由于每执行一次<code>movsb</code>指令<code>si</code>和<code>di</code>都会递增或递减指向后一个单元或前一个单元，则<code>rep movsb</code>就可以循环实现<code>(cx)</code>个字符的传送</p>
+<p>类似的，<code>rep movsw</code>的功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s:	movsw</span><br></pre></td></tr></table></figure>
+<p>标志寄存器的<code>DF</code>位决定串传送指令执行后，<code>si</code>和<code>di</code>改变的方向，<code>CPU</code>提供相应的指令来对<code>DF</code>位进行设置</p>
+<ol>
+<li><p><code>cld</code>指令：将标志寄存器的<code>DF</code>位置0</p>
+</li>
+<li><p><code>std</code>指令：将标志寄存器的<code>DF</code>位置1</p>
+</li>
+</ol>
+<h2 id="编程-2"><a href="#编程-2" class="headerlink" title="编程"></a>编程</h2><h3 id="将data段中的第一个字符串复制到其后面的空间中"><a href="#将data段中的第一个字符串复制到其后面的空间中" class="headerlink" title="将data段中的第一个字符串复制到其后面的空间中"></a>将data段中的第一个字符串复制到其后面的空间中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data segment</span><br><span class="line">	db &apos;Welcome to masm!&apos;</span><br><span class="line">	db 16 dup (0)</span><br><span class="line">data ends</span><br></pre></td></tr></table></figure>
+<p>使用串传送指令需提供的必要信息</p>
+<ol>
+<li><p>传送的原始位置：<code>data:0</code></p>
+</li>
+<li><p>传送的目的位置：<code>data:0010</code></p>
+</li>
+<li><p>传送的长度：16</p>
+</li>
+<li><p>传送的方向：正向传送(向后)，<code>DF=0</code>(<code>si</code>和<code>di</code>递增)</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mov ax,data</span><br><span class="line">mov ds,ax</span><br><span class="line">mov si,0		;ds:si指向data:0</span><br><span class="line">mov es,ax</span><br><span class="line">mov di,16		;es:di指向data:0010</span><br><span class="line">mov cx,16		;rep循环16次</span><br><span class="line">cld			;设置DF=0，正向传送(向后)</span><br><span class="line">rep movsb</span><br></pre></td></tr></table></figure>
+<h3 id="将F000H段最后16个字符用串传送指令复制到data段中"><a href="#将F000H段最后16个字符用串传送指令复制到data段中" class="headerlink" title="将F000H段最后16个字符用串传送指令复制到data段中"></a>将F000H段最后16个字符用串传送指令复制到data段中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data segment</span><br><span class="line">	db 16 dup (0)</span><br><span class="line">data ends</span><br></pre></td></tr></table></figure>
+<p>将<code>ds:si</code>指向<code>F000H</code>段的最后一个单元，将<code>es:di</code>指向<code>data</code>段中的最后一个单元，逆向传送16个字节</p>
+<ol>
+<li><p>传送的起始位置：<code>F000:FFFF</code></p>
+</li>
+<li><p>传送的目的位置：<code>data:000F</code></p>
+</li>
+<li><p>传送的长度：16</p>
+</li>
+<li><p>传送的方向：逆向传送(向前)，<code>DF=1</code>(<code>si</code>和<code>di</code>递减)</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0f000h</span><br><span class="line">mov ds,ax</span><br><span class="line">mov si,0ffffh		;ds:si指向f000:ffff</span><br><span class="line">mov ax,data</span><br><span class="line">mov es,ax</span><br><span class="line">mov di,15		;es:di指向data:000F</span><br><span class="line">mov cx,16		;rep循环16次</span><br><span class="line">std			;设置DF=1，逆向传送(向前)</span><br><span class="line">rep movsb</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="pushf和popf"><a href="#pushf和popf" class="headerlink" title="pushf和popf"></a>pushf和popf</h1><p><code>pushf</code>功能是将标志寄存器的值压栈</p>
+<p><code>popf</code>功能是从栈中弹出数据，送入标志寄存器</p>
+<p>为直接访问标志寄存器提供了一种方法</p>
+<hr>
+<h1 id="标志寄存器在Debug中的表示"><a href="#标志寄存器在Debug中的表示" class="headerlink" title="标志寄存器在Debug中的表示"></a>标志寄存器在Debug中的表示</h1><p>在<code>Debug</code>中，标志寄存器是按照有意义的各个标志位单独表示的</p>
+<p><img src="/images/huibianyuyanwangshuang/11/4.png" alt="3.png"></p>
+<p><img src="/images/huibianyuyanwangshuang/11/5.png" alt="4.png"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标志位</th>
+<th style="text-align:left">值为1的标记</th>
+<th style="text-align:left">值为0的标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">OF</td>
+<td style="text-align:left">OV</td>
+<td style="text-align:left">NV</td>
+</tr>
+<tr>
+<td style="text-align:left">SF</td>
+<td style="text-align:left">NG</td>
+<td style="text-align:left">PL</td>
+</tr>
+<tr>
+<td style="text-align:left">ZF</td>
+<td style="text-align:left">ZR</td>
+<td style="text-align:left">NZ</td>
+</tr>
+<tr>
+<td style="text-align:left">PF</td>
+<td style="text-align:left">PE</td>
+<td style="text-align:left">PO</td>
+</tr>
+<tr>
+<td style="text-align:left">CF</td>
+<td style="text-align:left">CY</td>
+<td style="text-align:left">NC</td>
+</tr>
+<tr>
+<td style="text-align:left">DF</td>
+<td style="text-align:left">DN</td>
+<td style="text-align:left">UP</td>
+</tr>
+</tbody>
+</table>
+<hr>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/8086汇编语言/" <i class="fa fa-tag"></i> 8086汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/01/汇编语言-王爽-CALL和RET指令/" rel="next" title="汇编语言(王爽)-CALL和RET指令">
+                <i class="fa fa-chevron-left"></i> 汇编语言(王爽)-CALL和RET指令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/16/win10-ubuntu双系统彻底删除ubuntu/" rel="prev" title="win10+Ubuntu双系统彻底删除Ubuntu">
+                win10+Ubuntu双系统彻底删除Ubuntu <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ZF标志"><span class="nav-number">1.</span> <span class="nav-text">ZF标志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PF指令"><span class="nav-number">2.</span> <span class="nav-text">PF指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SF标志"><span class="nav-number">3.</span> <span class="nav-text">SF标志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CF标志"><span class="nav-number">4.</span> <span class="nav-text">CF标志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OF标志"><span class="nav-number">5.</span> <span class="nav-text">OF标志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#溢出"><span class="nav-number">5.1.</span> <span class="nav-text">溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OF标志-1"><span class="nav-number">5.2.</span> <span class="nav-text">OF标志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#adc指令"><span class="nav-number">6.</span> <span class="nav-text">adc指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程"><span class="nav-number">6.1.</span> <span class="nav-text">编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写子程序"><span class="nav-number">6.2.</span> <span class="nav-text">编写子程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sbb指令"><span class="nav-number">7.</span> <span class="nav-text">sbb指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cmp指令"><span class="nav-number">8.</span> <span class="nav-text">cmp指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无符号数比较"><span class="nav-number">8.1.</span> <span class="nav-text">无符号数比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有符号数比较"><span class="nav-number">8.2.</span> <span class="nav-text">有符号数比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测比较结果的条件转移指令"><span class="nav-number">9.</span> <span class="nav-text">检测比较结果的条件转移指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程-1"><span class="nav-number">9.1.</span> <span class="nav-text">编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#统计data段中数值为8的字节的个数，结果保存在ax中"><span class="nav-number">9.1.1.</span> <span class="nav-text">统计data段中数值为8的字节的个数，结果保存在ax中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计data段中数值大于8的字节个数，ax保存统计结果"><span class="nav-number">9.1.2.</span> <span class="nav-text">统计data段中数值大于8的字节个数，ax保存统计结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计data段中数值小于8的字节的个数，ax保存统计结果"><span class="nav-number">9.1.3.</span> <span class="nav-text">统计data段中数值小于8的字节的个数，ax保存统计结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DF标志和串传送指令"><span class="nav-number">10.</span> <span class="nav-text">DF标志和串传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DF标志"><span class="nav-number">10.1.</span> <span class="nav-text">DF标志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#串传送指令"><span class="nav-number">10.2.</span> <span class="nav-text">串传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#movsb"><span class="nav-number">10.2.1.</span> <span class="nav-text">movsb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#movsw"><span class="nav-number">10.2.2.</span> <span class="nav-text">movsw</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程-2"><span class="nav-number">10.3.</span> <span class="nav-text">编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将data段中的第一个字符串复制到其后面的空间中"><span class="nav-number">10.3.1.</span> <span class="nav-text">将data段中的第一个字符串复制到其后面的空间中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将F000H段最后16个字符用串传送指令复制到data段中"><span class="nav-number">10.3.2.</span> <span class="nav-text">将F000H段最后16个字符用串传送指令复制到data段中</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pushf和popf"><span class="nav-number">11.</span> <span class="nav-text">pushf和popf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标志寄存器在Debug中的表示"><span class="nav-number">12.</span> <span class="nav-text">标志寄存器在Debug中的表示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

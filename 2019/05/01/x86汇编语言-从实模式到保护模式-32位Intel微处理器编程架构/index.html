@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="x86汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="x86汇编语言-从实模式到保护模式-32位Intel微处理器编程架构">
+<meta property="og:url" content="http://yoursite.com/2019/05/01/x86汇编语言-从实模式到保护模式-32位Intel微处理器编程架构/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/1.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/2.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/3.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/4.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/5.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/6.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/7.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/8.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/9.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/10.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/11.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/12.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/13.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/14.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/15.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/16.png">
+<meta property="og:image" content="http://yoursite.com/images/x86huibianyuyan/10/17.png">
+<meta property="og:updated_time" content="2019-05-01T19:52:40.556Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="x86汇编语言-从实模式到保护模式-32位Intel微处理器编程架构">
+<meta name="twitter:image" content="http://yoursite.com/images/x86huibianyuyan/10/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/01/x86汇编语言-从实模式到保护模式-32位Intel微处理器编程架构/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>x86汇编语言-从实模式到保护模式-32位Intel微处理器编程架构 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/01/x86汇编语言-从实模式到保护模式-32位Intel微处理器编程架构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">x86汇编语言-从实模式到保护模式-32位Intel微处理器编程架构
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-01 15:57:00" itemprop="dateCreated datePublished" datetime="2019-05-01T15:57:00+08:00">2019-05-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-02 03:52:40" itemprop="dateModified" datetime="2019-05-02T03:52:40+08:00">2019-05-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/汇编与逆向/" itemprop="url" rel="index"><span itemprop="name">汇编与逆向</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<p>所谓处理器架构，或者处理其编程架构，是指一整套的硬件结构，以及与之相适应的工作状态</p>
+<p><code>Intel</code>32微处理器架构简称<code>IA-32</code>,以8086处理器为基础发展而来</p>
+<p>8086有20根地址线，可寻址<code>1MB</code>内存。内部寄存器16位，无法在程序中访问整个<code>1MB</code>内存，所以，它是第一款支持内存分段模型的处理器。8086处理器只有一种工作模式，即实模式</p>
+<p>32位的处理器有32根地址线，数据线的数量是32根或64根。它可以访问2^32，即<code>4GB</code>的内存，每次可读写连续的4字节或8字节，称为双字或4字访问</p>
+<h1 id="IA-32架构的基本执行环境"><a href="#IA-32架构的基本执行环境" class="headerlink" title="IA-32架构的基本执行环境"></a>IA-32架构的基本执行环境</h1><h2 id="寄存器的扩展"><a href="#寄存器的扩展" class="headerlink" title="寄存器的扩展"></a>寄存器的扩展</h2><p>在16位处理器内，有8个通用寄存器<code>AX</code>、<code>BX</code>、<code>CX</code>、<code>DX</code>、<code>SI</code>、<code>DI</code>、<code>BP</code>和<code>SP</code>，其中，前4个还可以拆分成两个独立的8位寄存器使用，即<code>AH</code>、<code>AL</code>、<code>BH</code>、<code>BL</code>、<code>CH</code>、<code>CL</code>、<code>DH</code>和<code>DL</code></p>
+<p>32位处理器在16位处理器的基础上，扩展了这8个通用寄存器的长度</p>
+<p><img src="/images/x86huibianyuyan/10/1.png" alt="1.png"></p>
+<p><img src="/images/x86huibianyuyan/10/2.png" alt="2.png"></p>
+<p><img src="/images/x86huibianyuyan/10/3.png" alt="3.png"></p>
+<p><img src="/images/x86huibianyuyan/10/4.png" alt="4.png"></p>
+<p><img src="/images/x86huibianyuyan/10/5.png" alt="5.png"></p>
+<p><img src="/images/x86huibianyuyan/10/6.png" alt="6.png"></p>
+<p><img src="/images/x86huibianyuyan/10/7.png" alt="7.png"></p>
+<p><img src="/images/x86huibianyuyan/10/8.png" alt="8.png"></p>
+<p>为了在汇编语言中使用经过扩展的寄存器，需要给它们重命名，分别为<code>EAX</code>、<code>EBX</code>、<code>ECX</code>、<code>EDX</code>、<code>ESI</code>、<code>EDI</code>、<code>ESP</code>和<code>EBP</code>。可以在程序中使用这些寄存器，即使在实模式中</p>
+<p><strong>指令的源操作数与目的操作数必须具有相同的长度，个别特殊用途的指令除外</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov eax,f0000005h</span><br><span class="line">mov ecx,eax</span><br><span class="line">add edx,ecx</span><br><span class="line">mov eax,f5h		;EAX&lt;-000000f5h</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov eax,cx		;错误的汇编指令，位数不符</span><br></pre></td></tr></table></figure>
+<p>32位通用寄存器的高16位是不可独立使用的，但低16位保持同16位处理器的兼容性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ah,02h</span><br><span class="line">mov al,03h</span><br><span class="line">add ax,si</span><br></pre></td></tr></table></figure>
+<p>32位处理器有自己的32位工作模式。在32位保护模式下，可以完全、充分的发挥处理器的性能，同时，处理器可以使用它全部的32根地址线，能够访问<code>4GB</code>的内存</p>
+<p>32位处理器扩展了<code>IP</code>，使之达到32位，即<code>EIP</code></p>
+<p>当它工作在16位模式下，使用16位<code>IP</code>；工作在32位模式下，使用全部的32位<code>EIP</code></p>
+<p><img src="/images/x86huibianyuyan/10/9.png" alt="9.png"></p>
+<p>16位处理器中，标志寄存器<code>FLAGS</code>为16位，在32位处理器中，扩展到32位，低16位和原先保持一致</p>
+<p><img src="/images/x86huibianyuyan/10/10.png" alt="10.png"></p>
+<p>在32位模式下，对内存的访问从理论上来说不再需要分段，因其有32根地址线，可以自由访问<code>4GB</code>内存的任何一个内存位置。但<code>IA-32</code>架构的处理器是基于分段模型的，则<strong>32位处理器依然需要以段为单位访问内存，只分一个段，段的基地址为<code>00000000h</code>，段的长度为<code>4GB</code>。在这种情况下，可视为不分段，即平坦模型</strong></p>
+<p>在16位模式下，一个程序可以自由的访问不属于它的内存位置，甚至可以对那些地方的内容进行修改，这是不安全的。在32位模式下，处理器要求在加载程序时，先定义该程序所拥有的段，然后允许使用这些段。定义段时，除了基地址外，还附加了段界限、特权级别、类型的等属性。当程序访问一个段时，处理器将用固件实施各种检查工作，以防止对内存的违规访问</p>
+<p>在32位模式下。传统的段寄存器，如<code>CS</code>、<code>SS</code>、<code>DS</code>、<code>ES</code>，保存的不再是16位段地址，而是段的选择子，即用于选择所要访问的段，它的新名称为<strong>段选择器</strong>。除段选择器外，每个段寄存器还包括一个64位的不可见部分，称为<strong>描述符高速缓存器</strong>，里面有段的基地址和各种访问属性，这部分内容不可见，由处理器自动使用</p>
+<p><img src="/images/x86huibianyuyan/10/11.png" alt="11.png"></p>
+<p>32位处理器增加了两个额外的段寄存器<code>FS</code>和<code>GS</code></p>
+<h2 id="基本的工作模式"><a href="#基本的工作模式" class="headerlink" title="基本的工作模式"></a>基本的工作模式</h2><p>8086具有16位的段寄存器、指令寄存器和通用寄存器，称为16位的处理器。尽管8086可以访问<code>1MB</code>的内存，但只能分段进行，而且由于只使用16位的段内偏移量，故段的长度最大只能是<code>64KB</code></p>
+<p>80286处理器段寄存器16位，而且只能使用16位的偏移地址，在实模式下只能使用<code>64KB</code>的段；尽管它有24根地址线，理论上可以访问2^24，即<code>16MB</code>的内存，但依然只能分为多个段来进行</p>
+<p>80286处理器第一次提出了保护模式的概念，在保护模式下，段寄存器中保存的不再是段地址，而是段选择子，真正的段地址位于段寄存器的描述符高速缓存中，是24位的。因此，运行在保护模式下的80286处理器可以访问全部的<code>16MB</code>内存</p>
+<p>80386处理器的寄存器是32位的，而且拥有32根地址线，可以访问2^32，即<code>4GB</code>的内存</p>
+<p>在保护模式下，所有的32位处理器都可以访问多达<code>4GB</code>的内存，它们可以工作在分段模式下，每个段的基地址为32位的，段内偏移为32位的，因此，段的长度不受限制。32位保护模式兼容80286的16位保护模式</p>
+<p>32位处理器提供虚拟8086模式(<code>V86</code>模式)，在这种模式下，<code>IA-32</code>处理器被模拟成多个8086处理器并行工作。<code>V86</code>模式是保护模式的一种，可以在保护模式下执行多个8086程序</p>
+<h2 id="线性地址"><a href="#线性地址" class="headerlink" title="线性地址"></a>线性地址</h2><p><code>IA-32</code>处理器编程时，访问内存时，需提供段地址和偏移量</p>
+<p>段的管理由处理器的段部件负责进行，段部件将段地址和偏移地址相加，得到访问内存的地址，一般来说，段部件产生的地址就是物理地址</p>
+<p><code>IA-32</code>处理器在多任务环境下，对程序内存进行分配和回收，会产生内存碎片，<code>IA-32</code>处理器支持分页功能，分页功能将物理内存空间划分为逻辑上的页。页的大小是固定的，一般为<code>4KB</code>，通过分页，可以简化内存管理</p>
+<p>当分页功能开启时，段部件产生的地址就不再是物理地址了，而是线性地址，线性地址要经过页部件转换后，才是物理地址</p>
+<p><img src="/images/x86huibianyuyan/10/12.png" alt="12.png"></p>
+<p>线性地址的概念用来描述任务的地址空间。<code>IA-32</code>处理器的每个任务都拥有<code>4GB</code>的虚拟内存空间，是一段长<code>4GB</code>的平坦空间，叫做线性地址空间。相应的，由段部件产生的地址，就对应着线性地址空间上的每一个点，就是线性地址</p>
+<hr>
+<h1 id="现代处理器的结构和特点"><a href="#现代处理器的结构和特点" class="headerlink" title="现代处理器的结构和特点"></a>现代处理器的结构和特点</h1><h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p>8086时代，处理器就存在指令预取队列。当指令执行时，若总线空闲(无访问内存的操作)，就可以在指令执行的同时预取指令并提前译码，可以大大加快程序的执行速度</p>
+<p>为提高处理器的执行效率和速度，可以将一条指令的执行过程分解为若干个细小的步骤，并分配给相应的单元来完成。各个单元的执行是独立的、并行的。如此一来，各个步骤的执行在时间上就会重叠起来，这种执行指令的方法就是<strong>流水线技术</strong></p>
+<p>3级流水线：</p>
+<p><img src="/images/x86huibianyuyan/10/13.png" alt="13.png"></p>
+<p>一般来说，流水线的效率受执行时间最长的那一级的限制<br>，要缩短各级的执行时间，就必须让每一级的任务减少，与此同时，需要将一些复杂的任务再进行分解</p>
+<h2 id="高速缓存"><a href="#高速缓存" class="headerlink" title="高速缓存"></a>高速缓存</h2><p>因为需要等待内存和硬盘这样的慢速设备，处理器便无法全速运行。为缓解这一矛盾，高速缓存应运而生。高速缓存是处理器和内存之间的一个静态存储器，容量较小，但速度可以与处理器匹配</p>
+<p>程序运行时的<strong>局部性原理</strong>：程序常常访问最近刚刚访问过的指令和数据，或者与它们相邻的指令和数据</p>
+<p>利用程序运行时的局部性原理，可以把处理器正在访问和即将访问的指令和数据块从内存调入高速缓存中。当处理器要访问内存时，首先检索高速缓存，若要访问的内容已在高速缓存中，那么可以用极快的速度直接从高速缓存中取得，称为<strong>命中</strong>；否则，称为<strong>不中</strong>。在不中的情况下，处理器在取得需要的内容之前必须重新装载高速缓存，而不只是直接到内存中取得所需要的内容</p>
+<p>高速缓存的转载以块为单位，包括装载所需数据的邻近内容。为此，需要额外的时间来等待块从内存载入高速缓存，在该过程中损失的时间称为<strong>不中惩罚</strong></p>
+<p>在一些复杂的处理器内部，会存在多级高速缓存，分别应用于各个独立的执行部件</p>
+<h2 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h2><p>为实现流水线技术，需要将指令拆分为更小的可独立执行部分，即拆分成<strong>微操作</strong></p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add [mem],eax</span><br></pre></td></tr></table></figure>
+<p>可拆分为三个微操作，一个从内存中读数据，一个执行相加动作，一个用于将相加的结果写回内存中</p>
+<p>一旦将指令拆分为微操作，处理器就可以在必要的时候乱序执行程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov eax,[mem1]</span><br><span class="line">shl eax,5</span><br><span class="line">add eax,[mem2]</span><br><span class="line">mov [mem3],eax</span><br></pre></td></tr></table></figure>
+<p>指令<code>add eax,[mem2]</code>可以拆分为两个微操作。在执行逻辑左移指令的同时，处理器可以提前从内存中读取<code>mem2</code>的内容。典型的，若数据不在高速缓存中(不中)时，那么处理器在获取<code>mem1</code>的内容后，会立即开始获取<code>mem2</code>的内容，与此同时，<code>shl</code>指令的执行早就开始了</p>
+<h2 id="寄存器重命名"><a href="#寄存器重命名" class="headerlink" title="寄存器重命名"></a>寄存器重命名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov eax,[mem1]</span><br><span class="line">shl eax,3</span><br><span class="line">mov [mem2],eax</span><br><span class="line">mov eax,[mem3]</span><br><span class="line">add eax,2</span><br><span class="line">mov [mem4],eax</span><br></pre></td></tr></table></figure>
+<p>上述代码中，前三条与后三条进行了两件互不相关的事。但是在代码中使用了相同的寄存器。此时，处理器为最后三条指令使用了另一个不同的临时寄存器，用于左移指令和加法指令可以并行处理</p>
+<p><strong><code>IA-32</code>架构的处理器只有8个32位的通用寄存器。不过，在处理器的内部，却有大量的临时寄存器可用，处理器可以重命名这些寄存器以代表一个逻辑寄存器</strong></p>
+<p>寄存器重命名以一种完全自动和非常简单的方式工作。每当指令写逻辑寄存器时，处理器就为那个逻辑寄存器分配一个新的临时寄存器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov eax,[mem1]</span><br><span class="line">mov ebx,[mem2]</span><br><span class="line">add ebx,eax</span><br><span class="line">shl eax,3</span><br><span class="line">mov [mem3],eax</span><br><span class="line">mov [mem4],ebx</span><br></pre></td></tr></table></figure>
+<p>若<code>mem1</code>的内容在高速缓存中，可立即取得。<code>mem2</code>内容不在高速缓存中。此时，逻辑左移操作可以在加法指令之前开始(使用临时寄存器代替<code>EAX</code>)。</p>
+<p>将<code>mem1</code>的内容写入<code>eax</code>后，<code>mem2</code>的内容需要从内存读取，此时，使用临时寄存器存储逻辑左移指令的结果，<code>eax</code>中仍然只是存储<code>mem1</code>的内容，用于使用<code>eax</code>执行完加法指令</p>
+<p>若没有寄存器重命名机制，逻辑左移操作将不得不等待从内存中读取<code>mem2</code>的内容到<code>ebx</code>寄存器并进行完加法操作之后才得以执行</p>
+<p>在所有操作完成后，那个临时寄存器中存储的<code>eax</code>寄存器的最终结果才被写入真实的<code>eax</code>寄存器，该过程称为<strong>引退</strong></p>
+<p>所有的通用寄存器，堆栈指针、标志、浮点寄存器，甚至段寄存器都有可能被重命名</p>
+<h2 id="分支目标预测"><a href="#分支目标预测" class="headerlink" title="分支目标预测"></a>分支目标预测</h2><p>流水线并不是百分之百完美的解决方案。事实上，有很多潜在的因素会使得流水线不能达到最佳效率。典型的情况，若遇到一条转移指令，则后面那些已经进入到流水线的指令就都无效了。即，必须清空流水线，从要转移的目标位置处重新取指令放入流水线</p>
+<p>在现代处理器中，流水线操作分为很多步骤，包括取指令、译码、寄存器分配和重命名、微操作排序、执行和引退。指令的流水线处理方式允许处理器同时做很多事情</p>
+<p>流水线的最大问题是代码中经常存在分支，流水线越长，处理器在用错误的分支填充流水线时，浪费的时间越多</p>
+<p>为解决这个问题，在<code>Pentium Pro</code>处理器上，引入<strong>分支预测技术</strong>。分支预测的核心问题是：转移是发生还是不会发生，或条件转移指令的条件会不会成立</p>
+<p>从统计学的角度来看，有些事情一旦出现，下一次还会出现的概率较大。一个典型的案例就是循环，当循环执行一次后，下一次还会执行，而不是顺序向下执行，事实上，这个预测通常是很准的</p>
+<p>在处理器内部，有一个小容量的高速缓存器，叫做<strong>分支目标缓存器</strong>(<code>BTB</code>)，当处理器执行了一条分支语句后，它会在<code>BTB</code>中记录当前指令的地址、分支目标的地址，以及本次分支预测的结果。下一次，在那条转移指令实际执行前，处理器会查找<code>BTB</code>，看有没有最近的转移记录。若可以找到对应的条目，则推测执行和上一次相同的分支，把该分支的指令送入流水线</p>
+<p>当该指令实际执行时，若预测是失败的，那么，清空流水线，同时刷新<code>BTB</code>中的记录。代价较大</p>
+<hr>
+<h1 id="32位模式的指令系统"><a href="#32位模式的指令系统" class="headerlink" title="32位模式的指令系统"></a>32位模式的指令系统</h1><h2 id="32位处理器的寻址方式"><a href="#32位处理器的寻址方式" class="headerlink" title="32位处理器的寻址方式"></a>32位处理器的寻址方式</h2><p>在16位处理器上，指令中的操作数可以是8位或者16位的寄存器、指向8位或者16位实际操作数的16位内存地址，以及8位或16位的立即数</p>
+<p>16位处理器，使用基址寄存器同变址寄存器，再加上8位或16位偏移量来寻址内存操作数</p>
+<p>32位处理器兼容16位处理器的工作模式，可以运行传统的16位代码，但是，它有自己独立的32位运行模式</p>
+<p>在32位模式下，默认使用32位宽度的寄存器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov eax,ebx</span><br></pre></td></tr></table></figure>
+<p>若指令中使用了立即数，那么，默认该数值也是32位的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov ecx,55h		;ECX&lt;-00000055</span><br></pre></td></tr></table></figure>
+<p>若指令中的操作数是指向内存单元的地址，那么，该地址默认是32位的段内偏移地址，或称做段内偏移量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov edx,[mem]		;mem是一个32位的段内偏移地址</span><br></pre></td></tr></table></figure>
+<p><strong>32位处理器的寻址方式可以使用全部的32位通用寄存器作为基址寄存器。同时，还可以再加上一个除<code>ESP</code>之外的32位通用寄存器作为变址寄存器。变址寄存器允许乘以1、2、4或8作为比例因子。最后，还允许加上一个8位或32位的偏移量</strong></p>
+<p><img src="/images/x86huibianyuyan/10/14.png" alt="14.png"></p>
+<h2 id="操作数大小的指令前缀"><a href="#操作数大小的指令前缀" class="headerlink" title="操作数大小的指令前缀"></a>操作数大小的指令前缀</h2><p>每一条处理器指令都可以拥有前缀，例重复前缀(<code>REP</code>/<code>REPE</code>/<code>REPNE</code>)、段超越前缀(<code>ES:</code>)、总线封锁前缀(<code>LOCK</code>)等</p>
+<p>前缀是可选的，每个前缀的长度是1字节，每条指令可以拥有1–4个前缀，或者不使用前缀</p>
+<p>前缀(如果有的话)的后面是操作码部分。操作码的长度是1–3字节。操作码可以表示指令执行什么操作，同时，操作码还可以指示操作的字长，即数据宽度为字节还是字</p>
+<p>操作码之后是操作数类型和寻址方式部分。此部分可选。简单指令不包含此部分，此部分也可以有1–2字节。这部分给出了指令的寻址方式，以及寄存器的类型</p>
+<p>指令的最后是立即数和偏移量，可以是1、2或4字节</p>
+<p><img src="/images/x86huibianyuyan/10/15.png" alt="15.png"></p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov dx,[bx+si+02h]</span><br></pre></td></tr></table></figure>
+<p><img src="/images/x86huibianyuyan/10/16.png" alt="16.png"></p>
+<p><img src="/images/x86huibianyuyan/10/17.png" alt="17.png"></p>
+<p>在16位指令编码格式中，内存单元到寄存器的传送指令使用操作码<code>8BH</code>，在<code>8BH</code>之后是1字节的寻址方式和操作数类型部分。第7位和第6位是01，表示使用了基地址变址的寻址方式，且带有8位偏移量；第5–3位为010，指示目的操作数为寄存器<code>DX</code>；位2–0位为000，表示寻址方式为<code>BX+SI+8位偏移量</code>。在该字节之后，是1字节的偏移量<code>02h</code>。因此，这条指令编译后的机器代码为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8B 50 02</span><br></pre></td></tr></table></figure>
+<p>32位处理器使用相同的编码格式，但寻址方式和寄存器的定义不同于16位指令。在32位处理器上，第7位和第6位的值是01，表示使用基址寻址方式，且带有8位偏移量；第5–3位为010，指示目的操作数为寄存器<code>EDX</code>；第2–0位为000，表示寻址方式为<code>EAX+8位偏移量</code>。在该字节之后，是1字节的偏移量<code>02h</code>。因此，同样的机器指令码，却对应不同的32位指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov edx,[eax+02h]</span><br></pre></td></tr></table></figure>
+<p>即，<strong>相同的机器指令，在16位模式下和32位模式下的解释和执行效果是不同的</strong></p>
+<p>32位处理器可以执行16位的程序。为此，在16位模式下，处理器将所有的指令都看作16位的。</p>
+<p>机器指令吗<code>40h</code>在16位模式下的含义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inc ax</span><br></pre></td></tr></table></figure>
+<p>当处理器在16位模式下运行时，也可以使用32位的寄存器，执行32位的运算。为此，必须使用指令前缀<code>66h</code>来临时改变这种默认状态。因此，当处理器在16位模式下运行时，机器指令码<code>66 40</code>对应的指令不再是<code>inc ax</code>，而是<code>inc eax</code>(16位模式下执行32位指令)</p>
+<p>相反的，若处理器运行在32位模式下，处理器默认指令的操作数为32位的，若添加<code>66h</code>指令前缀，用于指示指令是16位的(32位模式执行16位指令)</p>
+<p>即，<strong>指令前缀<code>66h</code>具有反转当前默认操作数大小的作用</strong></p>
+<p>在编写程序的时候，就应考虑到指令的运行环境。为指明程序的默认运行环境，<strong>编译器提供伪指令<code>bits</code>，用于指明其后的指令应该被编译成16位还是32位的</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bits 16			;可写作[bits 16]</span><br><span class="line">mov cx,dx		;89 D1</span><br><span class="line">mov eax,ebx		;66 89 D8	添加66h指令前缀，表示此指令虽使用32位寄存器，但为16位指令</span><br><span class="line"></span><br><span class="line">bits 32			;可写作[bits 32]</span><br><span class="line">mov cx,dx		;66 89 D1	添加66h指令前缀，表示此指令虽使用16位寄存器，但为32位指令</span><br><span class="line">mov eax,ebx		;89 D8</span><br></pre></td></tr></table></figure>
+<p><strong>16位模式是默认的编译模式，若为指定指令的编译模式，则默认是<code>bits 16</code>的</strong></p>
+<h2 id="一般指令的扩展"><a href="#一般指令的扩展" class="headerlink" title="一般指令的扩展"></a>一般指令的扩展</h2><p>32位的处理器都拥有32位的寄存器和算术逻辑部件，而且同内存芯片之间的数据通路至少是32位的，因此，所有以寄存器或者内存单元为操作数的指令都被扩充，以适应32位的算术逻辑操作。而且，这些扩展的操作即使是在16位模式下（实模式和16位保护模式）也是可用的</p>
+<ol>
+<li><p>双操作数指令、单操作数指令允许32位操作数</p>
+</li>
+<li><p>逻辑移动指令，如<code>shl</code>、<code>shr</code>等，目的操作数也扩展至32位</p>
+<p> 和16位处理器相同，在32位处理器上，逻辑移动指令的源操作数如果是寄存器的话，则依然必须使用<code>CL</code>。同时，32位处理器在实际执行时，要先将源操作数（在<code>CL</code>寄存器内）同<code>1FH</code>做逻辑与。也就是说，仅保留源操作数的低5位，因此，实际移动的次数最大为31</p>
+</li>
+<li><p>在16位处理器上，<code>loop</code>指令的循环次数在寄存器<code>CX</code>中。在32位处理器上，如果当前的运行模式是 16 位的，那么，<code>loop</code>指令执行时，依然使用<code>CX</code>寄存器；否则，如果运行在32位模式下，则使用的是<code>ECX</code>寄存器</p>
+</li>
+<li><p>16位处理器中，无符号数乘法指令<code>mul</code>格式为：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mul r/m8		;AX ← AL×r/m8 </span><br><span class="line">mul r/m16		;DX:AX ← AX×r/m16</span><br></pre></td></tr></table></figure>
+<p> 32位处理器中，除了上述支持外，还支持以下扩展</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mul r/m32		;EDX:EAX ← EAX×r/m32</span><br></pre></td></tr></table></figure>
+<p> 有符号数乘法指令<code>imul</code>与此相同</p>
+</li>
+<li><p>无符号数和有符号数除法也做了32位扩展</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">div r/m32 </span><br><span class="line">idiv r/m32</span><br></pre></td></tr></table></figure>
+<p> 被除数是64位的，高32位在<code>EDX</code>寄存器；低32位在<code>EAX</code>寄存器。除数是32位的，位于32位的寄存器或内存单元。指令执行后，32位的商在<code>EAX</code>寄存器,32位的余数在<code>EDX</code>寄存器</p>
+</li>
+<li><p>32位处理器的堆栈操作指令<code>push</code>和<code>pop</code>也有所扩展，允许压入双字操作数</p>
+<ol>
+<li><p>特别是，现在支持立即数压栈操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">push imm8        ;操作码为 6A </span><br><span class="line">push imm16       ;操作码为 68 </span><br><span class="line">push imm32       ;操作码为 68</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例：压入字节数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">push byte 55h</span><br></pre></td></tr></table></figure>
+<p><code>byte</code>仅仅是给编译器用的，告诉编译器，压入的是字节，而不是用来在编译后的机器指令前添加指令前缀</p>
+<p>这条指令的16位形式和32位形式是一样的，机器 代码都是<code>6A 55</code></p>
+<p>但是，当它执行时，就不同了。注意，<strong>无论在什么时候，处理器都不会真的压入一字节，要么压入字，要么压入双字</strong></p>
+<p>在16位模式下，默认的操作数字长是16，处理器在执行时，将该字节的符号位扩展高8位，然后压入堆栈，压栈时使用<code>SP</code>寄存器，且先将<code>SP</code>的内容减去2。这就是说，实际压入堆栈中的数值是<code>0055h</code></p>
+<p>在32位模式下，压入的内容是该字节操作数符号位扩展高24位的结果，即 <code>00000055h</code>。压栈时使用<code>ESP</code>寄存器，且先将<code>ESP</code>的内容减去4。</p>
+</li>
+<li><p>如果压入的是字操作数，则必须用关键字<code>word</code>来修饰</p>
+<p>例：压入字数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">push word fffbh</span><br></pre></td></tr></table></figure>
+<p>在16位模式下，默认的操作数字长是16，处理器在执行时，直接压入该字，压栈时使用<code>SP</code>寄存器，且先将<code>SP</code>的内容减去2</p>
+<p>在 32 位模式下，压入的内容是该操作数符号位扩展高16位的结果，即<code>FFFFFFFBH</code>，压栈时使用<code>ESP</code>寄存器，且先将<code>ESP</code>的内容减去4</p>
+</li>
+<li><p>如果压入的是双字操作数，则必须用关键字<code>dword</code>来修饰</p>
+<p>例：压入双字数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">push dword fbh</span><br></pre></td></tr></table></figure>
+<p>无论是在16位模式下，还是在32位模式下，压入的都是<code>000000FBH</code>，而且堆栈指针寄存器（<code>SP</code>或者<code>ESP</code>）都先减去4</p>
+</li>
+<li><p>对于实际操作数位于通用寄存器，或者位于内存单元的情况，只能压入字或者双字</p>
+<p>指令格式为： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push r/m16 </span><br><span class="line">push r/m32</span><br></pre></td></tr></table></figure>
+<p>如果是寄存器，则可以使用16位或者32位的通用寄存器</p>
+<p>如果被压入的16位或者32位操作数位于内存单元中，则必须用关键字<code>word</code>或者<code>dword</code>修饰，以指示操作数的大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push word [0x2000] </span><br><span class="line">push dword [ecx+esi*2+0x02]</span><br></pre></td></tr></table></figure>
+<p>无论被压入的数位于寄存器，还是位于内存单元，在16位模式下，如果压入的是字操作数，那么 先将<code>SP</code>的内容减去2；如果压入的是双字，应当先将<code>SP</code>的内容减去4</p>
+<p>在32位模式下，如果压入的是字操作数，那么先将<code>ESP</code>的内容减去2；如果压入的是双字，应当先将<code>ESP</code>的内容减去4 </p>
+</li>
+<li><p>段寄存器压入栈</p>
+<p>格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">push cs           ;机器指令为 0E</span><br><span class="line">push ds           ;机器指令为 1E</span><br><span class="line">push es           ;机器指令为 06 </span><br><span class="line">push fs           ;机器指令为 0F A0</span><br><span class="line">push gs           ;机器指令为 0F A8</span><br><span class="line">push ss           ;机器指令为 16</span><br></pre></td></tr></table></figure>
+<p>在16位模式下，先将<code>SP</code>的内容减去2，然后直接压入段寄存器的内容</p>
+<p>在32位模式下，要先将段寄存器的内容用零扩展到32位，即高16位为全零。然后，将<code>ESP</code>的内容减去4，再压入扩展后的32位值</p>
+</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/x86汇编语言/" <i class="fa fa-tag"></i> x86汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/30/汇编语言-王爽-Intel系列微处理器的3种工作模式/" rel="next" title="汇编语言(王爽)-Intel系列微处理器的3种工作模式">
+                <i class="fa fa-chevron-left"></i> 汇编语言(王爽)-Intel系列微处理器的3种工作模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/03/wakanda靶机/" rel="prev" title="wakanda靶机">
+                wakanda靶机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IA-32架构的基本执行环境"><span class="nav-number">1.</span> <span class="nav-text">IA-32架构的基本执行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器的扩展"><span class="nav-number">1.1.</span> <span class="nav-text">寄存器的扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本的工作模式"><span class="nav-number">1.2.</span> <span class="nav-text">基本的工作模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性地址"><span class="nav-number">1.3.</span> <span class="nav-text">线性地址</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#现代处理器的结构和特点"><span class="nav-number">2.</span> <span class="nav-text">现代处理器的结构和特点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#流水线"><span class="nav-number">2.1.</span> <span class="nav-text">流水线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高速缓存"><span class="nav-number">2.2.</span> <span class="nav-text">高速缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#乱序执行"><span class="nav-number">2.3.</span> <span class="nav-text">乱序执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器重命名"><span class="nav-number">2.4.</span> <span class="nav-text">寄存器重命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支目标预测"><span class="nav-number">2.5.</span> <span class="nav-text">分支目标预测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#32位模式的指令系统"><span class="nav-number">3.</span> <span class="nav-text">32位模式的指令系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#32位处理器的寻址方式"><span class="nav-number">3.1.</span> <span class="nav-text">32位处理器的寻址方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作数大小的指令前缀"><span class="nav-number">3.2.</span> <span class="nav-text">操作数大小的指令前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一般指令的扩展"><span class="nav-number">3.3.</span> <span class="nav-text">一般指令的扩展</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

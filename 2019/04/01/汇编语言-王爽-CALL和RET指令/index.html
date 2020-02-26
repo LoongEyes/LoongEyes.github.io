@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="8086汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言(王爽)-CALL和RET指令">
+<meta property="og:url" content="http://yoursite.com/2019/04/01/汇编语言-王爽-CALL和RET指令/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-01T08:12:23.647Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言(王爽)-CALL和RET指令">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/01/汇编语言-王爽-CALL和RET指令/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>汇编语言(王爽)-CALL和RET指令 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/01/汇编语言-王爽-CALL和RET指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汇编语言(王爽)-CALL和RET指令
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-01 15:46:00" itemprop="dateCreated datePublished" datetime="2019-04-01T15:46:00+08:00">2019-04-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 16:12:23" itemprop="dateModified" datetime="2019-05-01T16:12:23+08:00">2019-05-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/汇编与逆向/" itemprop="url" rel="index"><span itemprop="name">汇编与逆向</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<p><code>call</code>和<code>ret</code>指令都是转移指令，都可修改<code>IP</code>，或同时修改<code>CS</code>和<code>IP</code>，它们经常被共同用来实现子程序的设计</p>
+<hr>
+<h1 id="ret和retf"><a href="#ret和retf" class="headerlink" title="ret和retf"></a>ret和retf</h1><p><code>ret</code>指令用栈中的数据，修改<code>IP</code>的内容，从而实现近转移</p>
+<p><code>retf</code>指令用栈中的数据，修改<code>CS</code>和<code>IP</code>的内容，从而实现远转移</p>
+<p><code>ret</code>指令操作：</p>
+<ol>
+<li><p><code>(IP)=((ss)*16+(sp))</code></p>
+</li>
+<li><p><code>(sp)=(sp)+2</code></p>
+</li>
+</ol>
+<p><code>retf</code>指令操作：</p>
+<ol>
+<li><p><code>(IP)=((ss)*16+(sp))</code></p>
+</li>
+<li><p><code>(sp)=(sp)+2</code></p>
+</li>
+<li><p><code>(CS)=((ss)*16+(sp))</code></p>
+</li>
+<li><p><code>(sp)=(sp)+2</code></p>
+</li>
+</ol>
+<hr>
+<h1 id="call指令"><a href="#call指令" class="headerlink" title="call指令"></a>call指令</h1><p><code>call</code>指令的两步操作：</p>
+<ol>
+<li><p>将当前的<code>IP</code>或<code>CS</code>和<code>IP</code>压入栈中</p>
+</li>
+<li><p>转移</p>
+</li>
+</ol>
+<p><code>call</code>指令不能实现短转移</p>
+<hr>
+<h1 id="依据位移进行转移的call指令"><a href="#依据位移进行转移的call指令" class="headerlink" title="依据位移进行转移的call指令"></a>依据位移进行转移的call指令</h1><p>格式：<code>call 标号</code>(将当前<code>IP</code>压栈后，转到标号处执行指令)</p>
+<p><code>call</code>指令的操作：</p>
+<ol>
+<li><p><code>(sp)=(sp)-2</code></p>
+<p> <code>((ss)*16+(sp))=(IP)</code></p>
+</li>
+<li><p><code>(IP)=(IP)+16位位移</code></p>
+</li>
+</ol>
+<p>16位位移=标号处的地址-<code>call</code>指令后的第一个字节的地址</p>
+<p>16位位移的范围-32768–32767，以补码表示</p>
+<p>16位位移由编译程序在编译时算出</p>
+<hr>
+<h1 id="转移的目的地址在指令中的call指令"><a href="#转移的目的地址在指令中的call指令" class="headerlink" title="转移的目的地址在指令中的call指令"></a>转移的目的地址在指令中的call指令</h1><p>格式：<code>call far ptr 标号</code>，实现段间转移</p>
+<p>操作：</p>
+<ol>
+<li><p><code>(sp)=(sp)-2</code></p>
+<p> <code>((ss)*16+(sp))=(CS)</code></p>
+<p> <code>(sp)=(sp)-2</code></p>
+<p> <code>((ss)*16+(sp))=(IP)</code></p>
+</li>
+<li><p><code>(CS)</code>=标号所在段的段地址</p>
+<p> <code>(IP)</code>=标号在段中的偏移地址</p>
+</li>
+</ol>
+<hr>
+<h1 id="转移地址在寄存器中的call指令"><a href="#转移地址在寄存器中的call指令" class="headerlink" title="转移地址在寄存器中的call指令"></a>转移地址在寄存器中的call指令</h1><p>格式：<code>call 16位reg</code></p>
+<p>操作：</p>
+<ol>
+<li><p><code>(sp)=(sp)-2</code></p>
+</li>
+<li><p><code>((ss)*16+(sp))=(IP)</code></p>
+</li>
+<li><p><code>(IP)=(16位reg)</code></p>
+</li>
+</ol>
+<hr>
+<h1 id="转移地址在内存中的call指令"><a href="#转移地址在内存中的call指令" class="headerlink" title="转移地址在内存中的call指令"></a>转移地址在内存中的call指令</h1><p>格式：</p>
+<ol>
+<li><p><code>call word ptr 内存单元地址</code></p>
+<p> 操作：</p>
+<ol>
+<li><p><code>(sp)=(sp)-2</code></p>
+</li>
+<li><p><code>((ss)*16+(sp))=(IP)</code></p>
+</li>
+<li><p><code>(IP)=(内存单元地址)</code></p>
+</li>
+</ol>
+<p>相当于进行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push IP</span><br><span class="line">jmp word ptr 内存单元地址</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov sp,10h</span><br><span class="line">mov ax,0123h</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">call word ptr ds:[0]</span><br><span class="line"></span><br><span class="line">执行后，(IP)=0123H,(sp)=0EH</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li><p><code>call dword ptr 内存单元地址</code></p>
+<p> 操作：</p>
+<ol>
+<li><p><code>(sp)=(sp)-2</code></p>
+<p> <code>((ss)*16+(sp))=(CS)</code></p>
+<p><code>(sp)=(sp)-2</code></p>
+<p><code>((ss)*16+(sp))=(IP)</code></p>
+</li>
+<li><p><code>(CS)=(内存单元地址+2)</code></p>
+<p> <code>(IP)=(内存单元地址)</code></p>
+</li>
+</ol>
+<p>相当于进行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">push CS</span><br><span class="line">push IP</span><br><span class="line">jmp dword ptr 内存单元地址</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov sp,10h</span><br><span class="line">mov ax,0123h</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">mov word ptr ds:[2],0</span><br><span class="line">call dword ptr ds:[0]</span><br><span class="line"></span><br><span class="line">执行后，(CS)=0,(IP)=0123h,(sp)=0Ch</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h1 id="call和ret的配合使用"><a href="#call和ret的配合使用" class="headerlink" title="call和ret的配合使用"></a>call和ret的配合使用</h1><p>使用<code>call</code>和<code>ret</code>实现子程序的机制</p>
+<h2 id="程序返回前，bx的值？"><a href="#程序返回前，bx的值？" class="headerlink" title="程序返回前，bx的值？"></a>程序返回前，bx的值？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:	mov ax,1</span><br><span class="line">	mov cx,3</span><br><span class="line">	call s</span><br><span class="line">	mov bx,ax</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">s:	add ax,ax</span><br><span class="line">	loop s</span><br><span class="line">	ret</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>分析：</p>
+<ol>
+<li><p><code>CPU</code>将<code>call s</code>指令的机器码读入，此时<code>IP</code>指向<code>call s</code>后的指令<code>mov bx,ax</code>。<code>CPU</code>执行<code>call s</code>指令，将当前<code>IP</code>值(指令<code>mov bx,ax</code>的偏移地址)压栈，并将<code>IP</code>的值改变为标号<code>s</code>处的偏移地址</p>
+</li>
+<li><p><code>CPU</code>从标号<code>s</code>处执行指令，<code>loop</code>循环完成后，<code>(ax)=8</code></p>
+</li>
+<li><p><code>CPU</code>将<code>ret</code>指令的机器码读入，此时<code>IP</code>指向<code>ret</code>指令后的内存单元。<code>CPU</code>执行<code>ret</code>指令，从栈中弹出一个值(即<code>call s</code>先前压入栈的<code>mov bx,ax</code>指令的偏移地址)送入<code>IP</code>中，则<code>CS:IP</code>指向指令<code>mov bx,ax</code></p>
+</li>
+<li><p><code>CPU</code>从<code>mov bx,ax</code>开始执行指令，直至完成</p>
+</li>
+</ol>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>可以写一个具有一定功能的程序段，称之为子程序</p>
+<p>在需要执行子程序时，用<code>call</code>指令转去执行，此时，会将<code>call</code>指令后面的指令的地址存储在栈中。当子程序执行完成后，在子程序后面使用<code>ret</code>指令，用栈中的数据设置<code>IP</code>的值，从而转到<code>call</code>指令后面的代码处继续执行</p>
+<h3 id="子程序框架"><a href="#子程序框架" class="headerlink" title="子程序框架"></a>子程序框架</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">main:	</span><br><span class="line">	...</span><br><span class="line">	call sub1		;调用子程序sub1</span><br><span class="line">	...</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">sub1:</span><br><span class="line">	...</span><br><span class="line">	call sub2		;调用子程序sub2</span><br><span class="line">	...</span><br><span class="line">	ret		;子程序返回</span><br><span class="line">    </span><br><span class="line">sub2:</span><br><span class="line">	...</span><br><span class="line">	ret		;子程序返回</span><br><span class="line">    </span><br><span class="line">code ends</span><br><span class="line">end main</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="mul指令"><a href="#mul指令" class="headerlink" title="mul指令"></a>mul指令</h1><p>乘法指令</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li><p>两个乘数：</p>
+<p> 必须同为8位或同为16位</p>
+<p> 若为8位，一个默认放在<code>al</code>中，另一个放在8位<code>reg</code>或内存字节单元中</p>
+<p> 若为16位，一个默认放在<code>ax</code>中，另一个放在16位<code>reg</code>或内存字单元中</p>
+</li>
+<li><p>结果：</p>
+<p> 若为8位乘法，结果默认在<code>ax</code>中</p>
+<p> 若为16位乘法，结果高位默认在<code>dx</code>中存放，低位在<code>ax</code>中存放</p>
+</li>
+</ol>
+<p>格式：</p>
+<ol>
+<li><p><code>mul reg</code></p>
+</li>
+<li><p><code>mul 内存单元</code></p>
+<p> <code>mul byte ptr ds:[0]</code>，含义：<code>(ax)=(al)*((ds)*16+0)</code></p>
+<p> <code>mul word ptr [bx+si+8]</code></p>
+<p> 含义：<code>(ax)=(ax)*((ds)*16+(bx)+(si)+8)</code>结果的低16位，<code>(dx)=(ax)*((ds)*16+(bx)+(si)+8)</code>结果的高16位</p>
+</li>
+</ol>
+<p>例：</p>
+<ol>
+<li><p>计算100*10</p>
+<p> 分析：100和10小于255，可做8位乘法</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,100</span><br><span class="line">mov bl,10</span><br><span class="line">mul bl</span><br></pre></td></tr></table></figure>
+<p> 结果：<code>(ax)=1000(03E8H)</code></p>
+</li>
+<li><p>计算100*10000</p>
+<p> 分析：100小于255，但10000大于255，所以必须做16位乘法</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,100</span><br><span class="line">mov bx,10000</span><br><span class="line">mul bx</span><br></pre></td></tr></table></figure>
+<p> 结果：<code>(ax)=4240H,(dx)=000FH</code>（<code>F4240H=1000000</code>）</p>
+</li>
+</ol>
+<hr>
+<h1 id="模块化程序设计"><a href="#模块化程序设计" class="headerlink" title="模块化程序设计"></a>模块化程序设计</h1><p>利用<code>call</code>和<code>ret</code>指令，可以用简捷的方法，实现多个互相联系、功能独立的子程序来解决一个复杂的问题</p>
+<hr>
+<h1 id="参数和结果传递的问题"><a href="#参数和结果传递的问题" class="headerlink" title="参数和结果传递的问题"></a>参数和结果传递的问题</h1><p>子程序一般都要根据提供的参数处理一定的<br>事务，处理后，将结果(返回值)提供给调用者</p>
+<p>讨论参数和返回值传递的问题，实际上就是在探讨，应该如何存储子程序需要的参数和产生的返回值</p>
+<p>用寄存器来存储参数和结果是最常用的方法</p>
+<p>对于存放参数的寄存器和存放结果的寄存器，调用者和子程序的读写操作相反：调用者将参数送入参数寄存器，从结果寄存器中取到返回值；子程序从参数寄存器中取到参数，将返回值送入结果寄存器</p>
+<p>计算<code>data</code>段中第一组数据的3次方，结果保存到后一组<code>dword</code>单元中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">data segment</span><br><span class="line">	dw 1,2,3,4,5,6,7,8</span><br><span class="line">	dd 0,0,0,0,0,0,0,0</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,data</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov si,0		;ds:si指向第一组word单元</span><br><span class="line">	mov di,16		;ds:di指向第二组dword单元</span><br><span class="line">    </span><br><span class="line">	mov cx,8</span><br><span class="line">s:	mov bx,[si]</span><br><span class="line">	call cube		;调用子程序，进行3次方运算</span><br><span class="line">	mov [di],ax		</span><br><span class="line">	mov [di].2,dx</span><br><span class="line">	add si,2		;ds:si指向下一个word单元</span><br><span class="line">	add di,4		;ds:di指向下一个dword单元</span><br><span class="line">	loop s</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">cube:	mov ax,bx</span><br><span class="line">	mul bx</span><br><span class="line">	mul bx</span><br><span class="line">	ret</span><br><span class="line">    </span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="批量数据的传递"><a href="#批量数据的传递" class="headerlink" title="批量数据的传递"></a>批量数据的传递</h1><p>当进行传递的数据过多时，寄存器的数量有限，不可能简单的用寄存器来存放多个需要传递的数据。对于返回值，也有同样的问题</p>
+<p>可以使用内存空间，将批量数据放到内存中，然后将数据所在的内存空间的首地址放在寄存器中，传递给需要的子程序。对于具有批量数据的返回结果，也可使用同样的方法</p>
+<p>编程，将字母字符串转换大写字母</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	db &apos;conversation&apos;</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,data</span><br><span class="line">	mov ds,ax		</span><br><span class="line">	mov si,0		;ds:si指向字符串内存空间首地址</span><br><span class="line">	mov cx,12</span><br><span class="line">	call capital</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">capital:and byte ptr [si],11011111b		;转换为大写字母</span><br><span class="line">	inc si			;ds:si指向下一个字母内存空间</span><br><span class="line">	loop capital</span><br><span class="line">	ret</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="寄存器冲突的问题"><a href="#寄存器冲突的问题" class="headerlink" title="寄存器冲突的问题"></a>寄存器冲突的问题</h1><p>编程，将一个全是字母，以0结尾的字符串，转换为大写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">data segment</span><br><span class="line">	db &apos;word&apos;,0		;以0为结尾符的字符串定义</span><br><span class="line">	db &apos;unix&apos;,0</span><br><span class="line">	db &apos;wind&apos;,0</span><br><span class="line">	db &apos;good&apos;,0</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,data</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov bx,0</span><br><span class="line">	</span><br><span class="line">	mov cx,4		;4个字符串，循环4次</span><br><span class="line">s:	mov si,bx</span><br><span class="line">	call capital		;进入子程序</span><br><span class="line">	add bx,5		;切换至下一个字符串</span><br><span class="line">	loop s					;循环4次</span><br><span class="line"></span><br><span class="line">	mov ax,4x00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">capital:mov cl,[si]		;开始对字符串进行循环</span><br><span class="line">	mov ch,0</span><br><span class="line">	jcxz ok			;若(cx)=0，跳转ok。若不为0，继续向下执行</span><br><span class="line">	and byte ptr [si],11011111b		;字母转换大写</span><br><span class="line">	inc si					;指向下一个字母</span><br><span class="line">	jmp short capital		;转到capital处继续执行</span><br><span class="line">ok:	ret				;子程序返回</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>此程序中存在问题，在于<code>cx</code>，在主程序中使用了<code>cx</code>记录循环次数，可在子程序中也使用了<code>cx</code>，并且改变了<code>cx</code>的值，会使得主程序的循环出错</p>
+<p><strong>一般化问题：子程序中使用的寄存器，很可能在主程序中也要使用，造成了寄存器使用上的冲突</strong></p>
+<p>设想：</p>
+<ol>
+<li><p>编写要调用子程序的程序的时候不必关心子程序到底使用了哪些寄存器</p>
+</li>
+<li><p>编写子程序的时候不必关心调用者使用了哪些寄存器</p>
+</li>
+<li><p>不会发生寄存器冲突</p>
+</li>
+</ol>
+<p>解决方案：在子程序的开始将子程序中所用到的寄存器中的内容都保存起来，在子程序返回前再恢复。可以使用栈来保存寄存器中的内容</p>
+<p>改进子程序<code>capital</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">capital:push cx</span><br><span class="line">	push si</span><br><span class="line">    </span><br><span class="line">change:	mov cl,[si]</span><br><span class="line">	mov ch,0</span><br><span class="line">	jcxz ok</span><br><span class="line">	and byte ptr [si],11011111b</span><br><span class="line">	inc si</span><br><span class="line">	jmp short change</span><br><span class="line">    </span><br><span class="line">ok:	pop si</span><br><span class="line">	pop cx</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
+<p>编写子程序的标准框架：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">子程序开始:</span><br><span class="line">	子程序中使用的寄存器入栈</span><br><span class="line">	子程序内容</span><br><span class="line">	子程序中使用的寄存器出栈</span><br><span class="line">	返回(ret、retf)</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="编写子程序"><a href="#编写子程序" class="headerlink" title="编写子程序"></a>编写子程序</h1><h2 id="解决除法溢出的问题"><a href="#解决除法溢出的问题" class="headerlink" title="解决除法溢出的问题"></a>解决除法溢出的问题</h2><p>在使用<code>div</code>指令做除法的时候，会出现：结果的商过大，超出了寄存器所能存储的范围。这将引起<code>CPU</code>的一个内部错误，称为<strong>除法溢出</strong></p>
+<h3 id="子程序描述"><a href="#子程序描述" class="headerlink" title="子程序描述"></a>子程序描述</h3><p>名称：<code>divdw</code></p>
+<p>功能：进行不会产生溢出的除法运算，被除数为<code>dword</code>型，除数为<code>word</code>型，结果为<code>dword</code>型</p>
+<p>参数：</p>
+<ol>
+<li><p><code>(ax)=dword</code>型数据的低16位</p>
+</li>
+<li><p><code>(dx)=dword</code>型数据的高16位</p>
+</li>
+<li><p><code>(cx)=除数</code></p>
+</li>
+</ol>
+<p>返回：</p>
+<ol>
+<li><p><code>(dx)</code>=结果的高16位</p>
+</li>
+<li><p><code>(ax)</code>=结果的低16位</p>
+</li>
+<li><p><code>(cx)</code>=余数</p>
+</li>
+</ol>
+<h3 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h3><p>公式：</p>
+<p><code>X/N=int(H/N)*65536+[rem(H/N)*65536+L]/N</code></p>
+<p><code>X</code>：被除数，范围<code>[0,FFFFFFFF]</code></p>
+<p><code>N</code>：除数，范围<code>[0,FFFF]</code></p>
+<p><code>H</code>：<code>X</code>高16位，范围<code>[0,FFFF]</code></p>
+<p><code>L</code>：<code>X</code>低16位，范围<code>[0,FFFF]</code></p>
+<p><code>int()</code>：描述性运算符，取商</p>
+<p><code>rem()</code>：描述性运算符，取余数</p>
+<p>此公式将可能产生溢出的除法运算<code>X/N</code>转变为多个不会产生溢出的除法运算</p>
+<p>公式等号右边的所有除法运算都可以用<code>div</code>指令来做，肯定不会导致除法溢出</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/8086汇编语言/" <i class="fa fa-tag"></i> 8086汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/29/汇编语言-王爽-转移指令的原理/" rel="next" title="汇编语言(王爽)-转移指令的原理">
+                <i class="fa fa-chevron-left"></i> 汇编语言(王爽)-转移指令的原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/08/汇编语言-王爽-标志寄存器/" rel="prev" title="汇编语言(王爽)-标志寄存器">
+                汇编语言(王爽)-标志寄存器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ret和retf"><span class="nav-number">1.</span> <span class="nav-text">ret和retf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#call指令"><span class="nav-number">2.</span> <span class="nav-text">call指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依据位移进行转移的call指令"><span class="nav-number">3.</span> <span class="nav-text">依据位移进行转移的call指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转移的目的地址在指令中的call指令"><span class="nav-number">4.</span> <span class="nav-text">转移的目的地址在指令中的call指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转移地址在寄存器中的call指令"><span class="nav-number">5.</span> <span class="nav-text">转移地址在寄存器中的call指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转移地址在内存中的call指令"><span class="nav-number">6.</span> <span class="nav-text">转移地址在内存中的call指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#call和ret的配合使用"><span class="nav-number">7.</span> <span class="nav-text">call和ret的配合使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序返回前，bx的值？"><span class="nav-number">7.1.</span> <span class="nav-text">程序返回前，bx的值？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">7.2.</span> <span class="nav-text">结论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子程序框架"><span class="nav-number">7.2.1.</span> <span class="nav-text">子程序框架</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mul指令"><span class="nav-number">8.</span> <span class="nav-text">mul指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块化程序设计"><span class="nav-number">9.</span> <span class="nav-text">模块化程序设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参数和结果传递的问题"><span class="nav-number">10.</span> <span class="nav-text">参数和结果传递的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#批量数据的传递"><span class="nav-number">11.</span> <span class="nav-text">批量数据的传递</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寄存器冲突的问题"><span class="nav-number">12.</span> <span class="nav-text">寄存器冲突的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写子程序"><span class="nav-number">13.</span> <span class="nav-text">编写子程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决除法溢出的问题"><span class="nav-number">13.1.</span> <span class="nav-text">解决除法溢出的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子程序描述"><span class="nav-number">13.1.1.</span> <span class="nav-text">子程序描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提示"><span class="nav-number">13.1.2.</span> <span class="nav-text">提示</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

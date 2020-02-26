@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="8086汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言(王爽)-int指令">
+<meta property="og:url" content="http://yoursite.com/2019/04/23/汇编语言-王爽-int指令/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/huibianyuyanwangshuang/13/1.png">
+<meta property="og:updated_time" content="2019-05-01T08:09:12.633Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言(王爽)-int指令">
+<meta name="twitter:image" content="http://yoursite.com/images/huibianyuyanwangshuang/13/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/23/汇编语言-王爽-int指令/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>汇编语言(王爽)-int指令 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/汇编语言-王爽-int指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汇编语言(王爽)-int指令
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-23 19:41:00" itemprop="dateCreated datePublished" datetime="2019-04-23T19:41:00+08:00">2019-04-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 16:09:12" itemprop="dateModified" datetime="2019-05-01T16:09:12+08:00">2019-05-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/汇编与逆向/" itemprop="url" rel="index"><span itemprop="name">汇编与逆向</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<p>一种重要的内中断，由<code>int</code>指令引发的中断</p>
+<hr>
+<h1 id="int指令"><a href="#int指令" class="headerlink" title="int指令"></a>int指令</h1><p>格式：    <code>int n</code>，<code>n</code>为中断类型码</p>
+<p>功能：引发中断过程</p>
+<p><code>CPU</code>执行<code>int n</code>指令，相当于引发一个<code>n</code>号中断的中断过程</p>
+<p>中断过程如下：</p>
+<ol>
+<li><p>取中断类型码<code>n</code></p>
+</li>
+<li><p>标志寄存器入栈，<code>TF=0</code>，<code>IF=0</code></p>
+</li>
+<li><p><code>CS</code>、<code>IP</code>入栈</p>
+</li>
+<li><p><code>(IP)=(n*4)</code>，<code>(CS)=(n*4+2)</code></p>
+</li>
+</ol>
+<p>可以在程序中使用<code>int</code>指令调用任何一个中断的中断处理程序</p>
+<p><code>int</code>指令的最终功能和<code>call</code>指令相似，都是调用一段程序</p>
+<p>系统将一些具有一定功能的子程序，以中断处理程序的方式提供给应用程序调用。可以使用<code>int</code>指令调用这些子程序</p>
+<p><strong>中断处理程序简称为中断例程</strong></p>
+<hr>
+<h1 id="编写供应用程序调用的中断例程"><a href="#编写供应用程序调用的中断例程" class="headerlink" title="编写供应用程序调用的中断例程"></a>编写供应用程序调用的中断例程</h1><h2 id="编写、安装中断7ch的中断例程"><a href="#编写、安装中断7ch的中断例程" class="headerlink" title="编写、安装中断7ch的中断例程"></a>编写、安装中断7ch的中断例程</h2><p>功能：求一<code>word</code>型数据的平方</p>
+<p>参数：<code>(ax)</code>=要计算的数据</p>
+<p>返回值：<code>dx</code>、<code>ax</code>中存放结果的高16位和低16位</p>
+<p>应用举例：求2*3456^2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:	mov ax,3456</span><br><span class="line">	int 7ch		;调用中断7ch的中断例程，计算ax中数据的平方</span><br><span class="line">	add ax,ax</span><br><span class="line">	adc dx,dx		;dx:ax存放结果，将结果乘以2</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>安装程序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:	mov ax,cs</span><br><span class="line">	mov ds,ax		</span><br><span class="line">	mov si,offset sqr			;ds:si指向源地址</span><br><span class="line">	mov ax,0</span><br><span class="line">	mov es,ax		</span><br><span class="line">	mov di,200h				;es:di指向目的地址</span><br><span class="line">	mov cx,offset sqrend-offset sqr		;cx为传输长度</span><br><span class="line">	cld					;正向传输</span><br><span class="line">	rep movsb				;串传送</span><br><span class="line"></span><br><span class="line">	mov ax,0				;设置中断向量</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov word ptr es:[7ch*4],200h</span><br><span class="line">	mov word ptr es:[7ch*4+2],0</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">sqr:	mul ax					;7ch程序</span><br><span class="line">	iret					;恢复现场</span><br><span class="line">    </span><br><span class="line">sqrend:	nop</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end strart</span><br></pre></td></tr></table></figure>
+<h2 id="编写、安装中断7ch的中断例程-1"><a href="#编写、安装中断7ch的中断例程-1" class="headerlink" title="编写、安装中断7ch的中断例程"></a>编写、安装中断7ch的中断例程</h2><p>功能：将一个全是字母，以0结尾的字符串，转化为大写</p>
+<p>参数：<code>ds:si</code>指向字符串的首地址</p>
+<p>应用举例：将<code>data</code>段中的字符串转化为大写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	db &apos;conversation&apos;,0</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,data</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov si,0		;ds:si指向字符串首字母</span><br><span class="line">	int 7ch			;调用中断7ch的中断例程</span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>安装程序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:	mov ax,cs</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov si,offset capital				;ds:si指向源地址</span><br><span class="line">	mov ax,0</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,200h					;es:di指向目的地址</span><br><span class="line">	mov cx,offset capitalend-offset capital		# cx为传输长度</span><br><span class="line">	cld						;正向传输</span><br><span class="line">	rep movsb					;串传输</span><br><span class="line">    </span><br><span class="line">	mov ax,0					;设置中断向量</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov word ptr es:[7ch*4],200h</span><br><span class="line">	mov word ptr es:[7ch*4+2],0</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">capital:push cx		</span><br><span class="line">	push si						;保存所用寄存器的原始数据</span><br><span class="line"> change:mov cl,[si]</span><br><span class="line"> 	mov ch,0</span><br><span class="line">	jcxz ok</span><br><span class="line">	and byte ptr [si],11011111b			;转大写</span><br><span class="line">	inc si</span><br><span class="line">	jmp short change</span><br><span class="line">    ok:	pop si</span><br><span class="line">	pop cx						;恢复所用寄存器原始数据</span><br><span class="line">	iret						;恢复现场</span><br><span class="line"></span><br><span class="line">capitalend:nop</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="对int、iret和栈的深入理解"><a href="#对int、iret和栈的深入理解" class="headerlink" title="对int、iret和栈的深入理解"></a>对int、iret和栈的深入理解</h1><h2 id="用7ch中断例程完成loop指令的功能"><a href="#用7ch中断例程完成loop指令的功能" class="headerlink" title="用7ch中断例程完成loop指令的功能"></a>用7ch中断例程完成loop指令的功能</h2><p><code>loop s</code>执行需要两个信息：循环次数和到<code>s</code>的位移</p>
+<p>用<code>cx</code>存放循环次数，<code>bx</code>存放位移</p>
+<p>应用举例：在屏幕中间显示80个‘！’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:	mov ax,0b800h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,160*12</span><br><span class="line"></span><br><span class="line">	mov bx,offset s-offset se		;从标号se到标号s的转移位移</span><br><span class="line">	mov cx,80</span><br><span class="line">  s:	mov byte ptr es:[di],&apos;!&apos;		;显示‘!’</span><br><span class="line">	add di,2</span><br><span class="line">	int 7ch					;调用中断7ch的中断例程，loop功能</span><br><span class="line">    </span><br><span class="line">  se:	nop</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p><code>7ch</code>的中断例程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lp:	push bp			;保存bp寄存器原值</span><br><span class="line">	mov bp,sp		;bp中保存栈顶的偏移地址</span><br><span class="line">	dec cx			;cx自减1</span><br><span class="line">	jcxz lpret		;(cx)=0，则转移，不实现loop s功能</span><br><span class="line">	add [bp+2],bx		;栈中se的偏移地址变为s的偏移地址</span><br><span class="line">lpret:	pop bp			;恢复bp寄存器原值</span><br><span class="line">	iret			;恢复现场时IP值为s的偏移地址，实现loop转移</span><br></pre></td></tr></table></figure>
+<p>在中断过程中，当前标志寄存器、<code>CS</code>、<code>IP</code>入栈，此时<code>CS</code>为标号<code>s</code>的段地址，<code>IP</code>为标号<code>se</code>的偏移地址。中断例程中，需将<code>CS</code>设置为标号<code>s</code>的段地址，<code>IP</code>设置为标号<code>s</code>的偏移地址，实现<code>loop s</code>的功能</p>
+<p>中断例程中使用到栈，当执行<code>push bp</code>后，栈中情况为：自上而下为<code>bp</code>原值、<code>se</code>的偏移地址<code>(IP)</code>、<code>s</code>的段地址<code>(CS)</code>、标志寄存器原值。即<code>((ss)*16+(bp)+2)</code>处为<code>se</code>的偏移地址(原始<code>IP</code>的值)，将其加上<code>bx</code>中存储的转移位移即变为<code>s</code>的偏移地址(修改了原始<code>IP</code>的值)，再通过<code>iret</code>恢复现场将<code>CS</code>、<code>IP</code>恢复即实现了<code>loop s</code></p>
+<hr>
+<h1 id="BIOS和DOS所提供的中断例程"><a href="#BIOS和DOS所提供的中断例程" class="headerlink" title="BIOS和DOS所提供的中断例程"></a>BIOS和DOS所提供的中断例程</h1><p>在系统主板的<code>ROM</code>中存放着一套程序，称为<code>BIOS</code>(基本输入输出系统)</p>
+<p><code>BIOS</code>主要功能：</p>
+<ol>
+<li><p>硬件系统的检测和初始化程序</p>
+</li>
+<li><p>外部中断和内部中断的中断例程</p>
+</li>
+<li><p>用于对硬件设备进行<code>I/O</code>操作的中断例程</p>
+</li>
+<li><p>其他和硬件系统相关的中断例程</p>
+</li>
+</ol>
+<p>从操作系统的角度来看，<code>DOS</code>的中断例程就是操作系统向程序员提供的编程资源</p>
+<p><code>BIOS</code>和<code>DOS</code>在所提供的中断例程中包含了许多子程序，这些子程序实现了程序员在编程的时候经常需要用到的功能</p>
+<p>程序员在编程的时候，可以直接用<code>int</code>指令调用<code>BIOS</code>和<code>DOS</code>提供的中断例程</p>
+<p>和硬件设备相关的<code>DOS</code>中断例程中，一般调用了<code>BIOS</code>的中断例程</p>
+<hr>
+<h1 id="BIOS和DOS中断例程的安装过程"><a href="#BIOS和DOS中断例程的安装过程" class="headerlink" title="BIOS和DOS中断例程的安装过程"></a>BIOS和DOS中断例程的安装过程</h1><ol>
+<li><p>开机后，<code>CPU</code>一加电，初始化<code>(CS)=0FFFFH</code>，<code>(IP)=0</code>，自动从<code>FFFF:0</code>单元开始执行程序</p>
+<p> <code>FFFF:0</code>处有一条转跳指令，<code>CPU</code>执行该指令后，转去执行<code>BIOS</code>中的硬件系统检测和初始化程序</p>
+</li>
+<li><p>初始化程序将建立<code>BIOS</code>所支持的中断向量，即将<code>BIOS</code>提供的中断例程的入口地址登记在中断向量表中</p>
+<p> 对于<code>BIOS</code>所提供的中断例程，只需将入口地址登记在中断向量表中即可，因其是固化到<code>ROM</code>中的程序，一直在内存中存在</p>
+</li>
+<li><p>硬件系统检测和初始化完成后，调用<code>int 19h</code>进行操作系统的引导。从此将计算机交由操作系统控制</p>
+</li>
+<li><p><code>DOS</code>启动后，除完成其他工作外，还将它所提供的中断例程装入内存，并建立相应的中断向量</p>
+</li>
+</ol>
+<hr>
+<h1 id="BIOS中断例程应用"><a href="#BIOS中断例程应用" class="headerlink" title="BIOS中断例程应用"></a>BIOS中断例程应用</h1><p><code>int 10h</code>中断例程是<code>BIOS</code>提供的中断例程，其中包含了多个和屏幕输出相关的子程序</p>
+<p>一般来说，一个供程序员调用的中断例程中往往包含多个子程序，中断例程内部用传递进来的参数来决定执行哪一个子程序</p>
+<p><code>BIOS</code>和<code>DOS</code>提供的中断例程，都用<code>ah</code>来传递内部子程序的编号</p>
+<h2 id="int-10h中断例程的设置光标位置功能"><a href="#int-10h中断例程的设置光标位置功能" class="headerlink" title="int 10h中断例程的设置光标位置功能"></a>int 10h中断例程的设置光标位置功能</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov ah,2		;置光标</span><br><span class="line">mov bh,0		;第0页</span><br><span class="line">mov dh,5		;dh中存储行号</span><br><span class="line">mov dl,12		;dl中放列号</span><br><span class="line">int 10h</span><br></pre></td></tr></table></figure>
+<p><code>(ah)=2</code>表示调用第<code>10h</code>号中断例程的2号子程序，功能为设置光标位置，可提供光标所在行号(80*25字符模式下:0–24)、列号(80*25字符模式下:0–79)和页号作为参数</p>
+<p><code>(bh)=0</code>、<code>(dh)=5</code>、<code>(dl)=12</code>，设置光标到第0页，第5行，第12列</p>
+<p><code>bh</code>中页号的含义：在内存地址空间中，<code>B8000H-BFFFFH</code>共<code>32KB</code>的空间，为80*25彩色字符模式的显示缓冲区。一屏的内容在显示缓冲区中共占4000个字节</p>
+<p>显示缓冲区分为8页，每页<code>4KB</code>，显示器可以显示任意一页的内容。一般情况下，显示第0页的内容。即通常情况下，<code>B8000H-B8F9FH</code>中的4000个字节的内容将显示在显示屏上</p>
+<h2 id="int-10h中断例程的在光标位置显示字符功能"><a href="#int-10h中断例程的在光标位置显示字符功能" class="headerlink" title="int 10h中断例程的在光标位置显示字符功能"></a>int 10h中断例程的在光标位置显示字符功能</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ah,9		;在光标位置显示字符</span><br><span class="line">mov al,&apos;a&apos;		;字符</span><br><span class="line">mov bl,7		;颜色属性</span><br><span class="line">mov bh,0		;第0页</span><br><span class="line">mov cx,3		;字符重复个数</span><br><span class="line">int 10h</span><br></pre></td></tr></table></figure>
+<p><code>(ah)=9</code>表示调用第<code>10h</code>号中断例程的9号子程序，功能为在光标位置显示字符，可以提供要显示的字符、颜色属性、页号、字符重复个数作为参数</p>
+<p><code>bl</code>中的颜色属性的格式如下</p>
+<p><img src="/images/huibianyuyanwangshuang/13/1.png" alt="1.png"></p>
+<h2 id="编程-在屏幕的5行12列显示3个红底高亮闪烁绿色的’a’"><a href="#编程-在屏幕的5行12列显示3个红底高亮闪烁绿色的’a’" class="headerlink" title="编程:在屏幕的5行12列显示3个红底高亮闪烁绿色的’a’"></a>编程:在屏幕的5行12列显示3个红底高亮闪烁绿色的’a’</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov ah,2		;设置光标</span><br><span class="line">	mov bh,0		;第0页</span><br><span class="line">	mov dh,5		;dh中放行号</span><br><span class="line">	mov dl,12		;dl中放列号</span><br><span class="line">	int 10h</span><br><span class="line">    </span><br><span class="line">	mov ah,9		;在光标位置显示字符</span><br><span class="line">	mov al,&apos;a&apos;		;字符</span><br><span class="line">	mov bl,11001010b	;字符颜色属性</span><br><span class="line">	mov bh,0		;第0页</span><br><span class="line">	mov cx,3		;字符重复个数</span><br><span class="line">	int 10h</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="DOS中断例程应用"><a href="#DOS中断例程应用" class="headerlink" title="DOS中断例程应用"></a>DOS中断例程应用</h1><p><code>int 21h</code>中断例程是<code>DOS</code>提供的中断例程，其中包含了<code>DOS</code>提供给程序员在编程时调用的子程序</p>
+<h2 id="int-21h中断例程的4ch号功能"><a href="#int-21h中断例程的4ch号功能" class="headerlink" title="int 21h中断例程的4ch号功能"></a>int 21h中断例程的4ch号功能</h2><p>一直使用<code>int 21h</code>中断例程的<code>4ch</code>号功能，即程序返回功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ah,4ch		;程序返回</span><br><span class="line">mov al,0		;返回值</span><br><span class="line">int 21h</span><br></pre></td></tr></table></figure>
+<p><code>(ah)=4ch</code>表示调用第<code>21h</code>号中断例程的<code>4ch</code>号子程序，功能为程序返回，可提供返回值作为参数</p>
+<p>课程前面使用这个功能时经常写做</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br></pre></td></tr></table></figure>
+<h2 id="int-21h中断例程在光标位置显示字符串的功能"><a href="#int-21h中断例程在光标位置显示字符串的功能" class="headerlink" title="int 21h中断例程在光标位置显示字符串的功能"></a>int 21h中断例程在光标位置显示字符串的功能</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ds:dx指向字符串		;要显示的字符串需用&quot;$&quot;作为结束符</span><br><span class="line">mov ah,9		;功能号9，表示在光标位置显示字符串</span><br><span class="line">int 21h</span><br></pre></td></tr></table></figure>
+<p><code>(ah)=9</code>表示调用第<code>21h</code>号中断例程的9号子程序，功能为在光标位置显示字符串，可以提供要显示字符串的地址作为参数</p>
+<h2 id="编程-在屏幕的5行12列显示字符串”Welcome-to-masm-”"><a href="#编程-在屏幕的5行12列显示字符串”Welcome-to-masm-”" class="headerlink" title="编程:在屏幕的5行12列显示字符串”Welcome to masm!”"></a>编程:在屏幕的5行12列显示字符串”Welcome to masm!”</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	db &apos;Welcome to masm!&apos;,&apos;$&apos;	;$不显示，起边界作用</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ah,2			;置光标</span><br><span class="line">	mov bh,0			;第0页</span><br><span class="line">	mov dh,5			;dh中放行号</span><br><span class="line">	mov dl,12			;dl中放列号</span><br><span class="line">	int 10h				;执行BIOS第10h号中断例程的2号子程序</span><br><span class="line">    </span><br><span class="line">	mov ax,data</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov dx,0			;ds:dx指向字符串首地址</span><br><span class="line">	mov ah,9</span><br><span class="line">	int 21h				;执行DOS第21h号中断例程的9号子程序</span><br><span class="line">    </span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">    </span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p><code>DOS</code>为程序员提供了许多可以调用的子程序，都包含在<code>int 21h</code>中断例程中</p>
+<hr>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/8086汇编语言/" <i class="fa fa-tag"></i> 8086汇编语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/22/汇编语言-王爽-内中断/" rel="next" title="汇编语言(王爽)-内中断">
+                <i class="fa fa-chevron-left"></i> 汇编语言(王爽)-内中断
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/24/汇编语言-王爽-端口/" rel="prev" title="汇编语言(王爽)-端口">
+                汇编语言(王爽)-端口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#int指令"><span class="nav-number">1.</span> <span class="nav-text">int指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写供应用程序调用的中断例程"><span class="nav-number">2.</span> <span class="nav-text">编写供应用程序调用的中断例程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编写、安装中断7ch的中断例程"><span class="nav-number">2.1.</span> <span class="nav-text">编写、安装中断7ch的中断例程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写、安装中断7ch的中断例程-1"><span class="nav-number">2.2.</span> <span class="nav-text">编写、安装中断7ch的中断例程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对int、iret和栈的深入理解"><span class="nav-number">3.</span> <span class="nav-text">对int、iret和栈的深入理解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用7ch中断例程完成loop指令的功能"><span class="nav-number">3.1.</span> <span class="nav-text">用7ch中断例程完成loop指令的功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BIOS和DOS所提供的中断例程"><span class="nav-number">4.</span> <span class="nav-text">BIOS和DOS所提供的中断例程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BIOS和DOS中断例程的安装过程"><span class="nav-number">5.</span> <span class="nav-text">BIOS和DOS中断例程的安装过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BIOS中断例程应用"><span class="nav-number">6.</span> <span class="nav-text">BIOS中断例程应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#int-10h中断例程的设置光标位置功能"><span class="nav-number">6.1.</span> <span class="nav-text">int 10h中断例程的设置光标位置功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#int-10h中断例程的在光标位置显示字符功能"><span class="nav-number">6.2.</span> <span class="nav-text">int 10h中断例程的在光标位置显示字符功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程-在屏幕的5行12列显示3个红底高亮闪烁绿色的’a’"><span class="nav-number">6.3.</span> <span class="nav-text">编程:在屏幕的5行12列显示3个红底高亮闪烁绿色的’a’</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DOS中断例程应用"><span class="nav-number">7.</span> <span class="nav-text">DOS中断例程应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#int-21h中断例程的4ch号功能"><span class="nav-number">7.1.</span> <span class="nav-text">int 21h中断例程的4ch号功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#int-21h中断例程在光标位置显示字符串的功能"><span class="nav-number">7.2.</span> <span class="nav-text">int 21h中断例程在光标位置显示字符串的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程-在屏幕的5行12列显示字符串”Welcome-to-masm-”"><span class="nav-number">7.3.</span> <span class="nav-text">编程:在屏幕的5行12列显示字符串”Welcome to masm!”</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="信息安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漏洞扫描">
+<meta property="og:url" content="http://yoursite.com/2019/05/15/洞扫描/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshi_tools/nessus/16.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/6.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/4.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/5.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/7.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/8.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/2.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/99.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/10.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/122.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/13.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/14.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/15.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/16.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/17.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/18.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/19.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/20.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/loudongsaomiao/21.png">
+<meta property="og:updated_time" content="2020-02-24T04:14:23.354Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="漏洞扫描">
+<meta name="twitter:image" content="http://yoursite.com/images/shentouceshi_tools/nessus/16.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/15/洞扫描/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>漏洞扫描 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/洞扫描/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">漏洞扫描
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-15 21:27:00" itemprop="dateCreated datePublished" datetime="2019-05-15T21:27:00+08:00">2019-05-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-24 12:14:23" itemprop="dateModified" datetime="2020-02-24T12:14:23+08:00">2020-02-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/漏洞/" itemprop="url" rel="index"><span itemprop="name">漏洞</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h1 id="如何发现漏洞"><a href="#如何发现漏洞" class="headerlink" title="如何发现漏洞"></a>如何发现漏洞</h1><ol>
+<li><p>基于端口服务扫描结果，查看服务版本信息(速度慢)</p>
+</li>
+<li><p>搜索已公开的漏洞数据库(数量大)</p>
+</li>
+<li><p>使用漏洞扫描器实现漏洞管理</p>
+</li>
+</ol>
+<hr>
+<h1 id="从信息的维度定义漏洞管理"><a href="#从信息的维度定义漏洞管理" class="headerlink" title="从信息的维度定义漏洞管理"></a>从信息的维度定义漏洞管理</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>扫描发现网络<code>IP</code>、<code>OS</code>、服务、配置、漏洞</p>
+<p>需求：能够定义扫描方式内容和目标</p>
+<h2 id="信息管理"><a href="#信息管理" class="headerlink" title="信息管理"></a>信息管理</h2><p>格式化信息，并进行筛选、分组、定义优先级</p>
+<p>需求：能够进行资产分组、指定所有者</p>
+<h2 id="信息输出"><a href="#信息输出" class="headerlink" title="信息输出"></a>信息输出</h2><p>向不同层级的人群展示足够的信息量</p>
+<p>需求：生成报告、导出数据、可以与<code>SIEM</code>集成</p>
+<p><code>SIEM</code>(安全信息和事件管理)是一个由不同的监视和分析组件组成的安全和审计系统</p>
+<p>日志管理(<code>LMS</code>)——用于传统日志收集和存储的工具</p>
+<p>安全信息管理(<code>SIM</code>)——集中于从多个数据源收集和管理与安全相关的数据的工具或系统。例如，这些数据源可以是防火墙、<code>DNS</code>服务器、路由器和防病毒应用程序</p>
+<p>安全事件管理(<code>SEM</code>)——基于主动监视和分析的系统，包括数据可视化、事件相关性和警报</p>
+<hr>
+<h1 id="漏洞扫描的类型"><a href="#漏洞扫描的类型" class="headerlink" title="漏洞扫描的类型"></a>漏洞扫描的类型</h1><ol>
+<li><p>主动扫描</p>
+<p> 是否可进行身份认证</p>
+</li>
+<li><p>被动扫描</p>
+<p> 镜像端口抓包分析</p>
+</li>
+<li><p>基于<code>Agent</code>的扫描</p>
+</li>
+</ol>
+<hr>
+<h1 id="漏洞的基本概念"><a href="#漏洞的基本概念" class="headerlink" title="漏洞的基本概念"></a>漏洞的基本概念</h1><p>漏洞是在硬件、软件、协议的具体实现或系统安全策略上存在的缺陷，从而可以使攻击者能够在未授权的情况下访问或破坏系统</p>
+<h2 id="CVSS"><a href="#CVSS" class="headerlink" title="CVSS"></a>CVSS</h2><ol>
+<li><p>通用漏洞评分系统，工业标准</p>
+</li>
+<li><p>描述安全漏洞严重程度的统一评分方案</p>
+</li>
+<li><p>分值范围：0–10</p>
+</li>
+<li><p>不同机构按<code>CVSS</code>分值定义威胁的中、高、低威胁级别</p>
+</li>
+<li><p><code>CVSS</code>体现漏洞的风险</p>
+</li>
+<li><p>威胁级别表示漏洞对那个风险对企业的影响程度</p>
+</li>
+</ol>
+<h2 id="CVE"><a href="#CVE" class="headerlink" title="CVE"></a>CVE</h2><ol>
+<li><p>已公开的信息安全漏洞字典(<code>MITRE</code>公司维护)</p>
+</li>
+<li><p>统一的漏洞编号标准</p>
+</li>
+<li><p>实现不同厂商之间信息交换的统一标准</p>
+</li>
+</ol>
+<h2 id="MS"><a href="#MS" class="headerlink" title="MS"></a>MS</h2><p>微软漏洞编号</p>
+<p><code>KB</code>：微软补丁编号</p>
+<h2 id="OVAL"><a href="#OVAL" class="headerlink" title="OVAL"></a>OVAL</h2><ol>
+<li><p>描述漏洞检测方法的机器可识别语言</p>
+</li>
+<li><p>详细的描述漏洞检测的技术细节，可导入自动化检测工具中实施漏洞检测工作</p>
+</li>
+<li><p>以<code>XML</code>语言描述</p>
+</li>
+</ol>
+<h2 id="SCAP"><a href="#SCAP" class="headerlink" title="SCAP"></a>SCAP</h2><p>集合了多种安全标准的框架</p>
+<p>六个元素：<code>CVE</code>、<code>OVAL</code>、<code>CCE</code>、<code>CPE</code>、<code>CVSS</code>、<code>XCCDF</code></p>
+<p>目的使以标准的方法展示和操作安全数据</p>
+<p>由<code>NIST</code>(美国国家标准技术研究所)负责维护</p>
+<p>解决三个问题：</p>
+<ol>
+<li><p>实现高层政策法规等到底层实施的落地</p>
+</li>
+<li><p>将信息安全所涉及的各个要素标准化</p>
+</li>
+<li><p>将复杂的系统配置核查工作自动化</p>
+</li>
+</ol>
+<h2 id="CNVD"><a href="#CNVD" class="headerlink" title="CNVD"></a>CNVD</h2><p>国家信息安全漏洞共享平台（<code>CNVD</code>）是由国家计算机网络应急技术处理协调中心（中文简称国家互联应急中心，英文简称<code>CNCERT</code>）联合国内重要信息系统单位、基础电信运营商、网络安全厂商、软件厂商和互联网企业建立的信息安全漏洞信息共享知识库</p>
+<hr>
+<h1 id="漏洞管理"><a href="#漏洞管理" class="headerlink" title="漏洞管理"></a>漏洞管理</h1><ol>
+<li><p>周期性扫描跟踪漏洞</p>
+</li>
+<li><p>高危漏洞优先处理</p>
+</li>
+<li><p>进行合理的扫描</p>
+</li>
+</ol>
+<hr>
+<h1 id="Nessus"><a href="#Nessus" class="headerlink" title="Nessus"></a>Nessus</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>家庭版：免费使用</p>
+<p>专业版：收费，无限并发连接</p>
+<p><img src="/images/shentouceshi_tools/nessus/16.png" alt="1.png"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>参见 <a href="/2019/05/11/kali下安装nessus/">Kali下安装Nessus</a></p>
+<h2 id="扫描"><a href="#扫描" class="headerlink" title="扫描"></a>扫描</h2><p>在“扫描”页面上，您可以创建，查看和管理扫描和资源。要访问“扫描”页面，请在顶部导航栏中单击“扫描”。左侧导航栏显示文件夹和资源两部分。</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/6.png" alt="6.png"></p>
+<h2 id="文件夹"><a href="#文件夹" class="headerlink" title="文件夹"></a>文件夹</h2><p>“文件夹”部分始终包含以下不能删除的默认文件夹：我的扫描、所有扫描、废纸篓</p>
+<p>当您访问“扫描”页面时，将显示“我的扫描”文件夹。当您创建扫描时，它默认显示在“我的扫描”文件夹中</p>
+<p>在所有扫描的文件夹显示所创建的所有扫描以及与有权限进行交互的任何扫描。可以点击文件夹中的扫描来查看扫描结果</p>
+<p>“废纸篓”文件夹显示已删除的扫描。可以从<code>Nessus</code>实例中永久删除扫描，或将扫描恢复到选定的文件夹。如果删除包含扫描的文件夹，则该文件夹中的所有扫描都将移至“废纸篓”文件夹。存储在“废纸篓”文件夹中的扫描将在30天后自动删除。</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/4.png" alt="4.png"></p>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><p>策略 插件规则 扫描器</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/5.png" alt="5.png"></p>
+<h3 id="资源之策略"><a href="#资源之策略" class="headerlink" title="资源之策略"></a>资源之策略</h3><ol>
+<li><p>控制扫描技术方面的参数，如超时时间，主机数量，端口扫描器类型等等</p>
+</li>
+<li><p>用于本地扫描（例如<code>Windows</code>，<code>SSH</code>），经过身份验证的<code>Oracle</code>数据库扫描，<code>HTTP</code>，<code>FTP</code>，<code>POP</code>，<code>IMAP</code>或基于<code>Kerberos</code>的身份验证的凭证</p>
+</li>
+<li><p>精细的家庭或基于插件的扫描规范</p>
+</li>
+<li><p>数据库合规性策略检查，报告详细程度，服务检测扫描设置，<code>Unix</code>合规性检查等等</p>
+</li>
+<li><p>对网络设备进行脱机配置审计，可以安全检查网络设备，而无需直接扫描设备</p>
+</li>
+<li><p><code>Windows</code>恶意软件扫描，比较文件的<code>MD5</code>校验和，包括已知的好文件和恶意文件</p>
+</li>
+</ol>
+<h3 id="资源之插件规则"><a href="#资源之插件规则" class="headerlink" title="资源之插件规则"></a>资源之插件规则</h3><p>允许隐藏或改变任何给定的插件的严重性。另外，规则可以限制在特定的主机或特定的时间范围内。在此页面上，您可以查看，创建，编辑和删除您的规则</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/7.png" alt="7.png"></p>
+<h3 id="资源之扫描器"><a href="#资源之扫描器" class="headerlink" title="资源之扫描器"></a>资源之扫描器</h3><p>该扫描器页面显示的链接键和遥控器的扫描器列表。您可以点击链接的扫描器查看有关该扫描器的详细信息</p>
+<p>扫描器由扫描器类型标识，并指示扫描器是否具有共享权限</p>
+<p>可以使用链接密钥或有效帐户凭证将远程扫描器链接到<code>Nessus Manager</code>。一旦链接，扫描器可以在本地进行管理，并在配置扫描时进行选择</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/8.png" alt="8.png"></p>
+<h2 id="扫描模板"><a href="#扫描模板" class="headerlink" title="扫描模板"></a>扫描模板</h2><p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/2.png" alt="2.png"></p>
+<h3 id="扫描模板之设置"><a href="#扫描模板之设置" class="headerlink" title="扫描模板之设置"></a>扫描模板之设置</h3><p>每个策略都存在以下设置，但可用的配置项目可能因所选模板而异</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/99.png" alt="9.png"></p>
+<p>基本 发现 评定 报告 高级</p>
+<h3 id="扫描模板之凭证"><a href="#扫描模板之凭证" class="headerlink" title="扫描模板之凭证"></a>扫描模板之凭证</h3><p>每个策略都存在以下设置，但可用的配置项目可能因所选模板而异</p>
+<ol>
+<li><p>云服务：</p>
+<ol>
+<li><p><code>AWS</code>：亚马逊网络服务</p>
+</li>
+<li><p><code>Microsoft Azure</code>：微软基于云计算的操作系统</p>
+</li>
+<li><p><code>Rackspace</code>：全球三大云计算中心之一，是一家全球领先的托管服务器及云计算提供商，公司总部位于美国</p>
+</li>
+<li><p><code>Salesforce.com</code>：<code>Salesforce</code>是处于世界首位的开发<code>CRM</code>客户关系管理平台。软件基于云端，因此用户不需要IT专家团队进行安装设置或管理，只需登陆即可使用</p>
+</li>
+<li><p><code>Red Hat Enterprise Virtualization</code>：红帽企业虚拟化</p>
+</li>
+</ol>
+</li>
+<li><p>数据库：包括<code>MongoDB</code>，<code>Oracle</code>，<code>MySQL</code>，<code>DB2</code>，<code>PostgreSQL</code>和<code>SQL Server</code></p>
+</li>
+<li><p>主机：其中包括<code>Windows</code>登录，<code>SSH</code>和<code>SNMPv3</code></p>
+</li>
+<li><p>其他服务：<code>VMware</code>，<code>Red Hat Enterprise Virtualization</code>等</p>
+</li>
+<li><p>明文身份验证机制：包括<code>FTP</code>，<code>HTTP</code>，<code>POP3</code>和其他服务</p>
+</li>
+</ol>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/10.png" alt="10.png"></p>
+<h3 id="扫描模板之插件"><a href="#扫描模板之插件" class="headerlink" title="扫描模板之插件"></a>扫描模板之插件</h3><p>插件选项可以选择插件系列的安全检查或单个插件检查</p>
+<p>点击插件系列，您可以启用（绿色）或禁用（灰色）整个系列。选择一个系列显示其插件列表。可以启用或禁用单个插件来创建特定的扫描</p>
+<p>禁用某些插件的系列是紫色的，并显示混合，表明只有一些插件已启用。点击插件家族加载完整的插件列表，并允许根据您的扫描偏好细粒度选择</p>
+<p>插件的详细信息包括 摘要，说明，解决方案，插件信息和风险信息</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/122.png" alt="12.png"></p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/13.png" alt="13.png"></p>
+<p>关于 高级 代理服务器 SMTP服务器 自定义CA 密码管理 扫描健康 我的帐户</p>
+<h3 id="设置之关于"><a href="#设置之关于" class="headerlink" title="设置之关于"></a>设置之关于</h3><p>”关于”页面显示Nessus许可和插件信息的概述。当您访问产品设置时，默认情况下出现关于页面</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/14.png" alt="14.png"></p>
+<h3 id="设置之高级"><a href="#设置之高级" class="headerlink" title="设置之高级"></a>设置之高级</h3><p>高级设置允许您手动配置全局设置。为了使这些设置生效，可能需要重新启动<code>Nessus</code>服务或服务器。注意:在扫描或策略中配置的设置将覆盖这些值</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/15.png" alt="15.png"></p>
+<h3 id="设置之代理服务器"><a href="#设置之代理服务器" class="headerlink" title="设置之代理服务器"></a>设置之代理服务器</h3><p>代理服务器用于转发<code>HTTP</code>请求。如果您的组织需要一个，<code>Nessus</code>将使用这个代理服务器从可靠的地方获得软件更新。只需要主机和端口字段。如果需要，可以使用用户名、密码、身份验证类型和用户代理</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/16.png" alt="16.png"></p>
+<h3 id="设置之邮件服务"><a href="#设置之邮件服务" class="headerlink" title="设置之邮件服务"></a>设置之邮件服务</h3><p>简单邮件传输协议(<code>SMTP</code>)是发送和接收电子邮件的行业标准。一旦为<code>SMTP</code>配置好，扫描结果将通过电子邮件发送到扫描的“电子邮件通知”配置中指定的收件人列表。这些结果可以通过过滤器定制，并需要一个<code>HTML</code>兼容的电子邮件客户端</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/17.png" alt="17.png"></p>
+<h3 id="设置之自定义CA"><a href="#设置之自定义CA" class="headerlink" title="设置之自定义CA"></a>设置之自定义CA</h3><p>在扫描期间保存自定义证书颁发机构(<code>CA</code>)有助于减轻来自插件#51192 (<code>SSL</code>证书不可信)的发现</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/18.png" alt="18.png"></p>
+<h3 id="设置之密码管理"><a href="#设置之密码管理" class="headerlink" title="设置之密码管理"></a>设置之密码管理</h3><p>密码管理允许您设置密码参数，以及打开登录通知和设置会话超时。登录通知允许用户查看最近一次成功登录、最近一次失败登录尝试(日期、时间和<code>IP</code>)以及自上次成功登录以来是否发生了任何失败的登录尝试。更改将在软重启后生效</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/19.png" alt="19.png"></p>
+<h3 id="设置之扫描健康"><a href="#设置之扫描健康" class="headerlink" title="设置之扫描健康"></a>设置之扫描健康</h3><p>以图表的方式显示<code>NESSUS</code>的运行健康状态</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/20.png" alt="20.png"></p>
+<h3 id="设置之我的账户"><a href="#设置之我的账户" class="headerlink" title="设置之我的账户"></a>设置之我的账户</h3><p>此页面可进行账户密码更改、<code>API</code>密钥生成等</p>
+<p><img src="/images/KaliLinux_shentouceshi/loudongsaomiao/21.png" alt="21.png"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/信息安全/" <i class="fa fa-tag"></i> 信息安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/14/信息收集-主动/" rel="next" title="信息收集--主动">
+                <i class="fa fa-chevron-left"></i> 信息收集--主动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/17/urpSuite/" rel="prev" title="Burp Suite">
+                Burp Suite <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何发现漏洞"><span class="nav-number">1.</span> <span class="nav-text">如何发现漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从信息的维度定义漏洞管理"><span class="nav-number">2.</span> <span class="nav-text">从信息的维度定义漏洞管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#信息收集"><span class="nav-number">2.1.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息管理"><span class="nav-number">2.2.</span> <span class="nav-text">信息管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息输出"><span class="nav-number">2.3.</span> <span class="nav-text">信息输出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞扫描的类型"><span class="nav-number">3.</span> <span class="nav-text">漏洞扫描的类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞的基本概念"><span class="nav-number">4.</span> <span class="nav-text">漏洞的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CVSS"><span class="nav-number">4.1.</span> <span class="nav-text">CVSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CVE"><span class="nav-number">4.2.</span> <span class="nav-text">CVE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MS"><span class="nav-number">4.3.</span> <span class="nav-text">MS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OVAL"><span class="nav-number">4.4.</span> <span class="nav-text">OVAL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SCAP"><span class="nav-number">4.5.</span> <span class="nav-text">SCAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNVD"><span class="nav-number">4.6.</span> <span class="nav-text">CNVD</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞管理"><span class="nav-number">5.</span> <span class="nav-text">漏洞管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nessus"><span class="nav-number">6.</span> <span class="nav-text">Nessus</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">6.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">6.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扫描"><span class="nav-number">6.3.</span> <span class="nav-text">扫描</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件夹"><span class="nav-number">6.4.</span> <span class="nav-text">文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">6.5.</span> <span class="nav-text">资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#资源之策略"><span class="nav-number">6.5.1.</span> <span class="nav-text">资源之策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源之插件规则"><span class="nav-number">6.5.2.</span> <span class="nav-text">资源之插件规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源之扫描器"><span class="nav-number">6.5.3.</span> <span class="nav-text">资源之扫描器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扫描模板"><span class="nav-number">6.6.</span> <span class="nav-text">扫描模板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#扫描模板之设置"><span class="nav-number">6.6.1.</span> <span class="nav-text">扫描模板之设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扫描模板之凭证"><span class="nav-number">6.6.2.</span> <span class="nav-text">扫描模板之凭证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扫描模板之插件"><span class="nav-number">6.6.3.</span> <span class="nav-text">扫描模板之插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置"><span class="nav-number">6.7.</span> <span class="nav-text">设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置之关于"><span class="nav-number">6.7.1.</span> <span class="nav-text">设置之关于</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置之高级"><span class="nav-number">6.7.2.</span> <span class="nav-text">设置之高级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置之代理服务器"><span class="nav-number">6.7.3.</span> <span class="nav-text">设置之代理服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置之邮件服务"><span class="nav-number">6.7.4.</span> <span class="nav-text">设置之邮件服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置之自定义CA"><span class="nav-number">6.7.5.</span> <span class="nav-text">设置之自定义CA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置之密码管理"><span class="nav-number">6.7.6.</span> <span class="nav-text">设置之密码管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置之扫描健康"><span class="nav-number">6.7.7.</span> <span class="nav-text">设置之扫描健康</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置之我的账户"><span class="nav-number">6.7.8.</span> <span class="nav-text">设置之我的账户</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

