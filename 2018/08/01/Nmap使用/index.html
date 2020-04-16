@@ -123,9 +123,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nmap使用">
 <meta property="og:url" content="http://yoursite.com/2018/08/01/Nmap使用/index.html">
-<meta property="og:site_name" content="LoongEyes">
+<meta property="og:site_name" content="你好-World">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-24T04:28:43.135Z">
+<meta property="og:updated_time" content="2020-03-04T16:48:19.576Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nmap使用">
 
@@ -144,7 +144,7 @@
   };
 </script>
 
-  <title>Nmap使用 | LoongEyes</title>
+  <title>Nmap使用 | 你好-World</title>
   
 
 
@@ -202,7 +202,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">LoongEyes</span>
+        <span class="site-title">你好-World</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -353,7 +353,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LoongEyes">
+      <meta itemprop="name" content="你好-World">
     </span>
 
     
@@ -403,7 +403,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-24 12:28:43" itemprop="dateModified" datetime="2020-02-24T12:28:43+08:00">2020-02-24</time>
+                <time title="修改时间：2020-03-05 00:48:19" itemprop="dateModified" datetime="2020-03-05T00:48:19+08:00">2020-03-05</time>
               
             
           </span>
@@ -456,166 +456,157 @@
       
         <hr>
 <a id="more"></a>
-<h1 id="Nmap简介"><a href="#Nmap简介" class="headerlink" title="Nmap简介"></a>Nmap简介</h1><p>​    网络连接端扫描软件，用于主机发现，端口扫描，服务识别，系统识别。支持大量脚本。</p>
-<hr>
-<h1 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h1><hr>
-<h2 id="二层主机发现"><a href="#二层主机发现" class="headerlink" title="二层主机发现"></a>二层主机发现</h2><hr>
-<p>​    协议：ARP协议</p>
-<p>​    优点：扫描速度快，可靠</p>
-<p>​    缺点：不可路由</p>
+<h1 id="Nmap简介"><a href="#Nmap简介" class="headerlink" title="Nmap简介"></a>Nmap简介</h1><p>网络连接端扫描软件，用于主机发现，端口扫描，服务识别，系统识别。支持大量脚本</p>
+<h1 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h1><h2 id="二层主机发现"><a href="#二层主机发现" class="headerlink" title="二层主机发现"></a>二层主机发现</h2><p>协议：<code>ARP</code>协议</p>
+<p>优点：扫描速度快，可靠</p>
+<p>缺点：不可路由</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn 192.168.1.0/24</span><br><span class="line">-sn:ping扫描，禁用端口扫描，不仅发arp包，还会做ptr记录解析（反向域名解析）</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="三层主机发现"><a href="#三层主机发现" class="headerlink" title="三层主机发现"></a>三层主机发现</h2><hr>
-<p>​    协议：IP协议，ICMP协议</p>
-<p>​    优点：可路由</p>
-<p>​    缺点：较二层速度较慢，可被边界防火墙过滤</p>
+<h2 id="三层主机发现"><a href="#三层主机发现" class="headerlink" title="三层主机发现"></a>三层主机发现</h2><p>协议：<code>IP</code>协议，<code>ICMP</code>协议</p>
+<p>优点：可路由</p>
+<p>缺点：较二层速度较慢，可被边界防火墙过滤</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn 192.168.1.0/24</span><br><span class="line">-sn:不做端口扫描，ping扫描</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="四层主机发现"><a href="#四层主机发现" class="headerlink" title="四层主机发现"></a>四层主机发现</h2><hr>
-<p>​    协议：TCP协议，UDP协议</p>
-<p>​    优点：可路由且可靠</p>
-<p>​        不太可能被防火墙过滤，甚至可以发现所有端口都被过滤的主机</p>
-<p>​    缺点：基于状态过滤的防火墙可能会过滤扫描，全端口扫描扫描速度慢</p>
-<h3 id="TCP主机发现"><a href="#TCP主机发现" class="headerlink" title="TCP主机发现"></a>TCP主机发现</h3><p>​    方法：</p>
-<p>​        1.未经请求的ACK(直接发一个ACK)，活着的主机会回一个RST包；宕机主机不会回包</p>
-<p>​        2.直接发一个SYN包，活着的主机会回一个SYN/ACK包(端口打开)，回RST(端口关闭)；</p>
-<h3 id="UDP主机发现"><a href="#UDP主机发现" class="headerlink" title="UDP主机发现"></a>UDP主机发现</h3><p>​    方法：</p>
-<p>​        如果目标主机不在线，不回包；如果目标端口开启，也可能不回包。无法判断目标主机是否存活</p>
-<p>​        当主机在线，发包到其未开放的端口，会回应ICMP端口不可达，则表明其主机在线</p>
-<hr>
-<h1 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h1><p>​    端口扫描即发现攻击点，发现开放端口。</p>
-<hr>
-<h2 id="TCP端口扫描"><a href="#TCP端口扫描" class="headerlink" title="TCP端口扫描"></a>TCP端口扫描</h2><hr>
-<h3 id="全连接扫描"><a href="#全连接扫描" class="headerlink" title="全连接扫描"></a>全连接扫描</h3><p>​    建立完整TCP三次连接，结果最最准确不需要任何权限，系统中的任何用户都有权利使用这个调用，而且速度快，但容易被发觉。</p>
+<h2 id="四层主机发现"><a href="#四层主机发现" class="headerlink" title="四层主机发现"></a>四层主机发现</h2><p>协议：<code>TCP</code>协议，<code>UDP</code>协议</p>
+<p>优点：可路由且可靠，不太可能被防火墙过滤，甚至可以发现所有端口都被过滤的主机</p>
+<p>缺点：基于状态过滤的防火墙可能会过滤扫描，全端口扫描扫描速度慢</p>
+<h3 id="TCP主机发现"><a href="#TCP主机发现" class="headerlink" title="TCP主机发现"></a>TCP主机发现</h3><p>方法：</p>
+<ol>
+<li><p>未经请求的<code>ACK</code>(直接发一个<code>ACK</code>)，活着的主机会回一个<code>RST</code>包；宕机主机不会回包</p>
+</li>
+<li><p>直接发一个<code>SYN</code>包，活着的主机会回一个<code>SYN/ACK</code>包(端口打开)，回<code>RST</code>(端口关闭)；</p>
+</li>
+</ol>
+<h3 id="UDP主机发现"><a href="#UDP主机发现" class="headerlink" title="UDP主机发现"></a>UDP主机发现</h3><p>方法：</p>
+<p>如果目标主机不在线，不回包；如果目标端口开启，也可能不回包。无法判断目标主机是否存活</p>
+<p>当主机在线，发包到其未开放的端口，会回应<code>ICMP</code>端口不可达，则表明其主机在线</p>
+<h1 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h1><p>端口扫描即发现攻击点，发现开放端口</p>
+<h2 id="TCP端口扫描"><a href="#TCP端口扫描" class="headerlink" title="TCP端口扫描"></a>TCP端口扫描</h2><h3 id="全连接扫描"><a href="#全连接扫描" class="headerlink" title="全连接扫描"></a>全连接扫描</h3><p>建立完整<code>TCP</code>三次连接，结果最最准确不需要任何权限，系统中的任何用户都有权利使用这个调用，而且速度快，但容易被发觉。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT 192.168.1.115 -p 100-200</span><br></pre></td></tr></table></figure>
-<h3 id="隐蔽扫描"><a href="#隐蔽扫描" class="headerlink" title="隐蔽扫描"></a>隐蔽扫描</h3><p>​    不建立完整的TCP连接，不在应用层留痕，只能在网络层有些迹像可循</p>
-<p>​    只发送SYN包，根据目标主机返回包判断目标端口是否开放，（返回SYN+ACK为端口开放，返回RST+ACK包为端口不开放）</p>
+<h3 id="隐蔽扫描"><a href="#隐蔽扫描" class="headerlink" title="隐蔽扫描"></a>隐蔽扫描</h3><p>不建立完整的<code>TCP</code>连接，不在应用层留痕，只能在网络层有些迹像可循</p>
+<p>只发送<code>SYN</code>包，根据目标主机返回包判断目标端口是否开放，（返回<code>SYN+ACK</code>为端口开放，返回<code>RST+ACK</code>包为端口不开放）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.1.115 -p100-200     #nmap默认SYN端口扫描  -sS</span><br><span class="line">nmap -sS 192.168.1.115 -p100-200,445,3389 --open</span><br></pre></td></tr></table></figure>
-<h3 id="僵尸扫描"><a href="#僵尸扫描" class="headerlink" title="僵尸扫描"></a>僵尸扫描</h3><p>​    僵尸机选择条件：</p>
-<p>​        1.可实现源地址伪造</p>
-<p>​        2.足够闲置</p>
-<p>​        3.IPID递增</p>
+<h3 id="僵尸扫描"><a href="#僵尸扫描" class="headerlink" title="僵尸扫描"></a>僵尸扫描</h3><p>僵尸机选择条件：</p>
+<ol>
+<li><p>可实现源地址伪造</p>
+</li>
+<li><p>足够闲置</p>
+</li>
+<li><p><code>IPID</code>递增</p>
+</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nmap -p445 192.168.1.133 --script=ipidseq.nse     #发现僵尸机</span><br><span class="line">nmap 172.16.36.135 -sI 172.16.36.134 -Pn -p 0-100     </span><br><span class="line">-sI：指定僵尸机     -Pn：跳过主机发现，默认主机在线，做端口扫描</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="UDP端口扫描"><a href="#UDP端口扫描" class="headerlink" title="UDP端口扫描"></a>UDP端口扫描</h2><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nmap -iL iplist.txt -sU -p 1-200</span><br><span class="line">-iL：调用IP列表文件，批量IP扫描</span><br><span class="line">-sU：UDP扫描</span><br></pre></td></tr></table></figure>
-<hr>
+<h2 id="UDP端口扫描"><a href="#UDP端口扫描" class="headerlink" title="UDP端口扫描"></a>UDP端口扫描</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nmap -iL iplist.txt -sU -p 1-200</span><br><span class="line">-iL：调用IP列表文件，批量IP扫描</span><br><span class="line">-sU：UDP扫描</span><br></pre></td></tr></table></figure>
 <h1 id="服务扫描"><a href="#服务扫描" class="headerlink" title="服务扫描"></a>服务扫描</h1><h2 id="获取banner信息"><a href="#获取banner信息" class="headerlink" title="获取banner信息"></a>获取banner信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT 192.168.1.107 -p 22 --script=banner.nse</span><br></pre></td></tr></table></figure>
 <h2 id="服务识别"><a href="#服务识别" class="headerlink" title="服务识别"></a>服务识别</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.1.107 -p1-100 -sV</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="操作系统识别"><a href="#操作系统识别" class="headerlink" title="操作系统识别"></a>操作系统识别</h1><p>​    TTL起始值：Windows系统【128（65-128）】；Linux/Unix【64（1-64）】，某些Unix为255</p>
+<h1 id="操作系统识别"><a href="#操作系统识别" class="headerlink" title="操作系统识别"></a>操作系统识别</h1><p><code>TTL</code>起始值：</p>
+<ol>
+<li><p><code>Windows</code>系统：128（65-128）</p>
+</li>
+<li><p><code>Linux/Unix</code>：64（1-64）</p>
+</li>
+<li><p>某些<code>Unix</code>为255</p>
+</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -O 192.168.1.1</span><br></pre></td></tr></table></figure>
 <hr>
-<hr>
-<hr>
-<h1 id="NMAP全部参数"><a href="#NMAP全部参数" class="headerlink" title="NMAP全部参数"></a>NMAP全部参数</h1><hr>
-<h2 id="目标选择"><a href="#目标选择" class="headerlink" title="目标选择"></a>目标选择</h2><hr>
-<p>调用主机IP地址/网络的列表文件</p>
+<h1 id="NMAP全部参数"><a href="#NMAP全部参数" class="headerlink" title="NMAP全部参数"></a>NMAP全部参数</h1><h2 id="目标选择"><a href="#目标选择" class="headerlink" title="目标选择"></a>目标选择</h2><p>调用主机<code>IP</code>地址/网络的列表文件</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-iL &lt;inputfilename&gt;</span><br></pre></td></tr></table></figure>
 <p>选择随机目标</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-iR &lt;num hosts&gt;</span><br></pre></td></tr></table></figure>
 <p>排除主机/网络</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--exclude &lt;host1[,host2][,host3],...&gt;</span><br></pre></td></tr></table></figure>
-<p>排除主机IP地址/网络的列表文件</p>
+<p>排除主机<code>IP</code>地址/网络的列表文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--excludefile &lt;exclude_file&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="主机发现-1"><a href="#主机发现-1" class="headerlink" title="主机发现"></a>主机发现</h2><hr>
-<p>列表扫描——简单地列出要扫描的目标 </p>
+<h2 id="主机发现-1"><a href="#主机发现-1" class="headerlink" title="主机发现"></a>主机发现</h2><p>列表扫描——简单地列出要扫描的目标 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sL</span><br></pre></td></tr></table></figure>
-<p>Ping扫描-禁用端口扫描 </p>
+<p><code>Ping</code>扫描-禁用端口扫描 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sn</span><br></pre></td></tr></table></figure>
 <p>将所有主机视为在线——跳过主机发现 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Pn</span><br></pre></td></tr></table></figure>
-<p>TCP SYN Ping扫描</p>
+<p><code>TCP SYN Ping</code>扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-PS [portlist]</span><br></pre></td></tr></table></figure>
-<p>TCP ACK Ping扫描</p>
+<p><code>TCP ACK Ping</code>扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-PA [portlist]</span><br></pre></td></tr></table></figure>
-<p>UDP Ping扫描</p>
+<p><code>UDP Ping</code>扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-PU [portlist]</span><br></pre></td></tr></table></figure>
-<p>SCTP扫描</p>
+<p><code>SCTP</code>扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-PY [portlist]</span><br></pre></td></tr></table></figure>
-<p>ICMP type 8 (Ping)扫描</p>
+<p><code>ICMP type 8 (Ping)</code>扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-PE</span><br></pre></td></tr></table></figure>
-<p>ICMP type 14 (时间戳响应)扫描</p>
+<p><code>ICMP type 14</code> (时间戳响应)扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-PP</span><br></pre></td></tr></table></figure>
-<p>ICMP type 18 (地址掩码响应)扫描</p>
+<p><code>ICMP type 18</code>(地址掩码响应)扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-PM</span><br></pre></td></tr></table></figure>
-<p>IP协议Ping扫描(禁止主机发现使Nmap对每一个指定的目标IP地址进行所要求的扫描 )(无Ping)</p>
+<p><code>IP</code>协议<code>Ping</code>扫描(禁止主机发现使<code>Nmap</code>对每一个指定的目标<code>IP</code>地址进行所要求的扫描 )(无<code>Ping</code>)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-PO [protocol list]</span><br></pre></td></tr></table></figure>
-<p>不对IP地址做反向域名解析</p>
+<p>不对<code>IP</code>地址做反向域名解析</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-n</span><br></pre></td></tr></table></figure>
-<p>永远对IP地址做反向域名解析</p>
+<p>永远对<code>IP</code>地址做反向域名解析</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-R</span><br></pre></td></tr></table></figure>
-<p>指定自定义DNS服务器</p>
+<p>指定自定义<code>DNS</code>服务器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--dns-servers &lt;serv1[,serv2],...&gt;</span><br></pre></td></tr></table></figure>
-<p>使用操作系统的DNS解析器</p>
+<p>使用操作系统的<code>DNS</code>解析器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--system-dns</span><br></pre></td></tr></table></figure>
 <p>每个主机跟踪路由跳转路径</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--traceroute</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="端口扫描-1"><a href="#端口扫描-1" class="headerlink" title="端口扫描"></a>端口扫描</h2><hr>
-<h3 id="nmap所识别的端口状态"><a href="#nmap所识别的端口状态" class="headerlink" title="nmap所识别的端口状态"></a><code>nmap</code>所识别的端口状态</h3><ol>
-<li><p>open(开放的)</p>
+<h2 id="端口扫描-1"><a href="#端口扫描-1" class="headerlink" title="端口扫描"></a>端口扫描</h2><h3 id="nmap所识别的端口状态"><a href="#nmap所识别的端口状态" class="headerlink" title="nmap所识别的端口状态"></a>nmap所识别的端口状态</h3><ol>
+<li><p><code>open</code>(开放的)</p>
 <p> 应用程序正在该端口接收<code>TCP</code>连接或者<code>UDP</code>报文。发现这一点常常是端口扫描的主要目标。</p>
 </li>
-<li><p>closed(关闭的)</p>
+<li><p><code>closed</code>(关闭的)</p>
 <p> 关闭的端口对于<code>Nmap</code>也是可访问的(它接受<code>Nmap</code>的探测报文并作出响应)，但没有应用程序在其上监听。它们可以显示该<code>IP</code>地址上(主机发现，或者<code>ping</code>扫描)的主机正在运行,也对部分操作系统探测有所帮助。</p>
 </li>
-<li><p>filtered(被过滤的)</p>
+<li><p><code>filtered</code>(被过滤的)</p>
 <p> 由于包过滤阻止探测报文到达端口，<code>Nmap</code>无法确定该端口是否开放。过滤可能来自专业的防火墙设备，路由器规则 或者主机上的软件防火墙。</p>
 </li>
-<li><p>unfiltered(未被过滤的)</p>
+<li><p><code>unfiltered</code>(未被过滤的)</p>
 <p> 未被过滤状态意味着端口可访问，但<code>Nmap</code>不能确定它是开放还是关闭。 只有用于映射防火墙规则集的<code>ACK</code>扫描才会把端口分类到这种状态。用其它类型的扫描如窗口扫描，<code>SYN</code>扫描，或者FIN扫描来扫描未被过滤的端口可以帮助确定端口是否开放。</p>
 </li>
-<li><p>open|filtered(开放或者被过滤的)</p>
+<li><p><code>open</code>|<code>filtered</code>(开放或者被过滤的)</p>
 <p> 当无法确定端口是开放还是被过滤的，<code>Nmap</code>就把该端口划分成这种状态。开放的端口不响应就是一个例子。没有响应也可能意味着报文过滤器丢弃了探测报文或者它引发的任何响应。因此<code>Nmap</code>无法确定该端口是开放的还是被过滤的。 <code>UDP</code>，<code>IP</code>协议，<code>FIN</code>，<code>Null</code>，和<code>Xmas</code>扫描可能把端口归入此类。</p>
 </li>
-<li><p>closed|filtered(关闭或者被过滤的)</p>
+<li><p><code>closed</code>|<code>filtered</code>(关闭或者被过滤的)</p>
 <p> 该状态用于<code>Nmap</code>不能确定端口是关闭的还是被过滤的。 它只可能出现在<code>IPID Idle</code>扫描中。</p>
 </li>
 </ol>
-<hr>
-<p>TCP SYN隐蔽端口扫描</p>
+<p><code>TCP SYN</code>隐蔽端口扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sS</span><br></pre></td></tr></table></figure>
-<p>TCP 全连接端口扫描</p>
+<p><code>TCP</code>全连接端口扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sT</span><br></pre></td></tr></table></figure>
-<p>TCP ACK端口扫描</p>
+<p><code>TCP ACK</code>端口扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sA</span><br></pre></td></tr></table></figure>
-<p>TCP 窗口扫描</p>
-<p>​    通过检查返回的RST报文的TCP窗口域。 在某些系统上，开放端口用正数表示窗口大小(甚至对于RST报文) 而关闭端口的窗口大小为0。因此，当收到RST时，窗口扫描不总是把端口标记为 unfiltered， 而是根据TCP窗口值是正数还是0，分别把端口标记为open或者 closed</p>
+<p><code>TCP</code>窗口扫描</p>
+<p>通过检查返回的<code>RST</code>报文的<code>TCP</code>窗口域。在某些系统上，开放端口用正数表示窗口大小(甚至对于<code>RST</code>报文) 而关闭端口的窗口大小为0。因此，当收到<code>RST</code>时，窗口扫描不总是把端口标记为<code>unfiltered</code>， 而是根据<code>TCP</code>窗口值是正数还是0，分别把端口标记为<code>open</code>或者<code>closed</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sW</span><br></pre></td></tr></table></figure>
-<p>TCP Maimon扫描</p>
-<p>​     根据RFC 793 (TCP)，无论端口开放或者关闭，都应该对FIN+ACK的探测响应RST报文。 然而，如果端口开放，许多基于BSD的系统只是丢弃该探测报文。 </p>
+<p><code>TCP Maimon</code>扫描</p>
+<p>根据<code>RFC 793 (TCP)</code>，无论端口开放或者关闭，都应该对<code>FIN+ACK</code>的探测响应<code>RST</code>报文。然而，如果端口开放，许多基于<code>BSD</code>的系统只是丢弃该探测报文</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sM</span><br></pre></td></tr></table></figure>
-<p>UDP端口扫描</p>
+<p><code>UDP</code>端口扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sU</span><br></pre></td></tr></table></figure>
-<p>TCP Null扫描(不设置任何TCP标志位)</p>
+<p><code>TCP Null</code>扫描(不设置任何<code>TCP</code>标志位)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sN</span><br></pre></td></tr></table></figure>
-<p>TCP FIN扫描(只设置TCP FIN标志位)</p>
+<p><code>TCP FIN</code>扫描(只设置<code>TCP FIN</code>标志位)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sF</span><br></pre></td></tr></table></figure>
-<p>TCP Xmas扫描(设置TCP FIN,PSH,URG标志位)</p>
+<p><code>TCP Xmas</code>扫描(设置<code>TCP FIN</code>,<code>PSH</code>,<code>URG</code>标志位)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sX</span><br></pre></td></tr></table></figure>
-<p>自定义TCP标志位用于扫描</p>
+<p>自定义<code>TCP</code>标志位用于扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--scanflags &lt;flags&gt;</span><br></pre></td></tr></table></figure>
 <p>指定僵尸机</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sI &lt;zombie host[:probeport]&gt;</span><br></pre></td></tr></table></figure>
-<p>SCTP 初始化扫描</p>
+<p><code>SCTP</code>初始化扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sY</span><br></pre></td></tr></table></figure>
-<p>cookie-echo 扫描</p>
+<p><code>cookie-echo</code>扫描</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sZ</span><br></pre></td></tr></table></figure>
-<p>IP协议扫描(用于确定目标机支持哪些IP协议 )</p>
+<p><code>IP</code>协议扫描(用于确定目标机支持哪些<code>IP</code>协议 )</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sO</span><br></pre></td></tr></table></figure>
-<p>FTP反弹扫描</p>
-<p>​    代理ftp连接。它允许用户连接到一台FTP服务器，然后要求此FTP服务器将文件送到一台第三方服务器。</p>
-<p>​    可导致FTP服务器对其它主机端口扫描。 只要请求FTP服务器轮流发送一个文件到目标主机上的所感兴趣的端口。 错误消息会描述端口是开放还是关闭的。 </p>
+<p><code>FTP</code>反弹扫描</p>
+<p>代理<code>ftp</code>连接。它允许用户连接到一台<code>FTP</code>服务器，然后要求此<code>FTP</code>服务器将文件送到一台第三方服务器</p>
+<p>可导致<code>FTP</code>服务器对其它主机端口扫描。只要请求<code>FTP</code>服务器轮流发送一个文件到目标主机上的所感兴趣的端口。错误消息会描述端口是开放还是关闭的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-b &lt;username&gt;:&lt;password&gt;@&lt;server&gt;:&lt;port&gt;     #指定支持代理ftp连接功能的ftp服务器</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="端口规范和扫描顺序"><a href="#端口规范和扫描顺序" class="headerlink" title="端口规范和扫描顺序"></a>端口规范和扫描顺序</h2><hr>
-<p>指定端口(Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9)</p>
+<h2 id="端口规范和扫描顺序"><a href="#端口规范和扫描顺序" class="headerlink" title="端口规范和扫描顺序"></a>端口规范和扫描顺序</h2><p>指定端口(Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-p &lt;port ranges&gt;</span><br></pre></td></tr></table></figure>
 <p>从扫描中排除指定的端口 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--exclude-ports &lt;port ranges&gt;</span><br></pre></td></tr></table></figure>
-<p>快速模式-扫描比默认扫描更少的端口 (在nmap-services文件中指定端口)</p>
+<p>快速模式-扫描比默认扫描更少的端口 (在<code>nmap-services</code>文件中指定端口)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-F</span><br></pre></td></tr></table></figure>
 <p>连续扫描端口——不要随机化 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-r</span><br></pre></td></tr></table></figure>
@@ -623,9 +614,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--top-ports &lt;number&gt;</span><br></pre></td></tr></table></figure>
 <p>扫描更常见的端口</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--port-ratio &lt;ratio&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="服务-版本检测"><a href="#服务-版本检测" class="headerlink" title="服务/版本检测"></a>服务/版本检测</h2><hr>
-<p>探测打开端口以确定服务/版本信息 </p>
+<h2 id="服务-版本检测"><a href="#服务-版本检测" class="headerlink" title="服务/版本检测"></a>服务/版本检测</h2><p>探测打开端口以确定服务/版本信息 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sV</span><br></pre></td></tr></table></figure>
 <p>版本探测强度(0-9)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--version-intensity &lt;level&gt;</span><br></pre></td></tr></table></figure>
@@ -635,9 +624,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--version-all</span><br></pre></td></tr></table></figure>
 <p>显示详细的版本扫描活动（用于调试） </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--version-trace</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="脚本扫描"><a href="#脚本扫描" class="headerlink" title="脚本扫描"></a>脚本扫描</h2><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sC: 等价于 --script=default</span><br></pre></td></tr></table></figure>
+<h2 id="脚本扫描"><a href="#脚本扫描" class="headerlink" title="脚本扫描"></a>脚本扫描</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sC: 等价于 --script=default</span><br></pre></td></tr></table></figure>
 <p>调用脚本(多个脚本以逗号隔开)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--script=&lt;Lua scripts&gt;</span><br></pre></td></tr></table></figure>
 <p>提供脚本的参数 </p>
@@ -650,19 +637,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--script-updatedb</span><br></pre></td></tr></table></figure>
 <p>查看脚本帮助信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--script-help=&lt;Lua scripts&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="操作系统检测"><a href="#操作系统检测" class="headerlink" title="操作系统检测"></a>操作系统检测</h2><hr>
-<p>检测操作系统</p>
+<h2 id="操作系统检测"><a href="#操作系统检测" class="headerlink" title="操作系统检测"></a>操作系统检测</h2><p>检测操作系统</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-O</span><br></pre></td></tr></table></figure>
 <p>针对指定的目标进行操作系统检测</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--osscan-limit</span><br></pre></td></tr></table></figure>
 <p>推测操作系统检测结果 (默认)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--osscan-guess</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="时间和性能"><a href="#时间和性能" class="headerlink" title="时间和性能"></a>时间和性能</h2><hr>
-<p>默认时间选项为秒，可附加ms（毫秒），s（秒），m（分钟），h（小时）</p>
+<h2 id="时间和性能"><a href="#时间和性能" class="headerlink" title="时间和性能"></a>时间和性能</h2><p>默认时间选项为秒，可附加<code>ms</code>（毫秒），<code>s</code>（秒），<code>m</code>（分钟），<code>h</code>（小时）</p>
 <p>设置定时模板 </p>
-<p>6个时间模板，使用时采用-T选项及数字(0 - 5) 或名称。模板名称有<code>paranoid (0)</code>、<code>sneaky (1)</code>、<code>polite (2)</code>、<code>normal(3)</code>、 <code>aggressive (4)</code>和<code>insane (5)</code>。</p>
+<p>6个时间模板，使用时采用<code>-T</code>选项及数字(0 - 5) 或名称。模板名称有<code>paranoid (0)</code>、<code>sneaky (1)</code>、<code>polite (2)</code>、<code>normal(3)</code>、 <code>aggressive (4)</code>和<code>insane (5)</code>。</p>
 <p>前两种模式用于<code>IDS</code>躲避</p>
 <p><code>Polite</code>模式降低了扫描 速度以使用更少的带宽和目标主机资源。</p>
 <p>默认模式为<code>Normal</code>，因此-T3 实际上是未做任何优化。</p>
@@ -683,46 +666,42 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--scan-delay &lt;time&gt;</span><br><span class="line">--max-scan-delay &lt;time&gt;</span><br></pre></td></tr></table></figure>
 <p>设置发送数据包的速度</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--min-rate &lt;number&gt;</span><br><span class="line">--max-rate &lt;number&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="防火墙-IDS逃避和欺骗"><a href="#防火墙-IDS逃避和欺骗" class="headerlink" title="防火墙/ IDS逃避和欺骗"></a>防火墙/ IDS逃避和欺骗</h2><hr>
-<p>报文分段，指定MTU</p>
+<h2 id="防火墙-IDS逃避和欺骗"><a href="#防火墙-IDS逃避和欺骗" class="headerlink" title="防火墙/ IDS逃避和欺骗"></a>防火墙/ IDS逃避和欺骗</h2><p>报文分段，指定<code>MTU</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-f</span><br><span class="line">--mtu &lt;val&gt;</span><br></pre></td></tr></table></figure>
 <p>使用诱饵隐蔽扫描 </p>
-<p>​    噪声攻击扫描，将自己的真实IP隐藏在大量的伪造IP中，ME表示真实IP</p>
+<p>噪声攻击扫描，将自己的真实<code>IP</code>隐藏在大量的伪造<code>IP</code>中，<code>ME</code>表示真实<code>IP</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-D &lt;decoy1,decoy2[,ME],...&gt;</span><br></pre></td></tr></table></figure>
-<p>源IP地址欺骗</p>
+<p>源<code>IP</code>地址欺骗</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-S &lt;IP_Address&gt;</span><br></pre></td></tr></table></figure>
 <p>使用指定的网络接口 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-e &lt;iface&gt;</span><br></pre></td></tr></table></figure>
 <p>源端口欺骗</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-g &lt;portnum&gt; ; --source-port &lt;portnum&gt;</span><br></pre></td></tr></table></figure>
-<p>设置nmap代理(http,socks4)</p>
+<p>设置<code>nmap</code>代理(<code>http</code>,<code>socks4</code>)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--proxies &lt;url1,[url2],...&gt;</span><br></pre></td></tr></table></figure>
-<p>将一个定制的payload附加到发送数据包  </p>
+<p>将一个定制的<code>payload</code>附加到发送数据包  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--data &lt;hex string&gt;</span><br></pre></td></tr></table></figure>
-<p>将一个定制的ASCII字符串附加到发送数据包 </p>
+<p>将一个定制的<code>ASCII</code>字符串附加到发送数据包 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--data-string &lt;string&gt;</span><br></pre></td></tr></table></figure>
 <p>将随机数据附加到发送数据包 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--data-length &lt;num&gt;</span><br></pre></td></tr></table></figure>
-<p>用指定的ip选项发送数据包 </p>
+<p>用指定的<code>ip</code>选项发送数据包 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--ip-options &lt;options&gt;</span><br></pre></td></tr></table></figure>
-<p>设置IP TTL</p>
+<p>设置<code>IP TTL</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--ttl &lt;val&gt;</span><br></pre></td></tr></table></figure>
-<p>MAC地址伪造</p>
+<p><code>MAC</code>地址伪造</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--spoof-mac &lt;mac address/prefix/vendor name&gt;</span><br></pre></td></tr></table></figure>
-<p>用伪造的tcp/udp/sctp校验和发送数据包 </p>
+<p>用伪造的<code>tcp</code>/<code>udp</code>/<code>sctp</code>校验和发送数据包 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--badsum</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><hr>
-<p>标准输出</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>标准输出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-oN &lt;files&gt;</span><br></pre></td></tr></table></figure>
-<p>XML输出</p>
+<p><code>XML</code>输出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-oX  &lt;files&gt;</span><br></pre></td></tr></table></figure>
 <p>脚本小子输出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-oS &lt;files&gt;</span><br></pre></td></tr></table></figure>
-<p>Grep输出 </p>
+<p><code>Grep</code>输出 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-oG &lt;files&gt;</span><br></pre></td></tr></table></figure>
-<p>同时输出三种主要格式 (标准格式、XML格式和Grep格式 )</p>
+<p>同时输出三种主要格式 (标准格式、<code>XML</code>格式和<code>Grep</code>格式 )</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-oA &lt;basename&gt;</span><br></pre></td></tr></table></figure>
 <p>显示详细信息，显示最大详细信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-v</span><br><span class="line">-vv</span><br></pre></td></tr></table></figure>
@@ -737,45 +716,72 @@
 <p>显示主机接口和路由（用于调试） </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--iflist</span><br></pre></td></tr></table></figure>
 <p>附加到指定的输出文件</p>
-<p>​    -oX，-oN，-oG会覆盖输出文件，此选项对输出文件进行追加(XML输出文件无效)</p>
+<p><code>-oX</code>，<code>-oN</code>，<code>-oG</code>会覆盖输出文件，此选项对输出文件进行追加(<code>XML</code>输出文件无效)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--append-output</span><br></pre></td></tr></table></figure>
 <p>继续中断的扫描 </p>
-<p>​    使用选项并指定标准/Grep扫描输出文件，不允许使用其它参数，Nmap会解析输出文件并使用原来的格式输出。 Nmap将把新地结果添加到文件中，这种方式不支持XML输出格式 </p>
+<p>使用选项并指定标准/<code>Grep</code>扫描输出文件，不允许使用其它参数，<code>Nmap</code>会解析输出文件并使用原来的格式输出。 <code>Nmap</code>将把新地结果添加到文件中，这种方式不支持<code>XML</code>输出格式 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--resume &lt;file&gt;</span><br></pre></td></tr></table></figure>
-<p>设置XSL样式表，转换XML输出为HTML</p>
+<p>设置<code>XSL</code>样式表，转换<code>XML</code>输出为<code>HTML</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--stylesheet &lt;path/URL&gt;</span><br></pre></td></tr></table></figure>
-<p>从Nmap引用样式表，用于更可移植的XML </p>
+<p>从<code>Nmap</code>引用样式表，用于更可移植的<code>XML</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--webxml</span><br></pre></td></tr></table></figure>
-<p>禁止Nmap的XML输出关联任何XSL样式表 </p>
+<p>禁止<code>Nmap</code>的<code>XML</code>输出关联任何<code>XSL</code>样式表 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--no-stylesheet</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h2><hr>
-<p>启用IPv6扫描 </p>
+<h2 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h2><p>启用<code>IPv6</code>扫描 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-6</span><br></pre></td></tr></table></figure>
 <p>启用操作系统检测、版本检测、脚本扫描和路由追踪</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-A</span><br><span class="line">相当于</span><br><span class="line">-O</span><br><span class="line">-sV</span><br><span class="line">--script</span><br><span class="line">--traceroute</span><br></pre></td></tr></table></figure>
-<p>指定自定义Nmap数据文件位置 </p>
-<p>​    Nmap在运行时从文件中获得特殊的数据，这些文件有 <code>nmap-service-probes</code>， <code>nmap-services</code>， <code>nmap-protocols</code>， <code>nmap-rpc</code>， <code>nmap-mac-prefixes</code>和 <code>nmap-os-fingerprints</code>。Nmap首先 在<code>--datadir</code>选项说明的目录中查找这些文件。 未找到的文件，将在<code>BMAPDIR</code>环境变量说明的目录中查找。 接下来是用于真正和有效UID的<code>~/.nmap</code>或Nmap可执行代码的位置(仅Win32)；然后是是编译位置， 如<code>/usr/local/share/nmap</code>或<code>/usr/share/nmap</code>。 Nmap查找的最后一个位置是当前目录。</p>
+<p>指定自定义<code>Nmap</code>数据文件位置 </p>
+<p><code>Nmap</code>在运行时从文件中获得特殊的数据，这些文件有 <code>nmap-service-probes</code>， <code>nmap-services</code>， <code>nmap-protocols</code>， <code>nmap-rpc</code>， <code>nmap-mac-prefixes</code>和 <code>nmap-os-fingerprints</code>。Nmap首先 在<code>--datadir</code>选项说明的目录中查找这些文件。 未找到的文件，将在<code>BMAPDIR</code>环境变量说明的目录中查找。 接下来是用于真正和有效<code>UID</code>的<code>~/.nmap</code>或Nmap可执行代码的位置(仅<code>Win32</code>)；然后是是编译位置， 如<code>/usr/local/share/nmap</code>或<code>/usr/share/nmap</code>。 <code>Nmap</code>查找的最后一个位置是当前目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--datadir &lt;dirname&gt;</span><br></pre></td></tr></table></figure>
 <p>使用原以太网帧发送数据</p>
-<p>​    要求Nmap在以太网(数据链路)层而不是IP(网络层)发送 报文</p>
+<p>要求<code>Nmap</code>在以太网(数据链路)层而不是<code>IP</code>(网络层)发送报文</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--send-eth</span><br></pre></td></tr></table></figure>
-<p>使用原IP数据包发送数据</p>
+<p>使用原<code>IP</code>数据包发送数据</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--send-ip</span><br></pre></td></tr></table></figure>
 <p>假定用户具有全部权限 </p>
-<p>​    告诉Nmap假定其具有足够的权限进行源套接字包发送、报文捕获和类似UNIX系统中根用户操作的权限。 </p>
+<p>告诉<code>Nmap</code>假定其具有足够的权限进行源套接字包发送、报文捕获和类似<code>UNIX</code>系统中根用户操作的权限。 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--privileged</span><br></pre></td></tr></table></figure>
-<p>假设用户缺少原始socket特权</p>
+<p>假设用户缺少原始<code>socket</code>特权</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--unprivileged</span><br></pre></td></tr></table></figure>
 <p>打印版本信息 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-V ; --version</span><br></pre></td></tr></table></figure>
 <p>帮助信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-h ; --help</span><br></pre></td></tr></table></figure>
-<hr>
 <h1 id="Nmap常用脚本"><a href="#Nmap常用脚本" class="headerlink" title="Nmap常用脚本"></a>Nmap常用脚本</h1><p>脚本默认存放位置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/xx/nmap/scripts</span><br></pre></td></tr></table></figure>
 <p>常用脚本分类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">auth：负责处理鉴权证书(绕过)的脚本</span><br><span class="line">broadcast：在局域网内探查更多服务的开启情况</span><br><span class="line">brute：对常见的应用进行暴力破解</span><br><span class="line">default：使用-sC或-A选项扫描时的默认脚本</span><br><span class="line">discovery：对网络进行更多的信息收集</span><br><span class="line">dos：用于拒绝服务攻击</span><br><span class="line">exploit：利用已知漏洞入侵系统</span><br><span class="line">external：利用第三方的数据库或资源查询目标地址信息</span><br><span class="line">fuzzer：模糊测试脚本</span><br><span class="line">intrusive：入侵性脚本，可能被目标IPS/IDS发现</span><br><span class="line">malware：探测目标是否感染病毒，开启后门等信息</span><br><span class="line">safe：安全性脚本</span><br><span class="line">version：负责增强服务与版本扫描功能的脚本</span><br><span class="line">vuln：负责检查目标是否存在常见漏洞</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><code>auth</code>：负责处理鉴权证书(绕过)的脚本</p>
+</li>
+<li><p><code>broadcast</code>：在局域网内探查更多服务的开启情况</p>
+</li>
+<li><p><code>brute</code>：对常见的应用进行暴力破解</p>
+</li>
+<li><p><code>default</code>：使用<code>-sC</code>或<code>-A</code>选项扫描时的默认脚本</p>
+</li>
+<li><p><code>discovery</code>：对网络进行更多的信息收集</p>
+</li>
+<li><p><code>dos</code>：用于拒绝服务攻击</p>
+</li>
+<li><p><code>exploit</code>：利用已知漏洞入侵系统</p>
+</li>
+<li><p><code>external</code>：利用第三方的数据库或资源查询目标地址信息</p>
+</li>
+<li><p><code>fuzzer</code>：模糊测试脚本</p>
+</li>
+<li><p><code>intrusive</code>：入侵性脚本，可能被目标<code>IPS/IDS</code>发现</p>
+</li>
+<li><p><code>malware</code>：探测目标是否感染病毒，开启后门等信息</p>
+</li>
+<li><p><code>safe</code>：安全性脚本</p>
+</li>
+<li><p><code>version</code>：负责增强服务与版本扫描功能的脚本</p>
+</li>
+<li><p><code>vuln</code>：负责检查目标是否存在常见漏洞</p>
+</li>
+</ol>
+
       
     </div>
 
@@ -955,6 +961,8 @@
                     
                       
                     
+                      
+                    
                     <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
@@ -967,6 +975,8 @@
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
+                    
+                      
                     
                       
                     
@@ -1091,16 +1101,17 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共160.9k字</span>
+  <span class="post-count">博客全站共162.7k字</span>
 </div>
 
 
 <div style="width:400px;margin:0 auto; padding:20px 0;">
 	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beiantubiao.png" alt="备案标识"/></div>
 	<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000766" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁公网安备 37010302000766号</p></a>
-	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></div>
+	<div style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><a target="_blank" href="http://beian.miit.gov.cn/" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">鲁ICP备19025353号</p></a></div>
 </div>
  
+
         
 
 
