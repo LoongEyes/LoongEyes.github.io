@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2024/06/19/%E7%BB%84%E5%BB%BA%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E8%AE%B0%E5%BD%95/</loc>
+    
+    <lastmod>2024-06-19T14:23:59.100Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/05/05/DVWA%E9%9D%B6%E6%9C%BA/</loc>
+    
+    <lastmod>2022-06-30T18:04:57.043Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2021/12/13/Apache-log4j2-rce%EF%BC%88CVE-2021-44228%EF%BC%89/</loc>
+    
+    <lastmod>2021-12-15T14:54:13.313Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/08/23/pikachu/</loc>
+    
+    <lastmod>2020-08-24T02:24:33.549Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/08/01/Nmap%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2020-03-04T16:48:19.576Z</lastmod>
@@ -75,13 +103,6 @@
     <loc>http://yoursite.com/2019/05/03/wakanda%E9%9D%B6%E6%9C%BA/</loc>
     
     <lastmod>2020-02-24T04:21:21.841Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2019/05/05/DVWA%E9%9D%B6%E6%9C%BA/</loc>
-    
-    <lastmod>2020-02-24T04:20:59.261Z</lastmod>
     
   </url>
   
